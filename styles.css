@@ -36,11 +36,103 @@ h1, h2 {
     margin-top: 0;
 }
 
-/* Footer */
-footer {
-    text-align: center;
-    padding: 10px;
-    background: #f8f9fa;
-    border-top: 1px solid #ddd;
-    margin-top: 20px;
+/* Markdown-specific styles */
+
+/* Header Styles (Markdown headers) */
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+h3 {
+    font-size: 1.75rem;
+    margin-bottom: 6px;
+}
+
+h4 {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+}
+
+h5 {
+    font-size: 1.25rem;
+    margin-bottom: 2px;
+}
+
+h6 {
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+/* Paragraphs */
+p {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+/* Lists (unordered and ordered) */
+ul, ol {
+    margin: 15px 0;
+    padding-left: 20px;
+}
+
+ul li, ol li {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+/* Blockquotes */
+blockquote {
+    font-style: italic;
+    border-left: 5px solid #007bff;
+    padding-left: 15px;
+    margin: 15px 0;
+    background-color: #f9f9f9;
+}
+
+/* Links */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Code blocks */
+pre {
+    background-color: #f4f4f4;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+code {
+    background-color: #f4f4f4;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.1rem;
+}
+
+/* Inline Code */
+code {
+    color: #d6336c;
+    background-color: #f8f9fa;
+}
+
+/* Images */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 20px 0;
 }

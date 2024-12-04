@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Module 3: Aggregate Loss Modeling</title>
+        <link rel="stylesheet" href="/styles.css">
+        <script type="text/javascript" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+    </head>
+    
+<body>
+    <header>
+        <h1></h1>
+    </header>
+    <main>
+        <h1 id="module-3-aggregate-loss-modeling"><strong>Module 3: Aggregate Loss Modeling</strong></h1>
+
+<h2 id="outline"><strong>Outline</strong></h2>
+<ol>
+  <li><strong>Aggregate Losses and Terminologies</strong>:
+    <ul>
+      <li>Collective Risk Model</li>
+      <li>Individual Risk Model</li>
+    </ul>
+  </li>
+  <li><strong>Moments of Aggregate Losses</strong>:
+    <ul>
+      <li>Mean and Variance</li>
+    </ul>
+  </li>
+  <li><strong>Moment Generating Function (MGF)</strong>:
+    <ul>
+      <li>MGF of Aggregate Losses</li>
+    </ul>
+  </li>
+  <li><strong>Probability Generating Function (PGF)</strong>:
+    <ul>
+      <li>PGF of Aggregate Losses</li>
+    </ul>
+  </li>
+  <li><strong>Key Takeaways</strong></li>
+</ol>
+
+<hr />
+
+<h2 id="aggregate-losses-and-terminologies"><strong>Aggregate Losses and Terminologies</strong></h2>
+
+<ol>
+  <li><strong>Aggregate Losses</strong>:
+    <ul>
+      <li>In the collective risk model, the total loss is represented as:
+\(S = \sum_{i=1}^N X_i\)
+where:
+        <ul>
+          <li><em>\(N\)</em>: Number of claims (integer-valued).</li>
+          <li><em>\(X_i\)</em>: Individual payment amounts (i.i.d. and independent of \(N\)).</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Individual Risk Model</strong>:
+    <ul>
+      <li>If \(N\) is a fixed constant \(n\):
+\(S = \sum_{i=1}^n X_i\)</li>
+    </ul>
+  </li>
+  <li><strong>Actuarial Terminologies</strong>:
+    <ul>
+      <li><em>\(N\)</em>: Claim count (frequency).</li>
+      <li><em>\(X_i\)</em>: Individual claim amount (severity).</li>
+      <li><em>\(S\)</em>: Aggregate loss (total loss).</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h2 id="distribution-of-aggregate-losses"><strong>Distribution of Aggregate Losses</strong></h2>
+
+<h3 id="1-determining-distribution-of-aggregate-losses"><strong>1. Determining Distribution of Aggregate Losses</strong></h3>
+
+<h4 id="using-convolution"><strong>Using Convolution</strong></h4>
+<ul>
+  <li>
+    <p><strong>Definition</strong>: The sum \(S = X + Y\) of two independent random variables is called the convolution of \(F_X\) and \(F_Y\):
+\(F_S = F_X \ast F_Y\)</p>
+  </li>
+  <li>
+    <p><strong>Discrete Case</strong>:
+\(F_S(s) = \sum_x F_Y(s - x) f_X(x), \quad f_S(s) = \sum_x f_Y(s - x) f_X(x)\)</p>
+
+    <ul>
+      <li>
+\[F_S(s) = P(X + Y \leq s), \quad f_S(s) = P(X + Y =s )\]
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Continuous Case</strong>:
+\(F_S(s) = \int_x F_Y(s - x) f_X(x) dx, \quad f_S(s) = \int_x f_Y(s - x) f_X(x) dx\)</p>
+  </li>
+  <li>
+    <p><strong>Extension to Multiple Random Variables</strong>:
+\(F_{X+Y+Z} = F_{X+Y} \ast F_Z\)</p>
+  </li>
+</ul>
+
+<hr />
+
+<h4 id="using-generating-functions"><strong>Using Generating Functions</strong></h4>
+<ul>
+  <li>
+    <p><strong>Moment Generating Function (MGF)</strong>:
+\(M_S(t) = \mathbb{E}[e^{tS}] = \int e^{ts} dF_S(s)\)</p>
+  </li>
+  <li>
+    <p><strong>Probability Generating Function (PGF)</strong>:
+\(Z_S(t) = \mathbb{E}[t^S] = \int t^s dF_S(s)\)</p>
+  </li>
+  <li>
+    <p><strong>Key Insights</strong>:</p>
+    <ul>
+      <li>There is a one-to-one correspondence between \(F_S\) and \(M_S\) or \(Z_S\).</li>
+      <li>If \(M_S(t)\) or \(Z_S(t)\) is recognized, it can identify the distribution of \(S\).</li>
+      <li>Alternatively, \(M_S(t)\) or \(Z_S(t)\) can be expanded numerically to derive moments or probabilities of \(S\).</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="2-distribution-function-of-aggregate-losses"><strong>2. Distribution Function of Aggregate Losses</strong></h3>
+
+<h4 id="standard-compound-structure"><strong>Standard Compound Structure</strong></h4>
+<ul>
+  <li>Aggregate losses are modeled as:
+\(S = \sum_{i=1}^N X_i\)
+where:
+    <ul>
+      <li><em>\(X_1, X_2, \dots\)</em> are positive, independent, and identically distributed (i.i.d.).</li>
+      <li><em>\(N\)</em> is the (integer-valued) number of claims, independent of \(X_i\).</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h4 id="conditioning-on-claim-count-n"><strong>Conditioning on Claim Count \(N\)</strong></h4>
+<ul>
+  <li>The distribution function:
+\(F_S(s) = P(S \leq s) = \sum_{n=0}^\infty P\left(\sum_{i=1}^n X_i \leq s \, \big| \, N = n \right) p_N(n)\)
+\(= p_N(0) + \sum_{n=1}^\infty F_X^{\ast n}(s) p_N(n)\)
+where:
+    <ul>
+      <li><em>\(p_N(n)\)</em>: Probability mass function (PMF) of \(N\).
+        <ul>
+          <li><em>\(P(N=n)\)</em></li>
+        </ul>
+      </li>
+      <li><em>\(F_X^{\ast n}\)</em>: n-fold convolution of the distribution \(F_X\).
+        <ul>
+          <li><em>\(F_X^{\ast n} = (X_1 + X_2 + ... + X_n \leq s)\)</em></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h4 id="continuous-case"><strong>Continuous Case</strong></h4>
+<ul>
+  <li>If \(X\) is continuous:
+    <ul>
+      <li>The distribution of \(S\) has:
+        <ul>
+          <li>A <strong>mass at 0</strong> from \(p_N(0)\) (if positive).</li>
+          <li>A <strong>density over \((0, \infty)\)</strong> integrating to \(1 - p_N(0)\).</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Summary:
+\(S \sim 
+\begin{cases} 
+P(S = 0) = p_N(0), &amp; \text{at } 0; \\
+f_S(s) = \sum_{n=1}^\infty f_X^{\ast n}(s) p_N(n), &amp; \text{over } (0, \infty).
+\end{cases}\)</li>
+</ul>
+
+<hr />
+
+<h4 id="discrete-case"><strong>Discrete Case</strong></h4>
+
+<ul>
+  <li>The probability mass function:
+\(p_S(s) = \sum_{n=0}^\infty P\left(\sum_{i=1}^n X_i = s \, \big| \, N = n \right) p_N(n)\)
+\(= p_X^{\ast 0}(s)p_N(0) + \sum_{n=1}^\infty p_X^{\ast n}(s) p_N(n)\)
+where:
+    <ul>
+      <li><em>\(p_N(n)\)</em>: Probability mass function (PMF) of \(N\).
+        <ul>
+          <li><em>\(P(N=n)\)</em></li>
+        </ul>
+      </li>
+      <li><em>\(p_X^{\ast n}(s)\)</em>: n-fold convolution of the PMF of \(X\).
+        <ul>
+          <li><em>\(P(X_1 + X_2 + ... + X_n) = x\)</em></li>
+        </ul>
+      </li>
+      <li><em>\(p_X^{\ast 0}(s)\)</em>:
+        <ul>
+          <li><em>\(p_X^{\ast 0}(0) = 1\)</em></li>
+          <li><em>\(p_X^{\ast 0}(s) = 0\)</em> for \(s &gt; 0\).</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>If \(X\) is discrete, then for \(s = 0, 1, 2, \dots\):
+\(S \sim 
+\begin{cases} 
+P(S = 0) = p_N(0) + \sum_{n=1}^\infty p_X^{\ast n}(0) p_N(n), &amp; \text{at } 0; \\
+p_S(s) = \sum_{n=1}^\infty p_X^{\ast n}(s) p_N(n), &amp; \text{for } s = 1, 2, \dots 
+\end{cases}\)</p>
+
+    <p>where:
+\(p_X^{\ast 0}(x) = P\left(\sum_{i=1}^0 X_i = x\right) = 
+\begin{cases} 
+1, &amp; x = 0; \\
+0, &amp; x \in (0, \infty).
+\end{cases}\)</p>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="3-compound-poisson"><strong>3. Compound Poisson</strong></h3>
+
+<h4 id="aggregation"><strong>Aggregation</strong></h4>
+<ul>
+  <li><strong>Theorem</strong>: If \(S_1, \dots, S_n\) are independent and follow \(S_j \sim \text{CompPoi}(\lambda_j v_j, G_j)\), then:
+\(S = \sum_{j=1}^n S_j \sim \text{CompPoi}(\lambda v, G),\)
+where:
+    <ul>
+      <li>
+        <p><em>\(\lambda v = \sum_{j=1}^n \lambda_j v_j\)</em> (total claim intensity).</p>
+      </li>
+      <li><em>\(G = \frac{\sum_{j=1}^n \lambda_j v_j G_j}{\lambda v}\)</em> (weighted average distribution).</li>
+      <li><em>\(S\)</em> can be represented as:
+\(S = \sum_{i = 1}^{N^{\ast}} Y_i, \quad \text{where } N^{\ast} \sim \text{Poi}(\lambda v), \; Y_i \overset{i.i.d.}{\sim} G.\)</li>
+    </ul>
+  </li>
+  <li><strong>Implication</strong>:
+    <ul>
+      <li>Independent compound Poisson portfolios can be aggregated efficiently, resulting in a single compound Poisson process.</li>
+      <li>The aggregated portfolio has:
+        <ul>
+          <li>Total claim frequency as the sum of individual frequencies.</li>
+          <li>Claim size distribution as the weighted average of individual distributions.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="thinning"><strong>Thinning</strong></h3>
+
+<ul>
+  <li>
+    <p><strong>Theorem (Wüthrich 2014)</strong>:
+If \(S \sim \text{CompPoi}(\lambda v, G)\), then for disjoint subsets \(A_k\) of the support of \(Y\):</p>
+
+\[S_k = \sum_{i=1}^N Y_i \mathbf{1}(Y_i \in A_k), \quad k = 1, \dots, n\]
+
+    <p>represents the portion of \(S\) corresponding to claims within \(A_k\).</p>
+  </li>
+  <li>
+    <p><strong>Result</strong>:</p>
+    <ul>
+      <li>The components \(S_1, \dots, S_n\) are <strong>independent</strong>.</li>
+      <li><em>\(S_k \sim \text{CompPoi}(\lambda_k v, G_k),\)</em> where:
+        <ul>
+          <li><em>\(\lambda_k = \lambda P(Y \in A_k)\)</em>:
+            <ul>
+              <li>The new rate \(\lambda_k\) adjusts the original rate \(\lambda\) by the probability of \(Y\) falling into the subset \(A_k\).</li>
+            </ul>
+          </li>
+          <li><em>\(G_k(y) = P(Y \leq y \mid Y \in A_k)\)</em>:
+            <ul>
+              <li>The conditional distribution of \(Y\) restricted to the subset \(A_k\).</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="explanation"><strong>Explanation</strong></h4>
+<ul>
+  <li><strong>Thinning Process</strong>:
+    <ul>
+      <li>The compound Poisson process \(S\) is “thinned” by separating the claims into disjoint subsets \(A_k\).</li>
+      <li>Each subset contributes to a separate process \(S_k\).</li>
+    </ul>
+  </li>
+  <li><strong>Interpretation</strong>:
+    <ol>
+      <li><strong>Claim Allocation</strong>:
+        <ul>
+          <li>The sum \(S\) is split based on whether individual claims \(Y_i\) belong to a specific subset \(A_k\).</li>
+          <li>For instance, if \(A_k\) corresponds to claims within a particular range of sizes, then \(S_k\) is the sum of claims in that range.</li>
+        </ul>
+      </li>
+      <li><strong>Independence</strong>:
+        <ul>
+          <li>The thinning ensures that the processes \(S_1, \dots, S_n\) are independent, as each corresponds to disjoint claim subsets.</li>
+        </ul>
+      </li>
+      <li><strong>Adjusted Rate and Distribution</strong>:
+        <ul>
+          <li>The new claim frequency for \(S_k\) is determined by the original frequency \(\lambda\), scaled by the probability of claims in \(A_k\).</li>
+          <li>The claim size distribution \(G_k\) is updated to reflect the conditional distribution of \(Y\) within \(A_k\).</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<h4 id="use-case"><strong>Use Case</strong>:</h4>
+<ul>
+  <li><strong>Portfolio Segmentation</strong>:
+    <ul>
+      <li>This theorem is useful for segmenting an insurance portfolio into independent components based on claim size, type, or other attributes.</li>
+      <li>Each segment can be modeled separately as a compound Poisson process, making analysis and pricing more efficient.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="moments-of-aggregate-losses"><strong>Moments of Aggregate Losses</strong></h2>
+
+<ol>
+  <li><strong>Mean of Aggregate Losses</strong>:
+    <ul>
+      <li>Expected value:
+\(\mathbb{E}[S] = \mathbb{E}[N] \cdot \mathbb{E}[X]\)</li>
+      <li><strong>Explanation</strong>:
+        <ul>
+          <li>The mean of aggregate losses is the product of the expected number of claims (\(\mathbb{E}[N]\)) and the expected size of individual claims (\(\mathbb{E}[X]\)).</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Variance of Aggregate Losses</strong>:
+    <ul>
+      <li>Variance:
+\(\text{Var}(S) = \mathbb{E}[N] \cdot \text{Var}(X) + \text{Var}(N) \cdot (\mathbb{E}[X])^2\)</li>
+      <li><strong>Explanation</strong>:
+        <ul>
+          <li>The variance consists of:
+            <ul>
+              <li>The variability in claim sizes weighted by the expected number of claims.</li>
+              <li>The variability in the number of claims scaled by the square of the expected claim size.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h2 id="moment-generating-function-mgf"><strong>Moment Generating Function (MGF)</strong></h2>
+
+<ol>
+  <li><strong>Definition</strong>:
+    <ul>
+      <li>The MGF of aggregate losses \(S\), denoted as \(M_S(t)\), is defined as:
+\(M_S(t) = \mathbb{E}[e^{tS}]\)</li>
+      <li>It provides a way to summarize all the moments of \(S\) and is useful for identifying the distribution of \(S\).</li>
+    </ul>
+  </li>
+  <li><strong>Collective Risk Model</strong>:
+    <ul>
+      <li>Aggregate losses \(S\) are modeled as:
+\(S = \sum_{i=1}^N X_i,\)
+where:
+        <ul>
+          <li><em>\(N\)</em> is the number of claims (random variable).</li>
+          <li><em>\(X_1, X_2, \dots, X_N\)</em> are i.i.d. claim sizes.</li>
+        </ul>
+      </li>
+      <li><strong>Conditioning on \(N\)</strong>:
+\(M_S(t) = \mathbb{E}[e^{tS}] = \mathbb{E}\left[\mathbb{E}[e^{tS} \mid N]\right]\)
+        <ul>
+          <li>Given \(N = n\), the total \(S\) is the sum of \(n\) independent random variables \(X_i\).</li>
+          <li>The MGF of the sum of independent variables is the product of their MGFs:
+\(\mathbb{E}[e^{tS} \mid N = n] = \left(M_X(t)\right)^n,\)
+where \(M_X(t)\) is the MGF of a single claim \(X\).</li>
+        </ul>
+      </li>
+      <li>
+        <p>Using the <strong>law of total expectation</strong>:
+\(M_S(t) = \mathbb{E}\left[(M_X(t))^N\right].\)</p>
+      </li>
+      <li><strong>Using the MGF of \(N\)</strong>:
+        <ul>
+          <li>Recall that for a discrete random variable \(N\), the MGF is:
+\(M_N(u) = \mathbb{E}[e^{uN}].\)</li>
+          <li>By substituting \(u = \ln M_X(t)\), we get:
+\(M_S(t) = M_N(\ln M_X(t)).\)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h3 id="explanation-of-mgf-derivation"><strong>Explanation of MGF Derivation</strong>:</h3>
+<ul>
+  <li>The MGF of aggregate losses \(S\) combines:
+    <ul>
+      <li>The distribution of the number of claims \(N\) (via \(M_N\)).</li>
+      <li>The distribution of claim sizes \(X\) (via \(M_X\)).</li>
+    </ul>
+  </li>
+  <li>The nested nature of the formula reflects that \(S\) is a compound random variable, dependent on both \(N\) and \(X\).</li>
+</ul>
+
+<hr />
+
+<h2 id="probability-generating-function-pgf"><strong>Probability Generating Function (PGF)</strong></h2>
+
+<ol>
+  <li><strong>Definition</strong>:
+    <ul>
+      <li>The PGF of aggregate losses \(S\), denoted as \(Z_S(t)\), is:
+\(Z_S(t) = \mathbb{E}[t^S].\)</li>
+      <li>It is particularly useful for discrete random variables like \(S\), as it directly relates to the probabilities of \(S\).</li>
+    </ul>
+  </li>
+  <li><strong>Collective Risk Model</strong>:
+    <ul>
+      <li>
+        <p>Aggregate losses \(S\) follow the same compound structure:
+\(S = \sum_{i=1}^N X_i.\)</p>
+      </li>
+      <li><strong>Conditioning on \(N\)</strong>:
+\(Z_S(t) = \mathbb{E}[t^S] = \mathbb{E}\left[\mathbb{E}[t^S \mid N]\right].\)
+        <ul>
+          <li>Given \(N = n\), the total \(S\) is the sum of \(n\) independent claims \(X_i\).</li>
+          <li>The PGF of the sum is the product of the PGFs:
+\(\mathbb{E}[t^S \mid N = n] = \left(Z_X(t)\right)^n,\)
+where \(Z_X(t)\) is the PGF of a single claim \(X\).</li>
+        </ul>
+      </li>
+      <li>
+        <p>Using the <strong>law of total expectation</strong>:
+\(Z_S(t) = \mathbb{E}[Z_X(t)^N].\)</p>
+      </li>
+      <li><strong>Using the PGF of \(N\)</strong>:
+        <ul>
+          <li>Recall that for a discrete random variable \(N\), the PGF is:
+\(Z_N(u) = \mathbb{E}[u^N].\)</li>
+          <li>By substituting \(u = Z_X(t)\), we get:
+\(Z_S(t) = Z_N(Z_X(t)).\)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h3 id="explanation-of-pgf-derivation"><strong>Explanation of PGF Derivation</strong>:</h3>
+<ul>
+  <li>The PGF of aggregate losses \(S\) reflects:
+    <ul>
+      <li>The randomness in the claim count \(N\), captured via \(Z_N\).</li>
+      <li>The randomness in claim sizes \(X\), captured via \(Z_X\).</li>
+    </ul>
+  </li>
+  <li>The composition \(Z_N(Z_X(t))\) shows how the distribution of \(N\) interacts with \(X\) to produce the aggregate loss distribution.</li>
+</ul>
+
+<hr />
+
+<h3 id="comparison-mgf-vs-pgf"><strong>Comparison: MGF vs PGF</strong></h3>
+<p>| Aspect              | MGF (\(M_S(t)\))                       | PGF (\(Z_S(t)\))                      |
+|———————|——————————————|—————————————–|
+| Definition          | \(M_S(t) = \mathbb{E}[e^{tS}]\)       | \(Z_S(t) = \mathbb{E}[t^S]\)          |
+| Use Case            | Works for continuous and discrete \(S\)| Mainly for discrete \(S\)             |
+| Application         | Derives moments and approximates distributions | Derives probabilities directly          |
+| Key Formula         | \(M_S(t) = M_N(\ln M_X(t))\)          | \(Z_S(t) = Z_N(Z_X(t))\)              |</p>
+
+<h2 id="key-takeaways"><strong>Key Takeaways</strong></h2>
+
+<ol>
+  <li><strong>Decomposition of Mean</strong>:
+    <ul>
+      <li>The mean of aggregate losses separates into contributions from claim frequency (\(\mathbb{E}[N]\)) and severity (\(\mathbb{E}[X]\)).</li>
+    </ul>
+  </li>
+  <li><strong>Decomposition of Variance</strong>:
+    <ul>
+      <li>Total variance accounts for variability in both the number of claims and the size of claims.</li>
+    </ul>
+  </li>
+  <li><strong>MGF and PGF</strong>:
+    <ul>
+      <li>These functions provide tools to identify or approximate the distribution of \(S\) by leveraging the properties of \(N\) and \(X\).</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h3 id="premium-calculation-principles"><strong>Premium Calculation Principles</strong></h3>
+
+<h4 id="1-expected-value-principle"><strong>1. Expected Value Principle</strong></h4>
+<ul>
+  <li><strong>Definition</strong>:
+    <ul>
+      <li>(According to Net Profit Condition in Module 5) The premium charged for a risk \(S\) should satisfy:
+\(\pi(S) &gt; \mathbb{E}[S]\) 
+to account for costs like taxes, underwriting, and profit margin.</li>
+    </ul>
+  </li>
+  <li><strong>Formula</strong>:
+\(\pi(S) = (1 + \alpha) \mathbb{E}[S]\)
+where:
+    <ul>
+      <li><em>\(\alpha &gt; 0\)</em> is a constant margin or loading factor.</li>
+    </ul>
+  </li>
+  <li><strong>Criticism</strong>:
+    <ul>
+      <li>The premium is <strong>not risk-sensitive</strong>, as it is independent of the variability (or riskiness) of \(S\).</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h4 id="2-variance-principle"><strong>2. Variance Principle</strong></h4>
+<ul>
+  <li><strong>Definition</strong>:
+    <ul>
+      <li>The premium includes a loading based on the variance of \(S\):
+\(\pi(S) = \mathbb{E}[S] + \alpha \text{Var}(S)\)</li>
+    </ul>
+  </li>
+  <li><strong>Improvements</strong>:
+    <ul>
+      <li><strong>Risk-based</strong>: Accounts for the variability of \(S\), making it more reflective of the underlying risk.</li>
+    </ul>
+  </li>
+  <li><strong>Criticism</strong>:
+    <ul>
+      <li><strong>Not scale-invariant</strong>: For any \(c &gt; 0\), the property:
+\(\pi(cS) \neq c \pi(S)\)
+does not hold.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h4 id="3-standard-deviation-principle"><strong>3. Standard Deviation Principle</strong></h4>
+<ul>
+  <li><strong>Definition</strong>:
+    <ul>
+      <li>The premium includes a loading based on the standard deviation of \(S\):
+\(\pi(S) = \mathbb{E}[S] + \alpha \sqrt{\text{Var}(S)}\)</li>
+    </ul>
+  </li>
+  <li><strong>Improvements</strong>:
+    <ul>
+      <li><strong>Risk-based</strong>: Reflects variability in \(S\).</li>
+      <li><strong>Scale-invariant</strong>: The property:
+\(\pi(cS) = c \pi(S)\) 
+holds for any \(c &gt; 0\).</li>
+    </ul>
+  </li>
+  <li><strong>Criticism</strong>:
+    <ul>
+      <li><strong>Not monotonic</strong>: If \(S_1 \leq S_2\), it does not guarantee:
+\(\pi(S_1) \leq \pi(S_2)\)</li>
+      <li>This violates a desirable property for premium-setting.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="example-non-monotonicity-in-the-standard-deviation-principle"><strong>Example: Non-Monotonicity in the Standard Deviation Principle</strong></h4>
+
+<ul>
+  <li>Consider two risks:
+    <ul>
+      <li><em>\(S_1 \sim \text{Uniform}(0, 1)\)</em></li>
+      <li><em>\(S_2 = 1\) (constant risk)</em></li>
+    </ul>
+  </li>
+  <li>Clearly, \(S_1 \leq S_2\) since \(S_1\) is always less than or equal to 1.</li>
+</ul>
+
+<h5 id="step-1-compute-the-premiums"><strong>Step 1: Compute the Premiums</strong></h5>
+
+<ol>
+  <li><strong>For \(S_1\)</strong>:
+    <ul>
+      <li>Expected value (given):
+\(\mathbb{E}[S_1] = \frac{1}{2}\)</li>
+      <li>Variance (given):
+\(\text{Var}(S_1) = \frac{1}{12}\)</li>
+      <li>Standard deviation:
+\(\sqrt{\text{Var}(S_1)} = \frac{1}{\sqrt{12}}\)</li>
+      <li>Premium (using the Standard Deviation Principle):
+\(\pi(S_1) = \mathbb{E}[S_1] + \alpha \sqrt{\text{Var}(S_1)} = \frac{1}{2} + \alpha \cdot \frac{1}{\sqrt{12}}\)</li>
+    </ul>
+  </li>
+  <li><strong>For \(S_2\)</strong>:
+    <ul>
+      <li>Expected value:
+\(\mathbb{E}[S_2] = 1\)</li>
+      <li>Variance:
+\(\text{Var}(S_2) = 0\)</li>
+      <li>Premium:
+\(\pi(S_2) = \mathbb{E}[S_2] + \alpha \sqrt{\text{Var}(S_2)} = 1\)</li>
+    </ul>
+  </li>
+</ol>
+
+<h5 id="step-2-compare-the-premiums"><strong>Step 2: Compare the Premiums</strong></h5>
+
+<ul>
+  <li>
+    <p>Premium for \(S_1\):
+\(\pi(S_1) = \frac{1}{2} + \frac{\alpha}{\sqrt{12}}\)</p>
+  </li>
+  <li>
+    <p>Premium for \(S_2\):
+\(\pi(S_2) = 1\)</p>
+  </li>
+  <li>
+    <p>To determine when \(\pi(S_1) &gt; \pi(S_2)\), solve:
+\(\frac{1}{2} + \frac{\alpha}{\sqrt{12}} &gt; 1\)
+Simplify:
+\(\frac{\alpha}{\sqrt{12}} &gt; \frac{1}{2}\)
+\(\alpha &gt; \frac{\sqrt{12}}{2} = \sqrt{3}\)</p>
+  </li>
+</ul>
+
+<h5 id="conclusion"><strong>Conclusion</strong></h5>
+<ul>
+  <li>If \(\alpha &gt; \sqrt{3}\), the premium for \(S_1\) exceeds the premium for \(S_2\):
+\(\pi(S_1) &gt; \pi(S_2),\)
+even though \(S_1 \leq S_2\) as a risk. This violates the principle of <strong>monotonicity</strong>.</li>
+</ul>
+
+<hr />
+
+<h4 id="what-is-the-problem"><strong>What is the Problem?</strong></h4>
+
+<ol>
+  <li><strong>Non-Monotonicity</strong>:
+    <ul>
+      <li>Monotonicity requires \(\pi(S_1) \leq \pi(S_2)\) if \(S_1 \leq S_2\). However, in this example, the standard deviation principle fails this for \(\alpha &gt; \sqrt{3}\).</li>
+    </ul>
+  </li>
+  <li><strong>Cause</strong>:
+    <ul>
+      <li>The premium depends on \(\sqrt{\text{Var}(S)}\), which can overly inflate premiums for higher variability, even with smaller expected values.</li>
+    </ul>
+  </li>
+  <li><strong>Practical Issue</strong>:
+    <ul>
+      <li>A smaller risk (\(S_1\)) may be charged a higher premium than a larger risk (\(S_2\)), leading to inconsistencies in pricing.</li>
+    </ul>
+  </li>
+  <li><strong>Takeaway</strong>:
+    <ul>
+      <li>While risk-based and scale-invariant, the standard deviation principle fails monotonicity, making it unsuitable in critical scenarios.</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h3 id="summary"><strong>Summary</strong></h3>
+<ol>
+  <li><strong>Expected Value Principle</strong>: Simple but not risk-sensitive.</li>
+  <li><strong>Variance Principle</strong>: Risk-sensitive but not scale-invariant.</li>
+  <li><strong>Standard Deviation Principle</strong>: Risk-sensitive and scale-invariant, but not monotonic.</li>
+</ol>
+
+    </main>
+</body>
+</html>

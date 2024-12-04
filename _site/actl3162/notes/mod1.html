@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Module 1: Fitting Loss Models</title>
+        <link rel="stylesheet" href="/styles.css">
+        <script type="text/javascript" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+    </head>
+    
+<body>
+    <header>
+        <h1></h1>
+    </header>
+    <main>
+        <h1 id="module-1-fitting-loss-models">Module 1: Fitting Loss Models</h1>
+
+<h2 id="outline"><strong>Outline</strong></h2>
+<ol>
+  <li><strong>Introduction to Aggregate Claims and Terminologies</strong></li>
+  <li><strong>Candidate Claim Count Distributions</strong>:
+    <ul>
+      <li>Binomial Distribution</li>
+      <li>Poisson Distribution</li>
+      <li>Negative Binomial Distribution</li>
+    </ul>
+  </li>
+  <li><strong>Candidate Claim Size Distributions</strong></li>
+  <li><strong>Data Analysis and Descriptive Statistics</strong></li>
+  <li><strong>Parameter Estimation</strong>:
+    <ul>
+      <li>Method of Moments</li>
+      <li>Maximum Likelihood Estimation</li>
+    </ul>
+  </li>
+  <li><strong>Model Selection</strong></li>
+</ol>
+
+<hr />
+
+<h2 id="introduction-to-aggregate-claims-and-terminologies"><strong>Introduction to Aggregate Claims and Terminologies</strong></h2>
+<ul>
+  <li><strong>Aggregate Losses</strong>:
+The collective risk model is represented as:
+\(S = \sum_{i=1}^N X_i\)
+where:
+    <ul>
+      <li><em>\(N\)</em>: Number of claims (integer-valued).</li>
+      <li><em>\(X_i\)</em>: Individual payment amounts, which are i.i.d. and independent of \(N\).</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Individual Risk Model</strong>:
+If \(N\) is a nonrandom constant \(n\):
+\(S = \sum_{i=1}^n X_i\)</p>
+  </li>
+  <li><strong>Actuarial Terminologies</strong>:
+    <ul>
+      <li><em>\(N\)</em>: Claim count (frequency).</li>
+      <li><em>\(X_i\)</em>: Individual claim amount (severity).</li>
+      <li><em>\(S\)</em>: Aggregate loss (total loss).</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="candidate-claim-count-distributions"><strong>Candidate Claim Count Distributions</strong></h2>
+
+<h3 id="volume-v"><strong>Volume (\(v\))</strong></h3>
+<ul>
+  <li><strong>Definition</strong>:
+    <ul>
+      <li>The claim count should be understood in relation to the underlying <strong>volume</strong>, denoted by <em>\(v &gt; 0\)</em>.</li>
+      <li>Examples of volume include:
+        <ul>
+          <li>Total number of insureds.</li>
+          <li>Total number of policies in a portfolio.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>In this context</strong>:
+    <ul>
+      <li><em>\(v\)</em>: Total number of insureds.</li>
+      <li><em>\(N\)</em>: Total number of claims.</li>
+      <li><em>\(\frac{N}{v}\)</em>: Claims frequency.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="1-binomial-distribution">1. <strong>Binomial Distribution</strong></h3>
+<ul>
+  <li><strong>Parameters</strong>:
+    <ul>
+      <li><em>\(v \in \mathbb{N}\)</em>: Volume (number of insureds).</li>
+      <li><em>\(p \in (0, 1)\)</em>: Default probability.</li>
+    </ul>
+  </li>
+  <li><strong>Distribution</strong>:
+    <ul>
+      <li>\(N \sim \text{Binomial}(v, p)\)
+\(P(N = k) = \binom{v}{k} p^k (1-p)^{v-k}, \quad k = 0, 1, \dots, v\)</li>
+    </ul>
+
+    <p><strong><em>Intuition</em></strong>: The sum of <em>\(v\)</em> independent Bernoulli random variables.</p>
+  </li>
+  <li><strong>Properties</strong>:
+    <ul>
+      <li><em>\(\mathbb{E}[N] = vp\)</em>: Expected number of claims.</li>
+      <li><em>\(\text{Var}(N) = vp(1-p)\)</em>: Variance of the number of claims.</li>
+      <li><em>\(\mathbb{E}[N] &gt; \text{Var}(N)\)</em>: Expected number of claims exceeds variance.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="2-poisson-distribution">2. <strong>Poisson Distribution</strong></h3>
+<ul>
+  <li><strong>Parameters</strong>:
+    <ul>
+      <li><em>\(v &gt; 0\)</em>: Volume (number of insureds).</li>
+      <li><em>\(\lambda &gt; 0\)</em>: Expected claims frequency.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Distribution</strong>:
+\(N \sim \text{Poisson}(\lambda v)\)
+\(P(N = k) = \frac{e^{-\lambda v} (\lambda v)^k}{k!}, \quad k = 0, 1, 2, \dots\)</p>
+  </li>
+  <li><strong>Properties</strong>:
+    <ul>
+      <li><em>\(\mathbb{E}[N] = \text{Var}(N) = \lambda v\)</em></li>
+      <li>Coefficient of variation:
+\(\text{Vco}(N) = \frac{\sqrt{\text{Var}(N)}}{\mathbb{E}[N]} = \frac{1}{\sqrt{\lambda v}}\)</li>
+    </ul>
+  </li>
+  <li><strong>Link Between Binomial and Poisson Distributions</strong>:
+    <ul>
+      <li>As <em>\(v \to \infty\)</em> and <em>\(p \to 0\)</em> with <em>\(vp \to \lambda\)</em>, the Binomial distribution converges to the Poisson distribution:
+\(\text{Binomial}(v, p) \to \text{Poisson}(\lambda)\)</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="3-negative-binomial-distribution">3. <strong>Negative Binomial Distribution</strong></h3>
+<ul>
+  <li><strong>Parameters</strong>:
+    <ul>
+      <li><em>\(v &gt; 0\)</em>: Volume.</li>
+      <li><em>\(\lambda &gt; 0\)</em>: Expected claims frequency.</li>
+      <li><em>\(\gamma &gt; 0\)</em>: Dispersion parameter.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Distribution</strong>:
+\(P(N = n) = \binom{n+\gamma-1}{n} (1-p)^\gamma p^n, \quad n = 0, 1, 2, \dots\)
+where:
+\(p = \frac{\lambda v}{\gamma + \lambda v}\)</p>
+  </li>
+  <li><strong>Properties</strong>:
+    <ul>
+      <li><em>\(\mathbb{E}[N] = \lambda v\)</em></li>
+      <li><em>\(\text{Var}(N) = \lambda v \left(1 + \frac{\lambda v}{\gamma}\right)\)</em></li>
+      <li><em>\(\text{Var}(N) &gt; \mathbb{E}[N]\)</em>: Variance exceeds the mean.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="connection-between-negative-binomial-and-mixed-poisson-distributions"><strong>Connection Between Negative Binomial and Mixed Poisson Distributions</strong></h3>
+<p>For \(N\) following a <strong>negative binomial distribution</strong> \((\gamma, p)\), as defined earlier:</p>
+<ul>
+  <li>\(N\) can be represented as a <strong>mixed Poisson distribution</strong>:
+\(N | \Theta \sim \text{Poisson}(\Theta \lambda v),\)
+where \(\Theta \sim \text{Gamma}(\gamma, c)\), with:
+    <ul>
+      <li><em>\(c = \frac{1-p}{p}\)</em></li>
+      <li><em>\(\lambda v = p \cdot (\gamma + \lambda v)\)</em>.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>This means the negative binomial distribution arises from a Poisson distribution with a <strong>Gamma-distributed rate parameter</strong>. This property highlights the flexibility of the negative binomial in modeling over-dispersed count data.</p>
+
+<hr />
+
+<h2 id="candidate-claim-size-distributions"><strong>Candidate Claim Size Distributions</strong></h2>
+
+<h3 id="1-gamma-distribution">1. <strong>Gamma Distribution</strong></h3>
+<ul>
+  <li>
+    <p><strong>Definition</strong>:
+\(Y \sim \Gamma(\gamma, c)\)</p>
+  </li>
+  <li>
+    <p><strong>Density Function</strong>:
+\(g(y) = \frac{c^\gamma}{\Gamma(\gamma)} y^{\gamma-1} e^{-cy}, \quad y &gt; 0\)</p>
+  </li>
+  <li><strong>Parameters</strong>:
+    <ul>
+      <li><em>\(\gamma &gt; 0\)</em>: Shape parameter.</li>
+      <li><em>\(c &gt; 0\)</em>: Rate parameter.</li>
+    </ul>
+  </li>
+  <li><strong>Remarks</strong>:
+    <ul>
+      <li>When <em>\(\gamma = 1\)</em>, it retrieves the exponential distribution.</li>
+      <li>The distribution has a roughly <strong>exponential tail</strong>.</li>
+      <li><strong>Skewness</strong>:
+\(\zeta_Y = \frac{2}{\sqrt{\gamma}} &gt; 0 \text{, positively skewed}\)</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="2-weibull-distribution">2. <strong>Weibull Distribution</strong></h3>
+<ul>
+  <li>
+    <p><strong>Definition</strong>:
+\(Y \sim \text{Weibull}(\tau, c)\)</p>
+  </li>
+  <li>
+    <p><strong>Density Function</strong>:
+\(g(y) = (c\tau)(cy)^{\tau-1} e^{-(cy)^\tau}, \quad y &gt; 0\)</p>
+  </li>
+  <li><strong>Parameters</strong>:
+    <ul>
+      <li><em>\(\tau &gt; 0\)</em>: Shape parameter.</li>
+      <li><em>\(c &gt; 0\)</em>: Rate parameter.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Distribution Function</strong>:
+\(G(y) = 1 - \exp\{- (cy)^\tau\}, \quad y &gt; 0\)</p>
+  </li>
+  <li><strong>Remarks</strong>:
+    <ul>
+      <li>When <em>\(\tau = 1\)</em>, it retrieves the exponential distribution.</li>
+      <li>When <em>\(\tau &gt; 1\)</em>, it has a <strong>super-exponential tail</strong>.</li>
+      <li>When <em>\(0 &lt; \tau &lt; 1\)</em>, it has a <strong>sub-exponential tail</strong>.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="3-log-normal-distribution">3. <strong>Log-normal Distribution</strong></h3>
+<ul>
+  <li>
+    <p><strong>Definition</strong>:
+\(Y \sim \text{LN}(\mu, \sigma^2), \quad \text{if} \quad \log Y \sim N(\mu, \sigma^2)\)</p>
+  </li>
+  <li>
+    <p><strong>Distribution Function</strong>:
+\(G(y) = \Phi\left(\frac{\log y - \mu}{\sigma}\right), \quad y &gt; 0\)
+where \(\Phi(\cdot)\) is the standard normal cumulative distribution function (CDF).</p>
+  </li>
+  <li>
+    <p><strong>Density Function</strong>:
+\(g(y) = \frac{1}{\sqrt{2\pi}\sigma y} e^{-\frac{(\log y - \mu)^2}{2\sigma^2}}, \quad y &gt; 0\)</p>
+  </li>
+  <li><strong>Parameters</strong>:
+    <ul>
+      <li><em>\(\mu \in \mathbb{R}\)</em>: Mean of <em>\(\log Y\)</em>.</li>
+      <li><em>\(\sigma &gt; 0\)</em>: Standard deviation of <em>\(\log Y\)</em>.</li>
+    </ul>
+  </li>
+  <li><strong>Remarks</strong>:
+    <ul>
+      <li><strong>Intermediate tail</strong>: Slower than an exponential tail but faster than a power tail.</li>
+      <li><strong>Skewness</strong>:
+\(\zeta_Y = (e^{\sigma^2} + 2)\sqrt{e^{\sigma^2} - 1} &gt; 0\)
+Log-normal distributions are positively skewed.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="4-log-gamma-distribution">4. <strong>Log-gamma Distribution</strong></h3>
+<ul>
+  <li>
+    <p><strong>Definition</strong>:
+\(Y \sim \text{Log-}\Gamma(\gamma, c), \quad \text{if} \quad \log Y \sim \Gamma(\gamma, c)\)</p>
+  </li>
+  <li>
+    <p><strong>Density Function</strong>:
+\(g(y) = \frac{c^\gamma}{\Gamma(\gamma)} (\log y)^{\gamma-1} y^{-(c+1)}, \quad y &gt; 1\)</p>
+  </li>
+  <li>
+    <p><strong>Remarks</strong>:</p>
+    <ul>
+      <li>Has a <strong>power-like tail</strong> (e.g., \(x^{-\alpha}\) for large \(x\)).</li>
+      <li>When <em>\(\gamma = 1\)</em>, it retrieves the <strong>Pareto distribution</strong>.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="5-pareto-distribution">5. <strong>Pareto Distribution</strong></h3>
+
+<ul>
+  <li><strong>Definition</strong>:
+    <ul>
+      <li>Specifies a (large) threshold \(\theta &gt; 0\) above which it has a power tail with index \(\alpha &gt; 0\).</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Distribution Function</strong>:
+\(G(y) = 1 - \left(\frac{\theta}{y}\right)^\alpha, \quad y &gt; \theta\)</p>
+  </li>
+  <li>
+    <p><strong>Density Function</strong>:
+\(g(y) = \frac{\alpha}{\theta} \left(\frac{\theta}{y}\right)^{\alpha+1}, \quad y &gt; \theta\)</p>
+  </li>
+  <li><strong>Alternative Pareto Type II Distribution</strong>:
+    <ul>
+      <li>Another type of Pareto distribution, often used in practice:
+\(G(y) = 1 - \left(\frac{\theta}{y + \theta}\right)^\alpha, \quad y &gt; 0\)</li>
+    </ul>
+  </li>
+  <li><strong>Remarks</strong>:
+    <ul>
+      <li><strong>Power tail</strong>: Heavy-tailed and often used for modeling large claims.</li>
+      <li>Versatile in describing loss distributions with significant skewness.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="data-analysis-and-descriptive-statistics"><strong>Data Analysis and Descriptive Statistics</strong></h2>
+
+<h3 id="graphical-approaches"><strong>Graphical Approaches</strong></h3>
+<ul>
+  <li>Let \(\{Y_1, Y_2, \dots, Y_n\}\) be a sample from an unknown distribution \(G\).</li>
+  <li>
+    <p>The empirical distribution function is defined as:
+\(\hat{G}_n(y) = \frac{1}{n} \sum_{i=1}^n \mathbf{1}\{Y_i \leq y\}\)
+where \(\mathbf{1}\{\cdot\}\) is the indicator function.</p>
+  </li>
+  <li><strong>Fitted Distribution Function</strong>:
+    <ul>
+      <li>
+        <p><em>\(G_0(y)\)</em> represents the fitted distribution function in a parametric case \(G(y; \hat{\theta})\).</p>
+
+        <ul>
+          <li>In the <strong>parametric case</strong>, the distribution \(G(y)\) is assumed to belong to a specific family of distributions defined by parameters \(\theta\), which are estimated from the data.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Graphical Procedures</strong>:
+    <ul>
+      <li>Compare the histogram with the fitted density function \(g_0(y)\).</li>
+      <li>Compare the empirical distribution function \(\hat{G}_n(y)\) with \(G_0(y)\).</li>
+      <li>Use:
+        <ul>
+          <li><strong>P–P Plot</strong>: Probability–Probability plot.</li>
+          <li><strong>Q–Q Plot</strong>: Quantile–Quantile plot.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="pp-plot"><strong>P–P Plot</strong></h3>
+<ul>
+  <li>A P–P plot shows how well the fitted distribution matches the empirical data by plotting cumulative probabilities against each other.</li>
+  <li>Points falling close to the diagonal line indicate a good fit.</li>
+</ul>
+
+<h4 id="steps"><strong>Steps</strong>:</h4>
+<ol>
+  <li>Order the observations: \(y_{(1)} \leq y_{(2)} \leq \dots \leq y_{(n)}\).</li>
+  <li>Compute the fitted distribution at each observation:
+\(G_0(y_{(i)})\)</li>
+  <li>For \(i = 1, 2, \dots, n\), plot the points:
+\(\left( \frac{i - 0.5}{n}, G_0(y_{(i)}) \right)\)</li>
+</ol>
+
+<hr />
+
+<h3 id="quantile-function"><strong>Quantile Function</strong></h3>
+<ul>
+  <li>
+    <p>For a random variable \(Y\) with distribution function \(G\), the quantile function is defined as:
+\(G^{-1}(1 - q) = \inf \{ y : G(y) \geq q \}, \quad 0 &lt; q &lt; 1\)</p>
+  </li>
+  <li>
+    <p><strong>Value at Risk (VaR)</strong>:</p>
+    <ul>
+      <li>Denoted as \(\text{VaR}_q[Y]\) and equivalent to the quantile function.</li>
+      <li>Represents the threshold such that the probability of exceeding it is \(1 - q\).</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="qq-plot"><strong>Q–Q Plot</strong></h3>
+<ul>
+  <li>A Q–Q plot compares the quantiles of the empirical data and the fitted distribution.</li>
+  <li>Points lying close to the diagonal line indicate a good match between the distributions.</li>
+</ul>
+
+<h4 id="steps-1"><strong>Steps</strong>:</h4>
+<ol>
+  <li>Order the observations: \(y_{(1)} \leq y_{(2)} \leq \dots \leq y_{(n)}\).</li>
+  <li>Calculate the quantile of the fitted distribution for each observed data point:
+\(G_0^{-1}\left( \frac{i - 0.5}{n} \right)\)</li>
+  <li>Plot the points:
+\(\left( y_{(i)}, G_0^{-1}\left(\frac{i - 0.5}{n}\right) \right)\)</li>
+</ol>
+
+<hr />
+
+<h2 id="parameter-estimation"><strong>Parameter Estimation</strong></h2>
+
+<h3 id="1-method-of-moments"><strong>1. Method of Moments</strong></h3>
+<ul>
+  <li><strong>Concept</strong>: Estimates parameters by equating the theoretical moments to sample moments.</li>
+  <li><strong>Steps</strong>:
+    <ol>
+      <li>Establish moment equations:
+\(\mu_1 = \mathbb{E}[X] = g_1(\theta_1, \theta_2, \dots, \theta_k), \quad \dots, \quad \mu_k = \mathbb{E}[X^k] = g_k(\theta_1, \theta_2, \dots, \theta_k)\)</li>
+      <li>Replace theoretical moments with sample moments:
+\(\hat{\mu}_1 = g_1(\theta_1, \theta_2, \dots, \theta_k), \quad \dots, \quad \hat{\mu}_k = g_k(\theta_1, \theta_2, \dots, \theta_k)\)</li>
+      <li>Solve for parameter estimates $ \hat{\theta}_1, \dots, \hat{\theta}_k $.</li>
+    </ol>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="2-maximum-likelihood-estimation-mle"><strong>2. Maximum Likelihood Estimation (MLE)</strong></h3>
+<ul>
+  <li><strong>Concept</strong>: Estimates parameters by maximizing the likelihood function.</li>
+  <li><strong>Likelihood Function</strong>:
+\(L(\theta) = \prod_{t=1}^T P(N_t = k; \theta)\)</li>
+  <li><strong>Log-Likelihood</strong>:
+\(l(\theta) = \sum_{t=1}^T \log P(N_t = k; \theta)\)</li>
+  <li>Solve the equation:
+\(\frac{\partial l(\theta)}{\partial \theta} = 0\)</li>
+  <li><strong>MLE Solution</strong>:
+\(\hat{\theta}_{\text{MLE}} = \text{argmax}_{\theta} L(\theta) = \text{argmax}_{\theta} l(\theta)\)</li>
+</ul>
+
+<hr />
+
+<h3 id="binomial-case"><strong>Binomial Case</strong></h3>
+<ul>
+  <li>
+    <p>$ N_t \sim \text{Binomial}(v_t, p) $</p>
+  </li>
+  <li>
+    <p><strong>Log-Likelihood Function</strong>:
+\(l(p) = \sum_{t=1}^T \left[ \log \binom{v_t}{N_t} + N_t \log p + (v_t - N_t) \log (1 - p) \right]\)</p>
+  </li>
+  <li>
+    <p><strong>MLE Solution</strong>:
+\(\hat{p}_{\text{MLE}} = \frac{\sum_{t=1}^T N_t}{\sum_{t=1}^T v_t}\)</p>
+  </li>
+</ul>
+
+<h4 id="derivation"><strong>Derivation</strong>:</h4>
+<ol>
+  <li>
+    <p>Simplify the log-likelihood function (ignoring constants):
+\(l(p) = \sum_{t=1}^T \left[ N_t \log p + (v_t - N_t) \log (1 - p) \right]\)</p>
+  </li>
+  <li>
+    <p>Differentiate with respect to $p$:
+\(\frac{\partial l(p)}{\partial p} = \sum_{t=1}^T \left[ \frac{N_t}{p} - \frac{v_t - N_t}{1-p} \right]\)</p>
+  </li>
+  <li>
+    <p>Set the derivative to zero:
+\(\sum_{t=1}^T \frac{N_t}{p} = \sum_{t=1}^T \frac{v_t - N_t}{1-p}\)</p>
+  </li>
+  <li>
+    <p>Solve for $p$:
+\(p \sum_{t=1}^T v_t = \sum_{t=1}^T N_t\)</p>
+  </li>
+  <li>
+    <p>Final MLE:
+\(\hat{p}_{\text{MLE}} = \frac{\sum_{t=1}^T N_t}{\sum_{t=1}^T v_t}\)</p>
+  </li>
+</ol>
+
+<hr />
+
+<h3 id="poisson-case"><strong>Poisson Case</strong></h3>
+<ul>
+  <li>
+    <p>$ N_t \sim \text{Poisson}(v_t \lambda) $</p>
+  </li>
+  <li>
+    <p><strong>Log-Likelihood Function</strong>:
+\(l(\lambda) = \sum_{t=1}^T \left[ -\lambda v_t + N_t \log (\lambda v_t) - \log (N_t!) \right]\)</p>
+  </li>
+  <li>
+    <p><strong>MLE Solution</strong>:
+\(\hat{\lambda}_{\text{MLE}} = \frac{\sum_{t=1}^T N_t}{\sum_{t=1}^T v_t}\)</p>
+  </li>
+</ul>
+
+<h4 id="derivation-1"><strong>Derivation</strong>:</h4>
+<ol>
+  <li>
+    <p>Simplify the log-likelihood function (ignoring constants):
+\(l(\lambda) = \sum_{t=1}^T \left[ -\lambda v_t + N_t \log \lambda + N_t \log v_t \right]\)</p>
+  </li>
+  <li>
+    <p>Differentiate with respect to $\lambda$:
+\(\frac{\partial l(\lambda)}{\partial \lambda} = \sum_{t=1}^T \left[ -v_t + \frac{N_t}{\lambda} \right]\)</p>
+  </li>
+  <li>
+    <p>Set the derivative to zero:
+\(\sum_{t=1}^T v_t = \sum_{t=1}^T \frac{N_t}{\lambda}\)</p>
+  </li>
+  <li>
+    <p>Solve for $\lambda$:
+\(\lambda \sum_{t=1}^T v_t = \sum_{t=1}^T N_t\)</p>
+  </li>
+  <li>
+    <p>Final MLE:
+\(\hat{\lambda}_{\text{MLE}} = \frac{\sum_{t=1}^T N_t}{\sum_{t=1}^T v_t}\)</p>
+  </li>
+</ol>
+
+<hr />
+
+<h3 id="grouped-data"><strong>Grouped Data</strong></h3>
+<ul>
+  <li>Assume $n$ intervals $(c_{i-1}, c_i)$.</li>
+  <li>Observations: $m_i$ (number of losses in $(c_{i-1}, c_i)$).</li>
+  <li>
+    <p><strong>Likelihood Function</strong>:
+\(L = \prod_{i=1}^n \left[ G(c_i) - G(c_{i-1}) \right]^{m_i}\)</p>
+  </li>
+  <li><strong>Log-Likelihood Function</strong>:
+\(l = \sum_{i=1}^n m_i \log \left[ G(c_i) - G(c_{i-1}) \right]\)</li>
+</ul>
+
+<hr />
+
+<h2 id="model-selection"><strong>Model Selection</strong></h2>
+
+<h3 id="hypothesis-testing"><strong>Hypothesis Testing</strong></h3>
+<ol>
+  <li><strong>Steps</strong>:
+    <ul>
+      <li>State hypotheses $ H_0 \leftrightarrow H_1 $.</li>
+      <li>Construct a test statistic $ T_n $.</li>
+      <li>Determine its distribution under $ H_0 $.</li>
+      <li>Choose significance level $ \alpha $ (e.g., 5%).</li>
+      <li>Compute the observed $ T_n $ and critical value $ C $.</li>
+      <li>Decision:
+        <ul>
+          <li>Reject $ H_0 $ if $ T_n &gt; C $.</li>
+          <li>Otherwise, fail to reject $ H_0 $.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Errors</strong>:
+    <ul>
+      <li><strong>Type I</strong>: Reject $ H_0 $ when true.</li>
+      <li><strong>Type II</strong>: Fail to reject $ H_0 $ when false.</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h3 id="goodness-of-fit-tests"><strong>Goodness-of-Fit Tests</strong></h3>
+<ol>
+  <li><strong>Kolmogorov–Smirnov (K–S) Test</strong>:
+    <ul>
+      <li><strong>Statistic</strong>:
+\(D_n = \sup_y | \hat{G}_n(y) - G_0(y) |\)</li>
+      <li>Convergence under $ H_0 $:
+\(\sqrt{n} D_n \xrightarrow{d} K\)</li>
+      <li>Reject $ H_0 $ if:
+\(D_n &gt; \frac{K^{-1}(1 - \alpha)}{\sqrt{n}}\)</li>
+    </ul>
+
+    <p>note: not work for grouped data</p>
+  </li>
+  <li><strong>Anderson–Darling (A–D) Test</strong>:
+    <ul>
+      <li><strong>Statistic</strong>:
+\(A_n = n \int \frac{\left[ \hat{G}_n(y) - G_0(y) \right]^2}{G_0(y)(1 - G_0(y))} \, dG_0(y)\)</li>
+    </ul>
+
+    <p>note: not work for grouped data</p>
+  </li>
+  <li><strong>$ \chi^2 $ Test</strong>:
+    <ul>
+      <li>Partition data into $ K $ intervals:
+\(\chi^2_{n,K} = \sum_{k=1}^K \frac{(E_k - O_k)^2}{E_k}\)</li>
+      <li>Distribution:
+\(\chi^2_{n,K} \xrightarrow{d} \chi^2_{K-1-d}\)</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="comparison-of-goodness-of-fit-tests"><strong>Comparison of Goodness-of-Fit Tests</strong></h3>
+
+<ol>
+  <li><strong>Kolmogorov–Smirnov (K-S) Test</strong>:
+    <ul>
+      <li>Measures the maximum absolute difference between the empirical and model distribution functions.</li>
+      <li>Emphasizes overall fit but does not prioritize specific regions like the tails.</li>
+    </ul>
+  </li>
+  <li><strong>Anderson–Darling (A-D) Test</strong>:
+    <ul>
+      <li>Measures the squared difference between the empirical and model distribution functions.</li>
+      <li>Weighted average with greater emphasis on the tails compared to the K-S test.</li>
+    </ul>
+  </li>
+  <li><strong>Chi-Square ($\chi^2$) Test</strong>:
+    <ul>
+      <li>Compares the observed and expected frequencies across intervals of the data range.</li>
+      <li>Adjusts the degrees of freedom to account for the number of parameters estimated in the model.</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h4 id="key-comparisons"><strong>Key Comparisons</strong>:</h4>
+<ul>
+  <li><strong>Focus</strong>:
+    <ul>
+      <li>K-S focuses on absolute differences.</li>
+      <li>A-D gives more importance to the tails.</li>
+      <li>$\chi^2$ evaluates differences over defined intervals.</li>
+    </ul>
+  </li>
+  <li><strong>Model Complexity</strong>:
+    <ul>
+      <li>K-S and A-D tests do not adjust for the increase in parameters, often favoring more complex models.</li>
+      <li>$\chi^2$ adjusts degrees of freedom for the number of parameters, penalizing over-complexity.</li>
+    </ul>
+  </li>
+  <li><strong>Sample Size</strong>:
+    <ul>
+      <li>Larger samples increase the likelihood of rejecting all models for both K-S and A-D tests.</li>
+      <li>$\chi^2$ can handle larger samples better by considering parameter estimation.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="information-criteria"><strong>Information Criteria</strong></h3>
+<ol>
+  <li><strong>Akaike Information Criterion (AIC)</strong>:
+\(AIC = -2\hat{\ell} + 2d\)</li>
+  <li><strong>Bayesian Information Criterion (BIC)</strong>:
+\(BIC = -2\hat{\ell} + \log(n)d\)</li>
+</ol>
+
+<p>remarks:</p>
+<ul>
+  <li>Smaller AIC, BIC \(\to\) the better</li>
+  <li>BIC penalise number of paramers (d) more strongly by \(\log{n}\) for large \(n\).</li>
+</ul>
+
+<hr />
+
+    </main>
+</body>
+</html>

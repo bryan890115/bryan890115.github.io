@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Module 5: Liability Valuations: Ruin Theory Distributions</title>
+        <link rel="stylesheet" href="/styles.css">
+        <script type="text/javascript" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+    </head>
+    
+<body>
+    <header>
+        <h1></h1>
+    </header>
+    <main>
+        <h2 id="liability-valuations-ruin-theory"><strong>Liability Valuations: Ruin Theory</strong></h2>
+
+<h3 id="insurance-solvency-considerations"><strong>Insurance Solvency Considerations</strong></h3>
+
+<h4 id="balance-sheet-and-surplus-process"><strong>Balance Sheet and Surplus Process</strong></h4>
+<ul>
+  <li><strong>Balance Sheet</strong>:
+    <ul>
+      <li>At time \(t\):
+        <ul>
+          <li><em>\(A_t\)</em>: Assets at time \(t\).</li>
+          <li><em>\(L_t\)</em>: Liabilities at time \(t\).</li>
+          <li>Require: \(A_t \geq L_t\).</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Surplus Process</strong>:
+\(C_t = A_t - L_t, \quad t \geq 0.\)
+    <ul>
+      <li>Initial surplus: \(C_0 &gt; 0\).</li>
+      <li><strong>No Ruin Condition</strong>: Ensure that for a high level \(q\):
+\(1 - \Pr\left[\inf_{t \geq 0} C_t &lt; 0 \mid C_0 = c_0 \right] \geq q.\)</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="risk-measures"><strong>Risk Measures</strong></h4>
+
+<ol>
+  <li><strong>No Ruin Condition</strong>:
+    <ul>
+      <li>For the one-period model, the initial surplus \(C_0\) and asset strategy must satisfy:
+\(\Pr[A_1 \geq L_1 \mid C_0 = c_0] = \Pr[L_1 - A_1 \leq 0 \mid C_0 = c_0] \geq q.\)</li>
+      <li>
+        <p>This implies that the initial surplus \(C_0\) must be at least the <strong>Value-at-Risk (VaR)</strong> at confidence level \(q\):
+\(\text{VaR}_q(L_1 - A_1) = \inf \{c \geq 0 : \Pr[L_1 - A_1 \leq 0 \mid C_0 = c] \geq q\}.\)</p>
+
+        <ul>
+          <li>“inf” is the infimum, so we want to find the samllest value of c (or the greatest lower bound of this set) where the probability \(\Pr[L_1 - A_1 \leq 0]\) is at least \(q\).</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Regulatory Risk Measures</strong>:
+    <ul>
+      <li><strong>Solvency II</strong>: Uses \(\text{VaR}_{99.5\%}\).</li>
+      <li><strong>Swiss Solvency Test</strong>: Uses \(\text{TVaR}_{99\%}\).</li>
+    </ul>
+  </li>
+  <li><strong>Summary</strong>:
+    <ul>
+      <li><strong>VaR</strong>: Measures the minimum surplus required to ensure that losses exceed assets with a small probability \(1-q\).</li>
+      <li><strong>TVaR (not covered)</strong>: Accounts for the severity of losses beyond the VaR threshold, providing a more conservative risk assessment.</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h3 id="ruin-theory-in-discrete-time"><strong>Ruin Theory in Discrete Time</strong></h3>
+
+<h4 id="surplus-process"><strong>Surplus Process</strong></h4>
+<ul>
+  <li>The surplus process over multiple periods:
+\(C_t = C_0 + \sum_{u=1}^t (\pi_u - S_u), \quad t \in \mathbb{N},\)
+where:
+    <ul>
+      <li><em>\(C_0\)</em>: Initial surplus.</li>
+      <li><em>\(\pi_t\)</em>: Premium income (i.i.d.).</li>
+      <li><em>\(S_t\)</em>: Claim payouts (i.i.d.).</li>
+      <li>Assume \(\pi_t\) and \(S_t\) are independent.</li>
+    </ul>
+  </li>
+  <li>The net increment is:
+\(X_t = \pi_t - S_t, \quad t \in \mathbb{N}.\)</li>
+</ul>
+
+<hr />
+
+<h4 id="time-of-ruin"><strong>Time of Ruin</strong></h4>
+<ul>
+  <li><strong>Definition</strong>:
+\(\tau = \inf \{s \in \mathbb{N} : C_s &lt; 0\}.\)
+    <ul>
+      <li><em>\(\tau\)</em> is the earliest time step where the surplus \(C_s\) becomes negative.</li>
+      <li>If \(C_s\) never becomes negative, then \(\tau = \infty\).</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h4 id="finite-time-ruin-probability"><strong>Finite-Time Ruin Probability</strong></h4>
+<ul>
+  <li><strong>Definition</strong>:
+\(\psi_t(C_0) = \Pr[\tau \leq t \mid C_0 = c_0].\)
+    <ul>
+      <li>Probability that ruin occurs <strong>within the first \(t\) periods</strong>, given initial surplus \(C_0 = c_0\).</li>
+      <li>Useful for analyzing a fixed time horizon.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h4 id="ultimate-ruin-probability"><strong>Ultimate Ruin Probability</strong></h4>
+<ul>
+  <li><strong>Definition</strong>:
+\(\psi(C_0) = \Pr[\tau &lt; \infty \mid C_0 = c_0] = \lim_{t \to \infty} \psi_t(C_0).\)
+    <ul>
+      <li>Probability that ruin occurs <strong>at any point in the future</strong>, regardless of when.</li>
+      <li>Considers an infinite time horizon.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="key-difference"><strong>Key Difference</strong>:</h3>
+<ul>
+  <li><strong>Finite-Time Ruin</strong>: Restricted to a specific \(t\).</li>
+  <li><strong>Ultimate Ruin</strong>: Considers ruin over an infinite time horizon.</li>
+</ul>
+
+<h4 id="behavior-of-surplus-process-theorem-54"><strong>Behavior of Surplus Process</strong> (Theorem 5.4)</h4>
+<ul>
+  <li>The behavior of the surplus process \(C_t\) depends on the sign of \(\mathbb{E}[X_1]\):
+    <ol>
+      <li><strong>\(\mathbb{E}[X_1] &lt; 0\)</strong>: Surplus decreases to \(-\infty\) (blows down).</li>
+      <li><strong>\(\mathbb{E}[X_1] = 0\)</strong>: Surplus oscillates between \(\infty\) and \(-\infty\).</li>
+      <li><strong>\(\mathbb{E}[X_1] &gt; 0\)</strong>: Surplus increases to \(\infty\) (blows up).</li>
+    </ol>
+  </li>
+</ul>
+
+<hr />
+
+<h4 id="implications"><strong>Implications</strong></h4>
+<ol>
+  <li><strong>When \(\mathbb{E}[X_1] \leq 0\)</strong>:
+    <ul>
+      <li>Ruin is certain:
+\(\psi(C_0) = 1 \quad \text{for any } C_0 \geq 0.\)</li>
+    </ul>
+  </li>
+  <li><strong>When \(\mathbb{E}[X_1] &gt; 0\) (Net Profit Condition or NPC)</strong>:
+    <ul>
+      <li>Ruin is not certain:
+\(\psi(C_0) &lt; 1.\)</li>
+      <li>The ultimate ruin probability satisfies:
+\(\psi(C_0) \leq \psi(0) &lt; 1.\)</li>
+      <li>This implies that higher initial surplus \(C_0\) reduces the likelihood of ruin.</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="summary"><strong>Summary</strong></h4>
+<ul>
+  <li><strong>Net Profit Condition</strong> ensures the surplus process grows on average, reducing ruin probability.</li>
+  <li>Without NPC (\(\mathbb{E}[X_1] \leq 0\)), ruin is inevitable regardless of initial surplus.</li>
+</ul>
+
+<hr />
+
+<h3 id="adjustment-coefficient"><strong>Adjustment Coefficient</strong></h3>
+
+<h4 id="lundberg-coefficient--adjustment-coefficient"><strong>Lundberg Coefficient / Adjustment Coefficient</strong></h4>
+<ul>
+  <li>The adjustment coefficient \(R\) is defined as the positive solution to:
+\(M_{S_1 - \pi_1}(R) = \mathbb{E}[e^{-R X_1}] = 1.\)
+    <ul>
+      <li>If \(R\) exists, it is unique.</li>
+    </ul>
+  </li>
+  <li><strong>Lundberg Upper Bound</strong>:
+\(\psi(C_0) \leq e^{-R C_0}.\)</li>
+</ul>
+
+<h3 id="example-calculation"><strong>Example Calculation</strong></h3>
+<ul>
+  <li>Suppose:
+    <ul>
+      <li>Desired tolerance: \(p = 0.01\).</li>
+      <li>Adjustment coefficient: \(R = 0.05\).</li>
+    </ul>
+  </li>
+  <li>Calculate \(C_0\):
+\(C_0 = -\frac{\ln(0.01)}{0.05} = \frac{4.605}{0.05} = 92.1.\)</li>
+  <li><strong>Result</strong>:
+    <ul>
+      <li>An initial surplus of \(C_0 \geq 92.1\) guarantees the ruin probability is less than \(1\%\).</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="ruin-theory-in-continuous-time"><strong>Ruin Theory in Continuous Time</strong></h2>
+
+<h3 id="surplus-process-the-cramérlundberg-model"><strong>Surplus Process: The Cramér–Lundberg Model</strong></h3>
+<p>The surplus process in continuous time under the Cramér–Lundberg model is defined as:
+\(C(t) = c_0 + \pi t - S(t), \quad t \geq 0,\)
+where:</p>
+<ul>
+  <li><em>\(c_0\)</em>: Initial surplus of the insurer.</li>
+  <li><em>\(\pi t\)</em>: Premium income collected over time. Premiums are collected at a constant rate, so \(\pi t\) represents the cumulative premiums collected over a time interval \(t\).</li>
+  <li><em>\(S(t) = \sum_{i=1}^{N(t)} Y_i\)</em>: Aggregate amount of claims up to time \(t\).
+    <ul>
+      <li><em>\(N(t)\)</em>: A Poisson process with rate \(\lambda &gt; 0\), modeling the number of claims over time.</li>
+      <li><em>\(\{Y_i\}_{i \in \mathbb{N}}\)</em>: i.i.d. claim sizes with cdf \(G\), independent of \(N(t)\).</li>
+    </ul>
+  </li>
+</ul>
+
+<p>The equation shows that the insurer’s surplus \(C(t)\) at any time \(t\) is the initial surplus \(c_0\) plus premium income \(\pi t\), minus the aggregate claims \(S(t)\).</p>
+
+<hr />
+
+<p>The premium rate \(\pi\) is set as:
+\(\pi = (1 + \theta) \lambda \mathbb{E}[Y_1],\)
+where:</p>
+<ul>
+  <li><em>\(\lambda \mathbb{E}[Y_1]\)</em>: Expected total claim cost, calculated as the claim frequency (\(\lambda\)) times the expected claim size (\(\mathbb{E}[Y_1]\)).</li>
+  <li><em>\((1 + \theta)\)</em>: Relative security loading, with \(\theta &gt; 0\) ensuring a margin for safety and profitability.</li>
+</ul>
+
+<p>This equation ensures that the premiums collected cover the expected claims and include a safety margin proportional to \(\theta\).</p>
+
+<hr />
+
+<h3 id="compound-poisson-process"><strong>Compound Poisson Process</strong></h3>
+<p>Under the Cramér–Lundberg model:</p>
+
+<ul>
+  <li>The aggregate claims \(S(t)\) form a compound Poisson process:
+\(S(t) = \sum_{i=1}^{N(t)} Y_i, \quad t \geq 0.\)
+    <ul>
+      <li>Here, \(S(t)\) is the total claim amount up to time \(t\), summing \(N(t)\) independent claim amounts \(Y_i\).</li>
+    </ul>
+  </li>
+  <li>Properties of \(S(t)\):
+    <ul>
+      <li><strong>Mean</strong>:
+\(\mathbb{E}[S(t)] = \lambda t \mathbb{E}[Y].\)
+        <ul>
+          <li>The expected total claims are proportional to the claim frequency (\(\lambda\)), time (\(t\)), and average claim size (\(\mathbb{E}[Y]\)).</li>
+        </ul>
+      </li>
+      <li><strong>Variance</strong>:
+\(\text{Var}[S(t)] = \lambda t \mathbb{E}[Y^2].\)
+        <ul>
+          <li>The variance depends on the claim frequency (\(\lambda\)), time (\(t\)), and the second moment of the claim size (\(\mathbb{E}[Y^2]\)).</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Increments</strong>:
+\(S(t + h) - S(t) \sim \text{CompPoi}(\lambda h, G).\)
+    <ul>
+      <li>Over an interval \(h\), the additional claims follow a compound Poisson distribution with rate \(\lambda h\) and claim size distribution \(G\).</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="the-probability-of-ruin"><strong>The Probability of Ruin</strong></h3>
+
+<p>There are multiple methods to calculate the ruin probability:</p>
+
+<ol>
+  <li><strong>Analytically</strong>:
+    <ul>
+      <li>The ruin probability \(\psi(c_0)\) may have a closed-form expression in specific cases, such as:
+        <ul>
+          <li>Exponential claim sizes.</li>
+          <li>Mixtures of exponential claim size distributions.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Using Panjer’s Recursion</strong>:
+    <ul>
+      <li>By discretizing the continuous distribution of claims, Panjer’s recursion can be applied to compute ruin probabilities.</li>
+    </ul>
+  </li>
+  <li><strong>Monte Carlo Simulation</strong>:
+    <ul>
+      <li>Simulate the surplus process to estimate the probability of ruin based on a large number of scenarios.</li>
+    </ul>
+  </li>
+  <li><strong>Finite-Time Ruin Probability</strong>:
+    <ul>
+      <li><em>\(\psi_t(c_0)\)</em>, the ruin probability within a finite time \(t\), is often harder to calculate and may require advanced numerical methods.</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h3 id="adjustment-coefficient-1"><strong>Adjustment Coefficient</strong></h3>
+
+<h4 id="surplus-process-1"><strong>Surplus Process</strong></h4>
+<p>Over an interval \([0, t]\), the <strong>excess of losses over premiums</strong> is defined as:
+\(S(t) - \pi t.\)</p>
+
+<p>The <strong>adjustment coefficient</strong> \(R\) is the first positive solution to:
+\(\mathbb{E}\left[e^{R(S(t) - \pi t)}\right] = 1.\)</p>
+
+<h4 id="expectation-of-surplus-process"><strong>Expectation of Surplus Process</strong></h4>
+<p>For the surplus process \(C(t)\):
+\(\mathbb{E}[e^{-R C(t)}] = e^{-R c_0}.\)</p>
+
+<h5 id="derivation"><strong>Derivation:</strong></h5>
+<ol>
+  <li>
+    <p>Start with the surplus equation:
+\(C(t) = c_0 + \pi t - S(t).\)</p>
+  </li>
+  <li>
+    <p>Substitute into the expectation:
+\(\mathbb{E}[e^{-R C(t)}] = \mathbb{E}[e^{-R(c_0 + \pi t - S(t))}].\)</p>
+  </li>
+  <li>
+    <p>Factorize the terms:
+\(\mathbb{E}[e^{-R C(t)}] = e^{-R c_0} \mathbb{E}[e^{-R (\pi t - S(t))}].\)</p>
+  </li>
+  <li>
+    <p>Use the defining property of the adjustment coefficient \(R\):
+\(\mathbb{E}[e^{R(S(t) - \pi t)}] = 1.\)</p>
+  </li>
+  <li>
+    <p>Substitute back:
+\(\mathbb{E}[e^{-R C(t)}] = e^{-R c_0}.\)</p>
+  </li>
+</ol>
+
+<h4 id="lundberg-equation"><strong>Lundberg Equation</strong></h4>
+<p>The adjustment coefficient \(R\) satisfies:
+\(M_Y(R) = \mathbb{E}[e^{R Y}] = 1 + (1 + \theta) \mathbb{E}[Y] R,\)
+where \(M_Y(R)\) is the moment generating function (MGF) of \(Y\). Below is the derivation.</p>
+
+<h4 id="derivation-1"><strong>Derivation</strong></h4>
+
+<ol>
+  <li>
+    <p>Start with the definition of the adjustment coefficient:
+\(\mathbb{E}[e^{R(S(t) - \pi t)}] = 1.\)</p>
+  </li>
+  <li>
+    <p>Rewrite \(S(t)\) as a compound Poisson process:
+\(S(t) = \sum_{i=1}^{N(t)} Y_i,\)
+where \(N(t)\) is a Poisson process with rate \(\lambda\).</p>
+  </li>
+  <li>
+    <p>Substitute into the expectation:
+\(\mathbb{E}[e^{R(S(t) - \pi t)}] = e^{-R \pi t} \mathbb{E}[e^{R S(t)}].\)</p>
+  </li>
+  <li>
+    <p>Express \(\mathbb{E}[e^{R S(t)}]\) for the compound Poisson process:
+\(\mathbb{E}[e^{R S(t)}] = e^{\lambda t (\mathbb{E}[e^{R Y}] - 1)}.\)</p>
+
+    <ol>
+      <li>
+        <p><strong>Condition on \(N(t)\)</strong>:
+\(\mathbb{E}[e^{R S(t)}] = \mathbb{E}\left[\mathbb{E}\left[e^{R \sum_{i=1}^{N(t)} Y_i} \mid N(t)\right]\right].\)</p>
+      </li>
+      <li>
+        <p><strong>Independent \(Y_i\)</strong>:
+ \(\mathbb{E}\left[e^{R \sum_{i=1}^{N(t)} Y_i} \mid N(t) = n\right] = \mathbb{E}[e^{R Y}]^n.\)</p>
+      </li>
+      <li>
+        <p><strong>Combine with \(N(t)\)</strong>:
+ \(\mathbb{E}[e^{R S(t)}] = \sum_{n=0}^\infty \mathbb{E}[e^{R Y}]^n \cdot \frac{(\lambda t)^n e^{-\lambda t}}{n!}.\)</p>
+      </li>
+      <li>
+        <p><strong>Simplify the Series</strong>:
+ Recognizing the series as an exponential:
+ \(\mathbb{E}[e^{R S(t)}] = e^{-\lambda t} \cdot e^{\lambda t \mathbb{E}[e^{R Y}]}.\)</p>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p>Combine the terms:
+\(e^{-R \pi t} e^{\lambda t (\mathbb{E}[e^{R Y}] - 1)} = 1.\)</p>
+  </li>
+  <li>
+    <p>Simplify the exponents:
+\(e^{t(-R \pi + \lambda (\mathbb{E}[e^{R Y}] - 1))} = 1.\)</p>
+  </li>
+  <li>
+    <p>Since the exponent must equal zero for the equation to hold:
+\(-R \pi + \lambda (\mathbb{E}[e^{R Y}] - 1) = 0.\)</p>
+  </li>
+  <li>
+    <p>Substitute the premium rate \(\pi = (1 + \theta) \lambda \mathbb{E}[Y]\):
+\(-R (1 + \theta) \lambda \mathbb{E}[Y] + \lambda (\mathbb{E}[e^{R Y}] - 1) = 0.\)</p>
+  </li>
+  <li>
+    <p>Rearrange for the MGF of \(Y\):
+\(\mathbb{E}[e^{R Y}] = 1 + (1 + \theta) \mathbb{E}[Y] R.\)</p>
+  </li>
+  <li>
+    <p>Conclude with:
+   \(M_Y(R) = \mathbb{E}[e^{R Y}] = 1 + (1 + \theta) \mathbb{E}[Y] R.\)</p>
+  </li>
+</ol>
+
+<hr />
+
+<h3 id="adjustment-coefficient-2"><strong>Adjustment Coefficient</strong></h3>
+
+<p>The adjustment coefficient \(R\) is determined by solving the equation:
+\(M_Y(R) = 1 + (1 + \theta) \mathbb{E}[Y] R,\)
+where \(M_Y(R)\) is the moment generating function (MGF) of the claim size distribution \(Y\).</p>
+
+<h4 id="key-components"><strong>Key Components</strong></h4>
+
+<ol>
+  <li><strong>Moment Generating Function (MGF)</strong>:
+\(M_Y(R) = \mathbb{E}[e^{R Y}].\)
+    <ul>
+      <li>The MGF is an increasing and convex function in \(R\), as:
+        <ul>
+          <li>First derivative: \(M_Y'(R) = \mathbb{E}[Y e^{R Y}] &gt; 0\) (MGF is increasing).</li>
+          <li>Second derivative: \(M_Y''(R) = \mathbb{E}[Y^2 e^{R Y}] &gt; 0\) (MGF is convex).</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Linear Function</strong>:
+\(1 + (1 + \theta) \mathbb{E}[Y] R.\)
+    <ul>
+      <li>This line starts at \(1\) when \(R = 0\).</li>
+      <li>Its slope is \((1 + \theta) \mathbb{E}[Y]\), proportional to the loading factor \(\theta\).</li>
+    </ul>
+  </li>
+  <li><strong>Intersection Point</strong>:
+    <ul>
+      <li>The adjustment coefficient \(R\) is the first positive solution where the MGF intersects the linear function:
+\(M_Y(R) = 1 + (1 + \theta) \mathbb{E}[Y] R.\)</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="properties"><strong>Properties</strong></h4>
+<ul>
+  <li>
+    <p>The MGF of \(Y\) at \(R = 0\) is:
+\(M_Y(0) = \mathbb{E}[e^{0 \cdot Y}] = 1.\)</p>
+  </li>
+  <li>
+    <p>The adjustment coefficient \(R\) ensures the excess of losses over premiums remains bounded within acceptable probabilities.</p>
+  </li>
+</ul>
+
+<hr />
+<h3 id="theorem-lundberg-exponential-upper-bound"><strong>Theorem (Lundberg Exponential Upper Bound)</strong></h3>
+
+<p>For \(c_0 \geq 0\):
+\(\psi(c_0) = \Pr[\tau &lt; \infty \mid C(0) = c_0] = \frac{e^{-R c_0}}{\mathbb{E}[e^{-R C(\tau)} \mid \tau &lt; \infty]} \leq e^{-R c_0}.\)</p>
+
+<h4 id="explanation"><strong>Explanation</strong></h4>
+<ul>
+  <li><strong>Key Laws</strong>:
+    <ul>
+      <li>Derived using the <strong>law of total expectation</strong> and the property of \(e^{-R C(t)}\).</li>
+      <li>Since:
+\(\mathbb{E}[e^{-R C(t)}] = e^{-R c_0}, \quad \forall t \geq 0.\)</li>
+      <li>At the time of ruin (\(\tau &lt; \infty\)), the surplus \(C(\tau) &lt; 0\), so:
+\(\mathbb{E}[e^{-R C(t)}] = \mathbb{E}[e^{-R C(\tau)} \mid \tau &lt; \infty] \Pr[\tau &lt; \infty].\)</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Rearranging</strong>:
+Using the martingale property:
+\(\Pr[\tau &lt; \infty] = \frac{\mathbb{E}[e^{-R C(t)}]}{\mathbb{E}[e^{-R C(\tau)} \mid \tau &lt; \infty]}.\)</p>
+  </li>
+  <li><strong>Result</strong>:
+Substituting \(\mathbb{E}[e^{-R C(t)}] = e^{-R c_0}\):
+\(\psi(c_0) = \frac{e^{-R c_0}}{\mathbb{E}[e^{-R C(\tau)} \mid \tau &lt; \infty]}.\)</li>
+</ul>
+
+<h4 id="interpretation"><strong>Interpretation</strong></h4>
+<ul>
+  <li>The upper bound \(e^{-R c_0}\) arises because:
+\(\mathbb{E}[e^{-R C(\tau)} \mid \tau &lt; \infty] \geq 1,\)
+due to the negativity of \(C(\tau)\) at ruin (\(e\) to the power of a positive number is also positive).</li>
+  <li>Therefore, the ruin probability \(\psi(c_0)\) decreases <strong>exponentially</strong> as the initial surplus \(c_0\) increases.</li>
+</ul>
+
+<hr />
+
+<h3 id="examples"><strong>Examples</strong></h3>
+<h3 id="example-1-find-r-using-the-lundberg-equation">Example 1: Find \(R\) Using the Lundberg Equation</h3>
+
+<h3 id="question">Question</h3>
+<p>Let \(Y_1 \sim \text{Exp}(\beta)\), where:</p>
+
+<ul>
+  <li><em>\(\mathbb{E}[Y_1] = \frac{1}{\beta}\)</em>,</li>
+  <li><em>\(M_Y(R) = \frac{\beta}{\beta - R}\)</em>.</li>
+</ul>
+
+<p>The Lundberg equation is given by:</p>
+
+\[M_Y(R) = 1 + (1 + \theta) \mathbb{E}[Y] R\]
+
+<p>Solve the Lundberg equation to find \(R\) using the quadratic formula.</p>
+
+<hr />
+
+<h3 id="solution">Solution</h3>
+
+<p>Substitute the values for \(M_Y(R)\) and \(\mathbb{E}[Y]\):</p>
+
+\[\frac{\beta}{\beta - R} = 1 + (1 + \theta) \frac{1}{\beta} R\]
+
+<p>Multiply through by \(\beta (\beta - R)\) to eliminate denominators:</p>
+
+\[\beta^2 = \beta (\beta - R) \left( 1 + \frac{(1 + \theta) R}{\beta} \right)\]
+
+<p>Simplify the right-hand side:</p>
+
+\[\beta^2 = (\beta - R) \left[ \beta + (1 + \theta) R \right]\]
+
+<p>Expand:</p>
+
+\[\beta^2 = \beta^2 - \beta R + (1 + \theta) \beta R - (1 + \theta) R^2\]
+
+<p>Simplify:</p>
+
+\[0 = \beta R \theta - (1 + \theta) R^2\]
+
+<p>Factorize:</p>
+
+\[R \left( (1 + \theta) R - \beta \theta \right) = 0\]
+
+<p>Solve for \(R\):</p>
+
+\[R = 0 \quad \text{or} \quad R = \frac{\beta \theta}{1 + \theta}\]
+
+<p>Since \(R = 0\) is trivial, the solution is:</p>
+
+\[R = \frac{\beta \theta}{1 + \theta}\]
+
+<hr />
+
+<h3 id="example-2-find-psic-using-the-exact-formula">Example 2: Find \(\psi(c₀)\) Using the Exact Formula</h3>
+
+<h3 id="question-1">Question</h3>
+
+<p>Using the adjustment coefficient \(R = \frac{\beta \theta}{1 + \theta}\) from Example 1, calculate the ruin probability \(\psi(c₀)\) using the exact formula:</p>
+
+\[\psi(c₀) = \frac{e^{-R c₀}}{\mathbb{E}[e^{-R C(\tau)} \mid \tau &lt; \infty]}\]
+
+<ul>
+  <li>Note: only exponential and negative binomial(?) can be expressed explicitly using exact formula. Thats why we have the Lunberg’s lower bound</li>
+</ul>
+
+<hr />
+
+<h3 id="solution-1">Solution</h3>
+
+<ol>
+  <li><strong>Expectation at Ruin:</strong></li>
+</ol>
+
+<p>At the time of ruin \(\tau\), the surplus \(C(\tau) = -Y_1\), where \(Y_1 &gt; 0\) is the deficit. The deficit arises from the claim size \(Y_1\) that exceeds the available surplus.</p>
+
+<p>Given \(Y_1 \sim \text{Exp}(\beta)\), the moment-generating function (MGF) of \(Y_1\) is:</p>
+
+\[\mathbb{E}[e^{R Y_1}] = M_Y(R) = \frac{\beta}{\beta - R}, \quad \text{for } R &lt; \beta.\]
+
+<p>Thus, the expectation becomes:</p>
+
+\[\mathbb{E}[e^{-R C(\tau)} \mid \tau &lt; \infty] = \mathbb{E}[e^{R Y_1}] = \frac{\beta}{\beta - R}.\]
+
+<hr />
+
+<ol>
+  <li><strong>Substitute Back into Formula:</strong></li>
+</ol>
+
+<p>Using the exact formula for \(\psi(c₀)\):</p>
+
+\[\psi(c₀) = \frac{e^{-R c₀}}{\mathbb{E}[e^{-R C(\tau)} \mid \tau &lt; \infty]}\]
+
+<p>Substitute the expectation:</p>
+
+\[\psi(c₀) = \frac{e^{-R c₀}}{\frac{\beta}{\beta - R}}.\]
+
+<p>Simplify:</p>
+
+\[\psi(c₀) = \left( \frac{\beta - R}{\beta} \right) e^{-R c₀}.\]
+
+<hr />
+
+<ol>
+  <li><strong>Substitute \(R = \frac{\beta \theta}{1 + \theta}\):</strong></li>
+</ol>
+
+<p>Compute \(\beta - R\):</p>
+
+\[\beta - R = \beta - \frac{\beta \theta}{1 + \theta} = \frac{\beta}{1 + \theta}.\]
+
+<p>Compute \(\frac{\beta - R}{\beta}\):</p>
+
+\[\frac{\beta - R}{\beta} = \frac{\frac{\beta}{1 + \theta}}{\beta} = \frac{1}{1 + \theta}.\]
+
+<p>Thus:</p>
+
+\[\psi(c₀) = \frac{1}{1 + \theta} e^{-R c₀}.\]
+
+<hr />
+
+<ol>
+  <li><strong>Lundberg Bound:</strong></li>
+</ol>
+
+<p>The Lundberg inequality provides an upper bound for \(\psi(c₀)\):</p>
+
+\[\psi(c₀) \leq e^{-R c₀}.\]
+
+<p>The exact formula satisfies this bound because:</p>
+
+\[\psi(c₀) = \frac{1}{1 + \theta} e^{-R c₀},\]
+
+<p>where the prefactor \(\frac{1}{1 + \theta} &lt; 1\), ensuring \(\psi(c₀) \leq e^{-R c₀}\).</p>
+
+<hr />
+
+<h3 id="final-expression">Final Expression:</h3>
+
+<ol>
+  <li><strong>Exact Ruin Probability:</strong></li>
+</ol>
+
+\[\psi(c₀) = \frac{1}{1 + \theta} \exp\left( -\frac{\beta \theta}{1 + \theta} c₀ \right).\]
+
+<ol>
+  <li><strong>Lundberg Bound:</strong></li>
+</ol>
+
+\[\psi(c₀) \leq e^{-R c₀}.\]
+
+<hr />
+
+<h2 id="final-answers">Final Answers</h2>
+
+<ol>
+  <li>
+    <p><strong>Adjustment Coefficient:</strong>
+\(R = \frac{\beta \theta}{1 + \theta}\)</p>
+  </li>
+  <li>
+    <p><strong>Ruin Probability:</strong>
+\(\psi(c₀) = \frac{1}{1 + \theta} \exp\left( -\frac{\beta \theta}{1 + \theta} c₀ \right)\)</p>
+  </li>
+</ol>
+
+<hr />
+
+<h3 id="key-points"><strong>Key Points</strong></h3>
+<ul>
+  <li>The <strong>adjustment coefficient</strong> \(R\) plays a central role in quantifying ruin probabilities and their bounds.</li>
+  <li>The <strong>Cramér–Lundberg model</strong> provides a framework to model the surplus process and estimate ruin probabilities analytically or numerically.</li>
+</ul>
+
+<hr />
+
+<h2 id="applications-to-reinsurance"><strong>Applications to Reinsurance</strong></h2>
+
+<h3 id="key-formula-for-ruin-probability"><strong>Key Formula for Ruin Probability</strong></h3>
+<p>From Theorem 13.4.1:</p>
+<ul>
+  <li>The ruin probability under reinsurance satisfies:
+\(\psi(c_0) = e^{-R c_0} \mathbb{E}\left[e^{-R C(\tau)} \mid \tau &lt; \infty \right] \leq e^{-R c_0}.\)
+    <ul>
+      <li>The <strong>adjustment coefficient</strong> \(R\) is the positive solution to:
+\(\mathbb{E}\left[e^{R Y}\right] = 1 + (1 + \theta)\mathbb{E}[Y] R.\)</li>
+      <li>Goal: Minimize \(\psi(c_0)\) by maximizing \(R\) using reinsurance.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="proportional-reinsurance"><strong>Proportional Reinsurance</strong></h3>
+<ul>
+  <li><strong>Setup</strong>:
+    <ul>
+      <li>Let \(Y \sim \text{Exp}(\beta = 1)\), \(\theta = 0.25\), and \(\xi = 0.4\).</li>
+      <li>The reinsurer covers a proportion \(\alpha\) of claims:
+\(h(Y) = (1 - \alpha)Y.\)</li>
+    </ul>
+  </li>
+  <li><strong>Adjustment Coefficient Calculation</strong>:
+    <ol>
+      <li>Expected exponential term:
+\(\mathbb{E}[e^{r(Y - h(Y))}] = \frac{1}{1 - \alpha r}.\)</li>
+      <li>Premium difference between insurer and reinsurer:
+\(\pi - \pi_h = 1.25\lambda - 1.4\lambda(1 - \alpha) = \lambda(1.4\alpha - 0.15).\)</li>
+      <li>Equation for \(R_h\):
+\(\frac{\alpha}{1 - \alpha R_h} = 1.4\alpha - 0.15.\)</li>
+      <li>Solve for \(R_h\):
+\(R_h = \frac{0.4\alpha - 0.15}{1.4\alpha - 0.15}.\)</li>
+    </ol>
+  </li>
+  <li><strong>Optimal Retention</strong>:
+    <ul>
+      <li>Maximize \(R_h\) with respect to \(\alpha\):
+\(\alpha^* = 0.691933 \approx 70\%.\)</li>
+      <li>Resulting adjustment coefficient:
+\(R_h^* = 0.223787.\)</li>
+      <li><strong>Remark</strong>: Transforming 30% of losses reduces expected profit by ~60%.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="excess-of-loss-reinsurance"><strong>Excess of Loss Reinsurance</strong></h3>
+<ul>
+  <li><strong>Setup</strong>:
+    <ul>
+      <li>Let \(Y \sim \text{Exp}(1)\), \(\theta = 0.25\), and \(\xi = 0.4\).</li>
+      <li>The reinsurer covers losses above a threshold \(d\):
+\(h(Y) = \max(Y - d, 0).\)</li>
+    </ul>
+  </li>
+  <li><strong>Adjustment Coefficient Calculation</strong>:
+    <ol>
+      <li>Reinsurance premium:
+\(\pi_h = 1.4\lambda \int_d^\infty (x - d)e^{-x}dx = 1.4\lambda e^{-d}.\)</li>
+      <li>Expected exponential term:
+\(\mathbb{E}[e^{r(Y - h(Y))}] = \int_0^d e^{r x} e^{-x} dx + \int_d^\infty e^{r d} e^{-x} dx,\)
+\(= \frac{1 - r e^{-d(1 - r)}}{1 - r}.\)</li>
+      <li>Solve for \(R_h\):
+\(1 + (1.25 - 1.4e^{-d})R_h - \frac{1 - R_h e^{-d(1 - R_h)}}{1 - R_h} = 0.\)</li>
+    </ol>
+  </li>
+  <li><strong>Optimal Threshold</strong>:
+    <ul>
+      <li>Using numerical optimization, find:
+\(d^* = 0.9632226, \quad R_h^* = 0.3493290.\)</li>
+    </ul>
+  </li>
+  <li><strong>Remark</strong>: This \(R_h^*\) is significantly higher than proportional reinsurance, demonstrating the effectiveness of excess of loss reinsurance.</li>
+</ul>
+
+    </main>
+</body>
+</html>

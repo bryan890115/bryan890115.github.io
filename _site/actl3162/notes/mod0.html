@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Module 0: Introduction to General Insurance</title>
+        <link rel="stylesheet" href="/styles.css">
+        <script type="text/javascript" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+    </head>
+    
+<body>
+    <header>
+        <h1></h1>
+    </header>
+    <main>
+        <h1 id="module-0-introduction-to-general-insurance">Module 0: Introduction to General Insurance</h1>
+
+<h4 id="introduction-to-general-insurance"><strong>Introduction to General Insurance</strong></h4>
+<ol>
+  <li><strong>Definition Across Regions</strong>:
+    <ul>
+      <li><strong>UK &amp; Australia</strong>: General Insurance.</li>
+      <li><strong>Europe</strong>: Non-life Insurance.</li>
+      <li><strong>US &amp; Canada</strong>: Property and Casualty Insurance.</li>
+    </ul>
+  </li>
+  <li><strong>Purpose</strong>:
+    <ul>
+      <li>Provides financial protection against random events that could cause significant financial damage.</li>
+    </ul>
+  </li>
+  <li><strong>Types of Insurance</strong>:
+    <ul>
+      <li>Car, liability, property, workers’ compensation, marine, credit, legal, travel, accident, health, etc.</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h4 id="how-does-insurance-work"><strong>How Does Insurance Work?</strong></h4>
+<ol>
+  <li><strong>Swap of Deterministic for Random</strong>:
+    <ul>
+      <li><strong>Premium</strong>: Deterministic (up-front payment).</li>
+      <li><strong>Claims</strong>: Random payments for insured events.</li>
+    </ul>
+  </li>
+  <li><strong>Mechanism</strong>:
+    <ul>
+      <li>Spreads the cost of insured risks among a group of people sharing similar risks.</li>
+      <li>Protects individuals who experience losses.</li>
+    </ul>
+  </li>
+  <li><strong>Actuarial Role</strong>:
+    <ul>
+      <li>Converts the financial uncertainty of claims into predictable premiums.</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h4 id="the-weak-law-of-large-numbers-lln"><strong>The (weak) Law of Large Numbers (LLN)</strong></h4>
+<ol>
+  <li><strong>Definition</strong>:
+    <ul>
+      <li>
+        <p>For i.i.d. random variables \(X_1, X_2, \dots, X_n\) with mean \(\mu\):</p>
+
+\[\lim_{n \to \infty} P\left(\left|\frac{1}{n} \sum_{i=1}^n X_i - \mu\right| \geq \epsilon\right) = 0, \quad \forall \epsilon &gt; 0\]
+
+        <p><strong><em>Intuition</em></strong>: With more observations, the randomness (or variability) in the sample mean decreases, making the sample mean closer to the true mean 
+𝜇
+μ.</p>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Implication in Insurance</strong>:
+    <ul>
+      <li>Pooling similar risks increases predictability of total claims.</li>
+      <li>Larger portfolio size reduces variability due to LLN.</li>
+    </ul>
+  </li>
+  <li><strong>Significance</strong>:
+    <ul>
+      <li>LLN is the theoretical foundation of insurance.</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h4 id="premium-components"><strong>Premium Components</strong></h4>
+
+<p>The <strong>Commercial Gross Premium</strong> is the total amount an insurer charges a policyholder to provide coverage. It is the sum of various components, each representing a specific cost or adjustment to ensure the insurer’s financial stability and profitability.</p>
+
+<h4 id="components"><strong>Components</strong></h4>
+<ol>
+  <li><strong>Pure Risk Premium (+)</strong>:
+    <ul>
+      <li>The expected cost of claims.</li>
+      <li>Reflects the average amount the insurer expects to pay for claims during the policy term.</li>
+      <li>This is the baseline cost directly related to the insured risks.</li>
+    </ul>
+  </li>
+  <li><strong>Risk Margin (+)</strong>:
+    <ul>
+      <li>A safety buffer to account for uncertainty in claim predictions.</li>
+      <li>Insurers may not always perfectly predict future claims, so they add a margin to avoid underpricing.</li>
+    </ul>
+  </li>
+  <li><strong>Profit Margin (+)</strong>:
+    <ul>
+      <li>Represents the profit the insurer intends to make from issuing the policy.</li>
+      <li>Ensures the company remains profitable while providing coverage.</li>
+    </ul>
+  </li>
+  <li><strong>Financial Gains (-)</strong>:
+    <ul>
+      <li>Financial gains, such as <strong>investment income</strong>, come from the insurer investing premiums collected from policyholders before claims are paid out.</li>
+      <li><strong>Why subtract it?</strong>
+        <ul>
+          <li>Since the insurer earns money from investments, it offsets part of the premium cost.</li>
+          <li>The insurer doesn’t need to charge the policyholder the full premium amount if they expect to earn additional income from investing those funds. Subtracting financial gains ensures that the policyholder isn’t overcharged.</li>
+        </ul>
+
+        <p><strong>Example</strong>:</p>
+        <ul>
+          <li>Suppose the insurer collects $1,000 in premiums and expects to earn $100 from investing that money. Instead of charging the full $1,000 to cover costs, they can reduce the premium to $900 and rely on the $100 investment income to cover the difference.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Underwriting Expenses (+)</strong>:
+    <ul>
+      <li>Costs associated with creating and managing the insurance policy.</li>
+      <li>Includes agent commissions, marketing expenses, and administrative costs.</li>
+    </ul>
+  </li>
+  <li><strong>Loss Adjustment Expenses (LAE) (+)</strong>:
+    <ul>
+      <li>Costs incurred to assess, process, and settle claims.</li>
+      <li>For example, hiring adjusters, investigating claims, and handling disputes.</li>
+    </ul>
+  </li>
+  <li><strong>Taxes (+)</strong>:
+    <ul>
+      <li>Government-imposed obligations (e.g., premium taxes, regulatory fees).</li>
+      <li>Insurers pass these costs on to policyholders by including them in the premium.</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+
+    </main>
+</body>
+</html>

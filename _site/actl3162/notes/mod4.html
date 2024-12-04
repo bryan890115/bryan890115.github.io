@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Module 4: Approximations for Compound Distributions</title>
+        <link rel="stylesheet" href="/styles.css">
+        <script type="text/javascript" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+    </head>
+    
+<body>
+    <header>
+        <h1></h1>
+    </header>
+    <main>
+        <h1 id="approximations-for-compound-distributions"><strong>Approximations for Compound Distributions</strong></h1>
+
+<h2 id="outline"><strong>Outline</strong></h2>
+<ol>
+  <li><strong>Approximations using Central Limit Theorem</strong>:
+    <ul>
+      <li>Introduction</li>
+      <li>Approximations assuming a symmetrical distribution</li>
+      <li>Approximations allowing for skewness</li>
+      <li>Approximating the IRM by the CRM</li>
+    </ul>
+  </li>
+  <li><strong>Recursion</strong>:
+    <ul>
+      <li>The (a, b) family</li>
+      <li>Panjer’s recursion algorithm</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h2 id="approximations-using-central-limit-theorem"><strong>Approximations Using Central Limit Theorem</strong></h2>
+
+<h3 id="compound-distribution"><strong>Compound Distribution</strong></h3>
+<p>The total claim amount \(S\) is given by the following compound distribution:
+\(S = \sum_{i=1}^N Y_i,\)
+where:</p>
+<ul>
+  <li><em>\(N\)</em>: Nonnegative and integer-valued random variable (number of claims).</li>
+  <li><em>\(Y_1, Y_2, \dots\)</em>: i.i.d. nonnegative random variables (claim sizes) with common distribution \(G\).</li>
+  <li><em>\(N\)</em> and \(Y_i\) are independent.</li>
+</ul>
+
+<h3 id="why-approximations"><strong>Why Approximations?</strong></h3>
+<ul>
+  <li>Calculating the exact distribution of \(S\) is complex due to repeated convolutions.</li>
+  <li>Models are prone to inaccuracies due to limited data availability.</li>
+  <li>Approximations provide a practical alternative for estimating \(S\).</li>
+</ul>
+
+<hr />
+
+<h3 id="clt-approximation-symmetrical-distribution"><strong>CLT Approximation (Symmetrical Distribution)</strong></h3>
+<ul>
+  <li>Assume \(S \sim \text{CompPoi}(\lambda v, G)\), where \(G\) has a finite second moment.</li>
+  <li>
+    <p>By the Central Limit Theorem (CLT):
+  \(F_S(s) = P(S \leq s) = P\left(\frac{S - \mathbb{E}[S]}{\sqrt{\text{Var}(S)}} \leq \frac{s - \mathbb{E}[S]}{\sqrt{\text{Var}(S)}}\right)\)
+  \(\approx P\left(Z \leq \frac{s - \mathbb{E}[S]}{\sqrt{\text{Var}(S)}}\right) 
+  = \Phi\left(\frac{s - \mathbb{E}[S]}{\sqrt{\text{Var}(S)}}\right),\)</p>
+
+    <p>where:</p>
+    <ul>
+      <li><em>\(\Phi(\cdot)\)</em>: CDF of the standard normal distribution.</li>
+      <li><em>\(\mathbb{E}[S]\)</em> and \(\text{Var}(S)\): Mean and variance of \(S\).</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="when-does-it-work-well"><strong>When Does It Work Well?</strong></h4>
+<ul>
+  <li><em>\(v\)</em> (frequency) is large.</li>
+  <li><em>\(G\)</em> is not heavy-tailed.</li>
+</ul>
+
+<h4 id="limitations"><strong>Limitations</strong></h4>
+<ul>
+  <li>The normal approximation performs poorly under the following conditions:
+    <ul>
+      <li><strong>Individual Model</strong>: When \(n\) (number of components) is small.</li>
+      <li><strong>Collective Model</strong>:
+        <ul>
+          <li>When \(\lambda\) (rate parameter in compound Poisson) is small.</li>
+          <li>When \(r\) (number of successes in compound negative binomial) is small.</li>
+        </ul>
+      </li>
+      <li><strong>Distribution Skewness</strong>: When \(G\) is highly skewed.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="np2-approximation-allowing-for-skewness"><strong>NP2 Approximation (Allowing for Skewness)</strong></h3>
+<ul>
+  <li>Incorporates skewness \(\gamma_1\) into the CLT approximation:
+\(F_S(s) \approx \Phi(s),\)
+where:
+    <ul>
+      <li>
+\[s = \sqrt{\frac{9}{\gamma_1 ^2} + \frac{6x}{\gamma_1} + 1 } - \frac{3}{\gamma_1} , \quad x = s + \frac{\gamma_1}{6}(s^2 - 1).\]
+      </li>
+      <li>Skewness \(\gamma_1\) is given by:
+\(\gamma_1 = \frac{\mathbb{E}[(S - \mathbb{E}[S])^3]}{\text{Var}(S)^{3/2}}.\)</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="when-to-use"><strong>When to Use?</strong></h4>
+<ul>
+  <li>Effective for values \(x &gt; \mathbb{E}[S] + \sqrt{\text{Var}(S)}\).</li>
+  <li>Accounts for the skewness often seen in insurance data, improving accuracy in cases where the distribution is not symmetric.</li>
+</ul>
+
+<h2 id="example-approximation-np2"><strong>Example: Approximation NP2</strong></h2>
+
+<h3 id="key-idea"><strong>Key Idea</strong></h3>
+
+<p>The goal is to refine the Central Limit Theorem (CLT) approximation by accounting for skewness \(\gamma_1\) in the distribution of aggregate losses \(S\).</p>
+
+<ol>
+  <li><strong>Standardized Approximation</strong>:
+    <ul>
+      <li>Standardize the aggregate losses:
+\(\tilde{S} = \frac{S - \mathbb{E}[S]}{\sqrt{\text{Var}(S)}} \approx Z + \frac{\gamma_1}{6}(Z^2 - 1),\)
+where:
+        <ul>
+          <li><em>\(Z \sim \text{Normal}(0, 1)\)</em>.</li>
+          <li>The skewness adjustment term \(\frac{\gamma_1}{6}(Z^2 - 1)\) captures the asymmetry of the distribution.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Key Checks for Moments</strong>:
+    <ul>
+      <li>To validate this approximation, we check the moments of the left-hand side (LHS) and right-hand side (RHS) for \(k = 1, 2, 3\):
+        <ul>
+          <li><strong>For \(k = 1\) (Mean)</strong>:
+            <ul>
+              <li><em>\(\mathbb{E}[\text{LHS}] = 0\)</em>.</li>
+              <li><em>\(\mathbb{E}[\text{RHS}] = 0\)</em>.</li>
+              <li>These match perfectly.</li>
+            </ul>
+          </li>
+          <li><strong>For \(k = 2\) (Variance)</strong>:
+            <ul>
+              <li><em>\(\mathbb{E}[\text{LHS}^2] \approx 1\)</em>.</li>
+              <li><em>\(\mathbb{E}[\text{RHS}^2] \approx 1 + \frac{\gamma_1^2}{36}\)</em>.</li>
+              <li>The variance is slightly adjusted due to the skewness term.</li>
+            </ul>
+          </li>
+          <li><strong>For \(k = 3\) (Skewness)</strong>:
+            <ul>
+              <li><em>\(\mathbb{E}[\text{LHS}^3] \approx \gamma_1\)</em>.</li>
+              <li><em>\(\mathbb{E}[\text{RHS}^3] \approx \gamma_1 + \frac{\gamma_1^3}{27}\)</em>.</li>
+              <li>The skewness approximation is accurate for small \(\gamma_1\).</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Bounds for \(Z\)</strong></p>
+
+    <h4 id="31-approximating-ptildes-leq-s">3.1 <strong>Approximating \(P(\tilde{S} \leq s)\)</strong></h4>
+    <ul>
+      <li>When incorporating skewness \(\gamma_1\) into the approximation, we have:
+\(P\left(\tilde{S} \leq s\right) = P\left(Z + \frac{\gamma_1}{6}(Z^2 - 1) \leq s\right),\)
+where:
+        <ul>
+          <li><em>\(Z \sim \text{Normal}(0, 1)\)</em>.</li>
+          <li><em>\(\frac{\gamma_1}{6}(Z^2 - 1)\)</em> is the skewness adjustment term.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h4 id="32-why-bounds-are-needed">3.2 <strong>Why Bounds are Needed</strong></h4>
+    <ul>
+      <li>Unlike the standard normal CLT approximation, the inclusion of \(\frac{\gamma_1}{6}(Z^2 - 1)\) introduces a <strong>non-linear transformation</strong>.</li>
+      <li>To approximate this probability:
+        <ul>
+          <li>We need to determine the range of \(Z\) (denoted by \(s_-\) and \(s_+\)) where this condition holds.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h4 id="33-deriving-the-bounds-s_--and-s_">3.3 <strong>Deriving the Bounds \(s_-\) and \(s_+\)</strong></h4>
+    <ul>
+      <li>Rearrange the inequality:
+\(Z + \frac{\gamma_1}{6}(Z^2 - 1) \leq s.\)</li>
+      <li>Multiply both sides by 6 to eliminate fractions:
+\(6Z + \gamma_1(Z^2 - 1) \leq 6s.\)</li>
+      <li>Bring all terms to one side:
+\(\gamma_1 Z^2 + 6Z - \gamma_1 - 6s \leq 0.\)</li>
+      <li>This is a quadratic in \(Z\):
+\(\gamma_1 Z^2 + 6Z - (\gamma_1 + 6s) = 0.\)</li>
+      <li>Solve for \(Z\) using the quadratic formula:
+\(Z = \frac{-6 \pm \sqrt{36 + 4\gamma_1(\gamma_1 + 6s)}}{2\gamma_1}.\)
+        <ul>
+          <li>Simplify:
+\(Z = -\frac{3}{\gamma_1} \pm \sqrt{\frac{9}{\gamma_1 ^2} + \frac{6x}{\gamma_1} + 1 }.\)</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h4 id="34-interpreting-s_--and-s_">3.4 <strong>Interpreting \(s_-\) and \(s_+\)</strong></h4>
+    <ul>
+      <li>The solutions represent the bounds:
+\(s_- = -\frac{3}{\gamma_1} - \sqrt{\frac{9}{\gamma_1 ^2} + \frac{6x}{\gamma_1} + 1 }, \quad s_+ = -\frac{3}{\gamma_1} + \sqrt{\frac{9}{\gamma_1 ^2} + \frac{6x}{\gamma_1} + 1 }.\)</li>
+      <li>These bounds define the adjusted range of \(Z\) that satisfies the inequality, incorporating skewness.</li>
+      <li>The probability is then:
+\(P\left(Z + \frac{\gamma_1}{6}(Z^2 - 1) \leq s\right) = P(s_- \leq Z \leq s_+).\)</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="summary"><strong>Summary</strong></h3>
+<ul>
+  <li>This approach incorporates skewness \(\gamma_1\) to refine the normal approximation of aggregate losses.</li>
+  <li>For small values of \(\gamma_1\) (low skewness), the approximation is effective, and moments align well between LHS and RHS.</li>
+  <li>The bounds \(s_-\) and \(s_+\) illustrate how skewness shifts the range of \(Z\), improving accuracy for skewed data.</li>
+  <li>This provides a more accurate representation of the distribution, particularly for skewed data.</li>
+</ul>
+
+<hr />
+
+<h2 id="approximating-irm-by-crm"><strong>Approximating IRM by CRM</strong></h2>
+
+<p><strong>Individual Risk Model (IRM)</strong></p>
+<ul>
+  <li><strong>Definition</strong>:
+\(\tilde{S} = \sum_{i=1}^n I_i b_i\)
+    <ul>
+      <li><em>\(I_i\)</em>: Indicator variable for policy \(i\) with:
+\(P(I_i = 1) = q_i, \quad P(I_i = 0) = 1 - q_i.\)</li>
+      <li><em>\(b_i\)</em>: Claim size for policy \(i\).</li>
+    </ul>
+  </li>
+  <li><strong>Characteristics</strong>:
+    <ul>
+      <li>Models claims at an individual level.</li>
+      <li>Probability \(q_i\) determines if a claim occurs for policy \(i\).</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Collective Risk Model (CRM)</strong></p>
+<ul>
+  <li><strong>Definition</strong>:
+\(S = \sum_{i=1}^n N_i b_i\)
+    <ul>
+      <li><em>\(N_i \sim \text{Poisson}(\lambda_i)\)</em>: Number of claims for policy \(i\).</li>
+      <li><em>\(b_i\)</em>: Claim size for policy \(i\).</li>
+    </ul>
+  </li>
+  <li><strong>Characteristics</strong>:
+    <ul>
+      <li>Models aggregate claims by assuming a compound Poisson process.</li>
+      <li><em>\(\lambda_i\)</em> reflects the expected number of claims.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="relationship-between-irm-and-crm"><strong>Relationship Between IRM and CRM</strong></h3>
+<ul>
+  <li>
+    <p>The aggregate loss \(S\) in CRM can approximate \(\tilde{S}\) in IRM:
+\(\tilde{S} = \sum_{i=1}^n I_i b_i \approx \sum_{i=1}^n N_i b_i = S.\)</p>
+  </li>
+  <li>
+    <p><strong>Distributions</strong>:</p>
+    <ul>
+      <li><em>\(I_i\)</em> in IRM is replaced by \(N_i \sim \text{Poisson}(\lambda_i)\) in CRM.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="the-distribution-of-aggregate-losses"><strong>The Distribution of Aggregate Losses</strong></h3>
+
+<h4 id="compound-poisson-representation"><strong>Compound Poisson Representation</strong></h4>
+<ul>
+  <li>In CRM:
+\(S = \sum_{i=1}^n S_i, \quad S_i \sim \text{CompPoi}(\lambda_i, G_i),\)
+where:
+    <ul>
+      <li><em>\(G_i(x) = \mathbb{1}[b_i, \infty)(x)\)</em>: Indicator distribution for \(b_i\).</li>
+      <li>
+\[\lambda = \sum_{i=1}^n \lambda_i, \quad G(x) = \frac{\sum_{i=1}^n \lambda_i G_i(x)}{\lambda}.\]
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Key Points</strong>:</p>
+<ol>
+  <li>The sum of independent compound Poisson distributions remains a compound Poisson.</li>
+  <li>Parameters:
+    <ul>
+      <li>Total intensity: \(\lambda = \sum \lambda_i\).</li>
+      <li>Weighted distribution: \(G(x)\).</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h3 id="approximations-of-irm-by-crm"><strong>Approximations of IRM by CRM</strong></h3>
+
+<h4 id="expected-value-and-variance"><strong>Expected Value and Variance</strong></h4>
+<ul>
+  <li><strong>IRM</strong>:
+\(\mathbb{E}[\tilde{S}] = \sum_{i=1}^n q_i b_i, \quad \text{Var}(\tilde{S}) = \sum_{i=1}^n q_i (1 - q_i) b_i^2.\)</li>
+  <li><strong>CRM</strong>:
+\(\mathbb{E}[S] = \sum_{i=1}^n \lambda_i b_i, \quad \text{Var}(S) = \sum_{i=1}^n \lambda_i b_i^2.\)</li>
+</ul>
+
+<h4 id="choices-for-lambda_i"><strong>Choices for \(\lambda_i\)</strong></h4>
+<ol>
+  <li><strong>\(\lambda_i = q_i\)</strong>:
+    <ul>
+      <li>Matches the expected number of claims:
+\(\mathbb{E}[\tilde{S}] = \mathbb{E}[S].\)</li>
+      <li><em>\(\text{Var}(\tilde{S}) &lt; \text{Var}(S).\)</em></li>
+    </ul>
+  </li>
+  <li><strong>\(\lambda_i = -\ln(1 - q_i)\)</strong>:
+    <ul>
+      <li>Matches the probability of no claims:
+\(P[S = 0] = P[\tilde{S} = 0].\)</li>
+      <li><em>\(\mathbb{E}[\tilde{S}] &lt; \mathbb{E}[S], \quad \text{Var}(\tilde{S}) &lt; \text{Var}(S).\)</em></li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h2 id="recursion"><strong>Recursion</strong></h2>
+
+<h3 id="the-a-b-family"><strong>The (a, b) Family</strong></h3>
+<p>For a nonnegative integer-valued random variable \(N\) with probability function \(p_n = P(N = n)\):
+\(p_n = \left(a + \frac{b}{n}\right)p_{n-1}, \quad n \geq 1,\)
+with initial value \(p_0\).</p>
+
+<h4 id="examples"><strong>Examples</strong>:</h4>
+<p>| Distribution      | \(a\)    | \(b\)               | \(p_0\)                |
+|——————-|————|———————–|————————–|
+| Poisson(\(\lambda\)) | \(0\)    | \(\lambda\)         | \(e^{-\lambda}\)       |
+| Neg Bin(\(r, p\)) | \(1 - p\) | \((r-1)(1-p)\)       | \(p^r\)                |
+| Binomial(\(m, p\)) | \(-\frac{p}{1-p}\) | \((m+1)\frac{p}{1-p}\) | \((1-p)^m\) |</p>
+
+<hr />
+
+<h3 id="panjers-recursion-algorithm"><strong>Panjer’s Recursion Algorithm</strong></h3>
+
+<h4 id="general-formula"><strong>General Formula</strong>:</h4>
+<p>For \(S = \sum_{j=1}^N Y_j\), with:</p>
+<ul>
+  <li><em>\(N\)</em>: Panjer distribution (\(a, b\)).</li>
+  <li><em>\(Y\)</em>: Discrete with PMF \(g_m = P(Y = m)\).</li>
+</ul>
+
+<p>Recursive formula:
+\(f_r = 
+\begin{cases} 
+p_0, &amp; \text{if } r = 0, \\ 
+\sum_{k=1}^r \left(a + \frac{b \cdot k}{r}\right) g_k f_{r-k}, &amp; \text{if } r \geq 1.
+\end{cases}\)</p>
+
+<h4 id="special-case-compound-poisson"><strong>Special Case: Compound Poisson</strong></h4>
+<p>When \(N \sim \text{Poisson}(\lambda)\):
+\(f_r = 
+\begin{cases} 
+e^{-\lambda}, &amp; \text{if } r = 0, \\ 
+\frac{\lambda}{r} \sum_{k=1}^r k g_k f_{r-k}, &amp; \text{if } r \geq 1.
+\end{cases}\)</p>
+
+<hr />
+
+<h3 id="properties-and-applications"><strong>Properties and Applications</strong></h3>
+<ol>
+  <li><strong>Key Properties</strong>:
+    <ul>
+      <li>The algorithm is <strong>stable</strong> for:
+        <ul>
+          <li><em>\(N \sim \text{Poisson}\)</em>.</li>
+          <li><em>\(N \sim \text{Negative Binomial}\)</em>.</li>
+        </ul>
+      </li>
+      <li>It is <strong>less stable</strong> for \(N \sim \text{Binomial}\).</li>
+      <li>Discretization is required for continuous distributions \(G\).</li>
+    </ul>
+  </li>
+  <li><strong>Use Cases</strong>:
+    <ul>
+      <li>Efficient calculation of aggregate claims distributions when \(Y\) is discrete.</li>
+      <li>Useful for models where \(N\) follows distributions in the (a, b) family.</li>
+    </ul>
+  </li>
+  <li><strong>Extensions</strong>:
+    <ul>
+      <li>For continuous \(Y\), approximate \(G\) using discretization methods to apply Panjer’s recursion.</li>
+    </ul>
+  </li>
+  <li><strong>Benefits</strong>:
+    <ul>
+      <li>Avoids direct convolution for calculating \(S\).</li>
+      <li>Recursively builds the probabilities \(f_r\).</li>
+    </ul>
+  </li>
+  <li><strong>Limitations</strong>:
+    <ul>
+      <li>Sensitive to choice of distribution for \(N\) and \(G\).</li>
+      <li>Approximation accuracy decreases with increasing complexity in \(G\).</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h2 id="key-takeaways"><strong>Key Takeaways</strong></h2>
+<ul>
+  <li><strong>Approximations</strong>:
+    <ul>
+      <li>CLT is effective for large \(v\) and symmetrical \(G\).</li>
+      <li>NP2 incorporates skewness for more accurate results.</li>
+    </ul>
+  </li>
+  <li><strong>CRM Approximation</strong>:
+    <ul>
+      <li>Effective alternative to IRM, with manageable parameters.</li>
+    </ul>
+  </li>
+  <li><strong>Panjer’s Recursion</strong>:
+    <ul>
+      <li>Efficient method for calculating aggregate loss distributions for discrete \(Y\). Stable for Poisson and Negative Binomial \(N\).</li>
+    </ul>
+  </li>
+</ul>
+
+    </main>
+</body>
+</html>

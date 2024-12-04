@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Module 2: Individual Claim Size Modeling</title>
+        <link rel="stylesheet" href="/styles.css">
+        <script type="text/javascript" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+    </head>
+    
+<body>
+    <header>
+        <h1></h1>
+    </header>
+    <main>
+        <h1 id="module-2-individual-claim-size-modeling"><strong>Module 2: Individual Claim Size Modeling</strong></h1>
+
+<hr />
+
+<h2 id="outline"><strong>Outline</strong></h2>
+<ol>
+  <li><strong>Incomplete Data</strong>:
+    <ul>
+      <li>Left-Truncation and Right-Censoring</li>
+      <li>Handling Zero Claims</li>
+    </ul>
+  </li>
+  <li><strong>Coverage Modifications and Reinsurance</strong>:
+    <ul>
+      <li>Deductible and Policy Limit</li>
+      <li>Proportional and Non-Proportional Reinsurance</li>
+    </ul>
+  </li>
+  <li><strong>Key Identities and Premium Calculations</strong>:
+    <ul>
+      <li>Useful Identity</li>
+      <li>Excess of Loss Premium (Continuous and Discrete Cases)</li>
+    </ul>
+  </li>
+  <li><strong>Example</strong>:
+    <ul>
+      <li>Excess of Loss Premium for Exponential Distribution</li>
+    </ul>
+  </li>
+  <li><strong>Likelihood for Right-Censored Data</strong></li>
+</ol>
+
+<hr />
+
+<h2 id="incomplete-data"><strong>Incomplete Data</strong></h2>
+<ol>
+  <li><strong>Complete vs. Incomplete Data</strong>:
+    <ul>
+      <li><strong>Complete Data</strong>: Exact values for all observations are available.</li>
+      <li><strong>Incomplete Data</strong>:
+        <ul>
+          <li>Data may be grouped.</li>
+          <li><strong>Truncation</strong>: Observations below a threshold are not recorded.</li>
+          <li><strong>Censoring</strong>: Observations above a threshold are limited to a maximum value.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Left-Truncation and Right-Censoring</strong>:
+    <ul>
+      <li><strong>Left-Truncation</strong> at threshold \(d\):
+        <ul>
+          <li>Values below \(d\) are not recorded.</li>
+          <li>Values above \(d\) are recorded exactly.</li>
+        </ul>
+      </li>
+      <li><strong>Right-Censoring</strong> at threshold \(l\):
+        <ul>
+          <li>Values below \(l\) are recorded as observed.</li>
+          <li>Values above \(l\) are recorded as \(l\).</li>
+        </ul>
+      </li>
+      <li>Observations may exhibit <strong>both</strong> truncation and censoring.</li>
+    </ul>
+  </li>
+  <li><strong>Zero Claims</strong>:
+    <ul>
+      <li>Common when:
+        <ul>
+          <li>Final claims do not exceed the deductible.</li>
+          <li>Insurers are not liable for the claim.</li>
+          <li>The insured withdraws the claim.</li>
+        </ul>
+      </li>
+      <li><strong>Handling Zero Claims (assuming a compound Poisson structure)</strong>:
+        <ul>
+          <li>Estimate the proportion of zero claims and adjust the distribution \(G(y)\) by adding a probability mass at \(0\).
+            <ul>
+              <li>adding a spike (a probability mass) at \(0\) in the claim size distribution \(G(y)\), the distribution captures the high frequency of zero claims accurately</li>
+            </ul>
+          </li>
+          <li>Reduce the expected claim frequency (\(\lambda\)) to exclude zero claims.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h2 id="coverage-modifications-and-reinsurance"><strong>Coverage Modifications and Reinsurance</strong></h2>
+
+<ol>
+  <li><strong>Deductible and Policy Limit</strong>:
+    <ul>
+      <li><strong>Deductible (\(d &gt; 0\))</strong>:
+        <ul>
+          <li>The insurer pays claim amounts exceeding \(d\).</li>
+        </ul>
+      </li>
+      <li><strong>Policy Limit (\(l &gt; 0\))</strong>:
+        <ul>
+          <li>The insurer pays claims up to \(l\).</li>
+        </ul>
+      </li>
+      <li>Liability for a claim size \(Y\):
+\(\text{Liability} = \min[\max(Y - d, 0), l]\)</li>
+    </ul>
+  </li>
+  <li><strong>Reinsurance</strong>:
+    <ul>
+      <li><strong>Purpose</strong>: Transfers part of the risk from a primary insurer to a reinsurer.</li>
+      <li>Modern financial instruments include catastrophe bonds and insurance-linked securities (ILS).</li>
+    </ul>
+  </li>
+  <li><strong>Proportional Reinsurance</strong>:
+    <ul>
+      <li><strong>Quota Share</strong>: A fixed proportion (\(\alpha\)) applies to individual claims.
+        <ul>
+          <li>Insurer’s payment: \(Y_I = \alpha Y\)</li>
+          <li>Reinsurer’s payment: \(Y_R = (1 - \alpha) Y\)</li>
+        </ul>
+      </li>
+      <li><strong>Surplus Share</strong>: The proportion applies to aggregate claims.
+        <ul>
+          <li>Insurer’s payment: \(S_I = \alpha S\)</li>
+          <li>Reinsurer’s payment: \(S_R = (1 - \alpha) S\)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Non-Proportional Reinsurance</strong>:
+    <ul>
+      <li><strong>Excess of Loss (Individual Claims)</strong>:
+        <ul>
+          <li>Insurer’s payment: \(Y_I = \min(Y, d)\)</li>
+          <li>Reinsurer’s payment: \(Y_R = \max(Y - d, 0)\)</li>
+        </ul>
+      </li>
+      <li><strong>Stop Loss (Aggregate Claims)</strong>:
+        <ul>
+          <li>Insurer’s payment: \(S_I = \min(S, d)\)</li>
+          <li>Reinsurer’s payment: \(S_R = \max(S - d, 0)\)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h2 id="key-identities-and-premium-calculations"><strong>Key Identities and Premium Calculations</strong></h2>
+
+<ol>
+  <li><strong>Useful Identity</strong>:
+\((Y \wedge d) + \max(Y - d, 0) = Y\)</li>
+</ol>
+
+<ul>
+  <li>Explanation:
+    <ul>
+      <li><em>\(Y \wedge d\)</em>: The part of \(Y\) capped at \(d\) (<strong>truncated component</strong>).</li>
+      <li><em>\(\max(Y - d, 0)\)</em>: The part of \(Y\) exceeding \(d\) (<strong>excess component</strong>).</li>
+    </ul>
+  </li>
+  <li>These two components sum to \(Y\):
+    <ul>
+      <li>If <em>\(Y \leq d\)</em>:
+        <ul>
+          <li><em>\(Y \wedge d = Y\)</em></li>
+          <li><em>\(\max(Y - d, 0) = 0\)</em></li>
+          <li>so \(Y \wedge d + \max(Y - d, 0) = Y\).</li>
+        </ul>
+      </li>
+      <li>If <em>\(Y &gt; d\)</em>:
+        <ul>
+          <li><em>\(Y \wedge d = d\)</em></li>
+          <li><em>\(\max(Y - d, 0) = Y - d\)</em></li>
+          <li>so \(d + (Y - d) = Y\).</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Taking expectations:
+  \(\mathbb{E}[Y \wedge d] = \mathbb{E}[Y] - \mathbb{E}[\max(Y - d, 0)]\)
+    <ul>
+      <li><strong>Insurer</strong>:
+        <ul>
+          <li><em>\(\mathbb{E}[Y \wedge d]\)</em>: Expected value of \(Y\) capped at \(d\) (amount retained by the insurer).</li>
+        </ul>
+      </li>
+      <li><strong>Reinsurer</strong>:
+        <ul>
+          <li><em>\(\mathbb{E}[\max(Y - d, 0)]\)</em>: Expected value of the excess beyond \(d\) (amount covered by the reinsurer).</li>
+        </ul>
+      </li>
+      <li><strong>Loss</strong>:
+        <ul>
+          <li><em>\(\mathbb{E}[Y]\)</em>: Total expected loss (sum of the insurer’s and reinsurer’s shares).</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="2-excess-of-loss-premium">2. <strong>Excess of Loss Premium</strong></h2>
+<ul>
+  <li>
+    <p>For a non-negative loss \(Y\) with distribution \(G(y)\):</p>
+
+    <ul>
+      <li><strong>Continuous Case</strong>:
+\(\mathbb{E}[\max(Y - d, 0)] = \int_d^\infty (1 - G(y)) \, dy\)
+        <ul>
+          <li><strong>Derivation</strong>:
+            <ul>
+              <li>Start with the definition:
+\(\mathbb{E}[\max(Y - d, 0)] = \int_d^\infty (y - d) g(y) \, dy\)</li>
+              <li>Apply <strong>integration by parts</strong>:
+\(\int u \, dv = uv - \int v \, du\)</li>
+              <li>Let:
+                <ul>
+                  <li><em>\(u = y - d\)</em>, so \(du = dy\)</li>
+                  <li><em>\(dv = g(y) \, dy\)</em>, so \(v = 1 - G(y)\)</li>
+                </ul>
+              </li>
+              <li>Substitute into the formula:
+\(\mathbb{E}[\max(Y - d, 0)] = \left[(y - d)(1 - G(y))\right]_d^\infty - \int_d^\infty (1 - G(y)) \, dy\)</li>
+              <li>Simplify:
+                <ul>
+                  <li>As \(y \to \infty\), \((y - d)(1 - G(y)) \to 0\) (assuming \(G(y) \to 1\) as \(y \to \infty\)).</li>
+                  <li>At \(y = d\), \((d - d)(1 - G(d)) = 0\).</li>
+                </ul>
+              </li>
+              <li>Final result:
+\(\mathbb{E}[\max(Y - d, 0)] = \int_d^\infty (1 - G(y)) \, dy\)</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><strong>Discrete Case</strong>:
+\(\mathbb{E}[\max(Y - d, 0)] = \sum_{y = d}^\infty (1 - G(y))\)
+        <ul>
+          <li><strong>Derivation</strong>:
+            <ul>
+              <li>Start with the definition:
+\(\mathbb{E}[\max(Y - d, 0)] = \sum_{y = d}^\infty (y - d) P(Y = y)\)</li>
+              <li>Express the probability \(P(Y = y)\) in terms of the cumulative distribution:
+\(P(Y = y) = G(y) - G(y-1)\)</li>
+              <li>Substitute into the summation:
+\(\mathbb{E}[\max(Y - d, 0)] = \sum_{y = d}^\infty (1 - G(y))\)</li>
+              <li>Intuition:
+                <ul>
+                  <li>For each \(y \geq d\), the term \((1 - G(y))\) represents the cumulative probability that the loss \(Y\) exceeds \(y\).</li>
+                  <li>The summation accounts for the contributions from all excess amounts beyond \(d\).</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="example"><strong>Example</strong></h2>
+<ul>
+  <li><strong>Exponential Distribution (\(Y \sim \text{Exp}(\lambda)\))</strong>:
+    <ul>
+      <li>The cumulative distribution function (CDF) is:
+\(G(y) = 1 - e^{-\lambda y}, \quad y \geq 0\)</li>
+      <li>The probability density function (PDF) is:
+\(g(y) = \lambda e^{-\lambda y}, \quad y \geq 0\)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="method-1-using-the-integral-formula"><strong>Method 1: Using the Integral Formula</strong></h3>
+<ul>
+  <li>The formula for excess of loss is:
+\(\mathbb{E}[\max(Y - d, 0)] = \int_d^\infty (1 - G(y)) \, dy\)</li>
+  <li>Substitute \(1 - G(y) = e^{-\lambda y}\):
+\(\mathbb{E}[\max(Y - d, 0)] = \int_d^\infty e^{-\lambda y} \, dy\)</li>
+  <li>Evaluate the integral:
+\(\int e^{-\lambda y} \, dy = \frac{-1}{\lambda} e^{-\lambda y}\)</li>
+  <li>Apply the bounds:
+\(\mathbb{E}[\max(Y - d, 0)] = \left[ \frac{-1}{\lambda} e^{-\lambda y} \right]_d^\infty = \frac{1}{\lambda} e^{-\lambda d}\)</li>
+</ul>
+
+<hr />
+
+<h3 id="method-2-using-probability-and-conditional-expectation"><strong>Method 2: Using Probability and Conditional Expectation</strong></h3>
+<ul>
+  <li>Decompose the expectation using the <strong>Law of Total Expectation</strong>:
+\(\mathbb{E}[X] = \mathbb{E}[\mathbb{E}[X \mid A]]\)
+    <ul>
+      <li>Here, \(A\) is the event \(Y &gt; d\) (i.e., exceeding the deductible \(d\)).</li>
+      <li>Applying this to \(\mathbb{E}[\max(Y - d, 0)]\), we get:
+\(\mathbb{E}[\max(Y - d, 0)] = P(Y &gt; d) \cdot \mathbb{E}[Y - d \mid Y &gt; d]\)</li>
+    </ul>
+  </li>
+  <li><strong>Step 1: Compute \(P(Y &gt; d)\)</strong>:
+    <ul>
+      <li>The probability of exceeding the deductible is:
+\(P(Y &gt; d) = 1 - G(d) = e^{-\lambda d}\)</li>
+    </ul>
+  </li>
+  <li><strong>Step 2: Compute \(\mathbb{E}[Y - d \mid Y &gt; d]\)</strong>:
+    <ul>
+      <li>Given that \(Y &gt; d\), the conditional distribution of \(Y\) shifts by \(d\) and remains exponential. For the exponential distribution:
+\(\mathbb{E}[Y - d \mid Y &gt; d] = \frac{1}{\lambda}\)</li>
+    </ul>
+  </li>
+  <li>Combine the results:
+    <ul>
+      <li>Substituting \(P(Y &gt; d)\) and \(\mathbb{E}[Y - d \mid Y &gt; d]\):
+\(\mathbb{E}[\max(Y - d, 0)] = e^{-\lambda d} \cdot \frac{1}{\lambda} = \frac{1}{\lambda} e^{-\lambda d}\)</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="explanation-of-method-2"><strong>Explanation of Method 2</strong></h3>
+<ul>
+  <li><strong>Decompose the Expectation</strong>:
+    <ul>
+      <li>The expectation is split into two parts:
+        <ol>
+          <li>The probability that the deductible is exceeded: \(P(Y &gt; d)\).</li>
+          <li>The expected amount of loss above the deductible: \(\mathbb{E}[Y - d \mid Y &gt; d]\).</li>
+        </ol>
+      </li>
+      <li>The <strong>Law of Total Expectation</strong> ensures that the product of these two quantities gives the total contribution of excess loss.</li>
+    </ul>
+  </li>
+  <li><strong>Key Components</strong>:
+    <ul>
+      <li>\(P(Y &gt; d)\): Represents the <strong>frequency</strong> of losses exceeding the deductible \(d\).</li>
+      <li>\(\mathbb{E}[Y - d \mid Y &gt; d]\): Represents the <strong>severity</strong> of losses above the deductible.</li>
+    </ul>
+  </li>
+  <li>By multiplying these terms, this method provides a clear and intuitive breakdown of excess loss into its frequency and severity components.</li>
+</ul>
+
+<hr />
+
+<h2 id="proportional-quota-share-premium"><strong>Proportional (Quota Share) Premium</strong></h2>
+
+<p>For proportional reinsurance, the reinsurer and insurer share claims in a fixed proportion, denoted by \(\alpha\) (reinsurer’s share) and \(1 - \alpha\) (insurer’s share).</p>
+
+<h3 id="premium-formula"><strong>Premium Formula</strong></h3>
+<p>The net premium under a proportional reinsurance arrangement is a fraction of the total premium based on the reinsurer’s share:
+\(\text{Net Premium (Reinsurer)} = \alpha \cdot \mathbb{E}[Y]\)
+where:</p>
+<ul>
+  <li><em>\(Y\)</em>: The loss random variable.</li>
+  <li><em>\(\mathbb{E}[Y]\)</em>: The expected value of the claim size.</li>
+</ul>
+
+<hr />
+
+<h2 id="example-1"><strong>Example</strong></h2>
+<ul>
+  <li><strong>Exponential Distribution (\(Y \sim \text{Exp}(\lambda)\))</strong>:
+    <ul>
+      <li>The cumulative distribution function (CDF) is:
+\(G(y) = 1 - e^{-\lambda y}, \quad y \geq 0\)</li>
+      <li>The probability density function (PDF) is:
+\(g(y) = \lambda e^{-\lambda y}, \quad y \geq 0\)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="step-1-compute-total-expected-value"><strong>Step 1: Compute Total Expected Value</strong></h3>
+<ul>
+  <li>The expected value of \(Y\) for an exponential distribution is:
+\(\mathbb{E}[Y] = \frac{1}{\lambda}\)</li>
+</ul>
+
+<h3 id="step-2-reinsurers-premium"><strong>Step 2: Reinsurer’s Premium</strong></h3>
+<ul>
+  <li>Using the proportional formula:
+\(\text{Net Premium (Reinsurer)} = \alpha \cdot \mathbb{E}[Y]\)
+Substituting:
+\(\text{Net Premium (Reinsurer)} = \alpha \cdot \frac{1}{\lambda}\)</li>
+</ul>
+
+<h3 id="step-3-insurers-premium"><strong>Step 3: Insurer’s Premium</strong></h3>
+<ul>
+  <li>The insurer’s premium is the remaining share of the total premium:
+\(\text{Net Premium (Insurer)} = (1 - \alpha) \cdot \mathbb{E}[Y]\)
+Substituting:
+\(\text{Net Premium (Insurer)} = (1 - \alpha) \cdot \frac{1}{\lambda}\)</li>
+</ul>
+
+<hr />
+
+<h3 id="explanation"><strong>Explanation</strong></h3>
+<ul>
+  <li><strong>Sharing Mechanism</strong>:
+    <ul>
+      <li>Each individual claim is split proportionally between the insurer and reinsurer.</li>
+      <li>For a claim \(Y\):
+        <ul>
+          <li>Reinsurer pays: \(\alpha Y\)</li>
+          <li>Insurer pays: \((1 - \alpha) Y\)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Key Insights</strong>:
+    <ul>
+      <li>Proportional premiums simplify risk-sharing by maintaining the same proportional split across all claims.</li>
+      <li>The reinsurer’s premium reflects their proportion \(\alpha\) of the total expected claim value, while the insurer retains \(1 - \alpha\) of the premium.</li>
+    </ul>
+  </li>
+</ul>
+
+
+    </main>
+</body>
+</html>
