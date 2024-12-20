@@ -847,10 +847,7 @@ $$
 
 ---
 
-
----
-
-### **Excess of Loss Reinsurance (CHECK NOT FINISHED)**
+### **Excess of Loss Reinsurance**
 - **Setup**:
   - Let $$ Y \sim \text{Exp}(1) $$, $$ \theta = 0.25 $$, and $$ \xi = 0.4 $$.
   - The reinsurer covers losses above a threshold $$ d $$:
@@ -859,26 +856,77 @@ $$
     $$
 
 - **Adjustment Coefficient Calculation**:
-  1. Reinsurance premium:
-     $$ 
-     \pi_h = 1.4\lambda \int_d^\infty (x - d)e^{-x}dx = 1.4\lambda e^{-d}.
-     $$
-  2. Expected exponential term:
-     $$ 
-     \mathbb{E}[e^{r(Y - h(Y))}] = \int_0^d e^{r x} e^{-x} dx + \int_d^\infty e^{r d} e^{-x} dx,
-     $$
-     $$ 
-     = \frac{1 - r e^{-d(1 - r)}}{1 - r}.
-     $$
-  3. Solve for $$ R_h $$:
-     $$ 
-     1 + (1.25 - 1.4e^{-d})R_h - \frac{1 - R_h e^{-d(1 - R_h)}}{1 - R_h} = 0.
-     $$
 
-- **Optimal Threshold**:
-  - Using numerical optimization, find:
-    $$ 
-    d^* = 0.9632226, \quad R_h^* = 0.3493290.
-    $$
+  1. **Reinsurance Premium**:
+     - The reinsurance premium $$ \pi_h $$ is calculated as:
+       $$ 
+       \pi_h = (1 + \xi)\lambda \mathbb{E}[h(Y)],
+       $$
+       where:
+       - *$$ \mathbb{E}[h(Y)] $$* is the expected portion of claims paid by the reinsurer:
+         $$ 
+         \mathbb{E}[h(Y)] = \int_d^\infty (Y - d)e^{-Y}dx.
+         $$
+     - **Why $$ \mathbb{E}[h(Y)] $$?**
+       - This integral represents the **average payment made by the reinsurer** for claims $$ Y > d $$:
+         - When $$ Y > d $$, the reinsurer pays $$ Y - d $$, so the integrand becomes $$ (Y - d)f_Y(Y) $$, where $$ f_Y(Y) = e^{-Y} $$ is the PDF of the exponential distribution.
 
-- **Remark**: This $$ R_h^* $$ is significantly higher than proportional reinsurance, demonstrating the effectiveness of excess of loss reinsurance.
+         - To computer $$ \mathbb{E}[h(Y)] $$, we sum up all possible payments $$ h(Y) = (Y-d)$$, weighted by their probabilities $$ f_Y(Y) = e^{-Y}$$ (Y ~ exp(1)).
+        
+         - The integration starts at $$ d $$ because for $$ Y \leq d $$, the reinsurer pays nothing ($$ h(Y) = 0 $$).
+
+
+
+
+     - **Simplify $$ \mathbb{E}[h(Y)] $$**:
+       - Split the integral into two parts:
+         $$ 
+         \mathbb{E}[h(Y)] = \int_d^\infty x e^{-x} dx - \int_d^\infty d e^{-x} dx.
+         $$
+       - First term $$ \int_d^\infty x e^{-x} dx $$:
+         - Use integration by parts:
+           $$ 
+           \int_d^\infty x e^{-x} dx = \left[-x e^{-x}\right]_d^\infty + \int_d^\infty e^{-x} dx = d e^{-d} + e^{-d}.
+           $$
+       - Second term $$ \int_d^\infty d e^{-x} dx $$:
+         - Since $$ d $$ is a constant:
+           $$ 
+           \int_d^\infty d e^{-x} dx = d \int_d^\infty e^{-x} dx = d e^{-d}.
+           $$
+       - Combine results:
+         $$ 
+         \mathbb{E}[h(Y)] = (d e^{-d} + e^{-d}) - d e^{-d} = e^{-d}.
+         $$
+     - **Final Formula for $$ \pi_h $$**:
+       $$ 
+       \pi_h = (1 + \xi)\lambda e^{-d} = 1.4\lambda e^{-d}.
+       $$
+     - **Explanation**:
+       - The reinsurance premium depends on the expected portion of claims paid by the reinsurer. As $$ d $$ increases, fewer claims exceed $$ d $$, reducing $$ \pi_h $$.
+
+  2. **Expected Exponential Term**:
+     $$ 
+     \mathbb{E}[e^{r(Y - h(Y))}] = \int_0^d e^{r x} e^{-x} dx + \int_d^\infty e^{r d} e^{-x} dx.
+     $$
+     - **$$ \mathbb{E}[e^{r (Y - h(Y))}] $$:** The moment-generating function (MGF) of the retained claim $$ Y - h(Y) $$
+     - The first term corresponds to claims $$ Y \leq d $$ (no reinsurance coverage).
+     - The second term corresponds to claims $$ Y > d $$ (reinsurer pays $$ h(Y) = Y - d $$, insurers pays $$ d $$).
+     - Simplify:
+       $$ 
+       \mathbb{E}[e^{r(Y - h(Y))}] = \frac{1 - r e^{-d(1 - r)}}{1 - r}.
+       $$
+
+  3. **Solve for $$ R_h $$**:
+     - Substitute the premium difference $$ \pi - \pi_h $$ into the adjustment coefficient equation:
+       $$ 
+       1 + (1.25 - 1.4e^{-d})R_h - \frac{1 - R_h e^{-d(1 - R_h)}}{1 - R_h} = 0.
+       $$
+
+  4. **Optimal Threshold**:
+     - Use numerical methods to solve for $$ d $$ and $$ R_h $$:
+       $$ 
+       d^* = 0.9632226, \quad R_h^* = 0.3493290.
+       $$
+
+- **Remark**:
+  - The higher $$ R_h^* $$ compared to proportional reinsurance demonstrates the greater effectiveness of excess of loss reinsurance in reducing ruin probabilities.
