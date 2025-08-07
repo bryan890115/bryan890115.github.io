@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACTL3162 Research - Bryan Jen | General Insurance Techniques</title>
+    <meta name="description" content="Comprehensive research materials and analysis in General Insurance Techniques - ACTL3162 by Bryan Jen.">
+    <link rel="stylesheet" href="../assets/css/professional.css">
+    <script type="text/javascript" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="brand">
+                <h1>Bryan Jen</h1>
+                <p>Computer Science & Actuarial Studies</p>
+            </div>
+            <nav>
+                <a href="../index.html">Home</a>
+                <a href="../pages/about.html">About</a>
+                <a href="../pages/projects.html">Projects</a>
+                <a href="../pages/research.html">Research</a>
+                <a href="../pages/contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">ACTL3162: General Insurance Techniques</h1>
+                <p class="hero-subtitle">Comprehensive research and analysis in general insurance principles, risk modeling, and actuarial methodologies.</p>
+                <div class="hero-cta">
+                    <a href="../pages/research.html" class="btn-secondary">Back to Research</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="cards-showcase">
+            <h2>Research Modules</h2>
+            <div class="cards-grid">
+                <div class="card-item" data-href="notes/mod0.html">
+                    <h3>Module 0: Introduction to General Insurance</h3>
+                    <p>Fundamental principles of general insurance, basic concepts, and theoretical frameworks for risk assessment.</p>
+                    <div class="card-stats">
+                        <span>Risk Theory</span>
+                        <span>Insurance Fundamentals</span>
+                        <span>Mathematical Foundations</span>
+                    </div>
+                </div>
+
+                <div class="card-item" data-href="notes/mod1.html">
+                    <h3>Module 1: Fitting Loss Models</h3>
+                    <p>Advanced statistical methods for fitting loss distributions and model validation techniques.</p>
+                    <div class="card-stats">
+                        <span>Statistical Modeling</span>
+                        <span>Loss Distributions</span>
+                        <span>Model Validation</span>
+                    </div>
+                </div>
+
+                <div class="card-item" data-href="notes/mod2.html">
+                    <h3>Module 2: Individual Claim Size Modeling</h3>
+                    <p>Comprehensive analysis of individual claim severity models and distribution fitting techniques.</p>
+                    <div class="card-stats">
+                        <span>Claim Severity</span>
+                        <span>Distribution Analysis</span>
+                        <span>Statistical Testing</span>
+                    </div>
+                </div>
+
+                <div class="card-item" data-href="notes/mod3.html">
+                    <h3>Module 3: Collective Risk Modelling</h3>
+                    <p>Advanced collective risk theory, compound distributions, and aggregate loss modeling.</p>
+                    <div class="card-stats">
+                        <span>Collective Risk</span>
+                        <span>Compound Distributions</span>
+                        <span>Aggregate Modeling</span>
+                    </div>
+                </div>
+
+                <div class="card-item" data-href="notes/mod4.html">
+                    <h3>Module 4: Approximations for Compound Distributions</h3>
+                    <p>Mathematical approximation methods for complex compound distribution calculations.</p>
+                    <div class="card-stats">
+                        <span>Mathematical Methods</span>
+                        <span>Approximation Theory</span>
+                        <span>Computational Techniques</span>
+                    </div>
+                </div>
+
+                <div class="card-item" data-href="notes/mod5.html">
+                    <h3>Module 5: Liability Valuations - Ruin Theory</h3>
+                    <p>Advanced ruin theory applications, liability valuations, and capital adequacy assessment.</p>
+                    <div class="card-stats">
+                        <span>Ruin Theory</span>
+                        <span>Liability Valuation</span>
+                        <span>Capital Assessment</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-preview" style="background: #f8fafc;">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Research Overview</h2>
+                    <p>This comprehensive study in General Insurance Techniques covers advanced actuarial methodologies, statistical modeling, and practical applications in the insurance industry. The research focuses on developing robust analytical frameworks for risk assessment, pricing, and reserving in general insurance operations.</p>
+                    
+                    <h3 style="margin-top: 2rem; margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600;">Key Learning Outcomes</h3>
+                    <ul style="margin: 1rem 0; padding-left: 2rem; color: #475569;">
+                        <li>Advanced risk modeling and statistical analysis techniques</li>
+                        <li>Comprehensive understanding of loss distribution fitting methods</li>
+                        <li>Proficiency in collective risk theory and compound distributions</li>
+                        <li>Expertise in ruin theory and capital adequacy assessment</li>
+                    </ul>
+                    
+                    <div style="margin-top: 2rem;">
+                        <a href="../pages/contact.html" class="btn-primary">Discuss Research</a>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="../assets/images/profile-professional.jpg" alt="Bryan Jen Research Profile" class="profile-pic">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Bryan Jen | Professional Portfolio | <a href="mailto:bryan890115@gmail.com">bryan890115@gmail.com</a></p>
+    </footer>
+
+    <script>
+        // Professional card navigation for research modules
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card-item[data-href]');
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const href = this.getAttribute('data-href');
+                    if (href) {
+                        window.location.href = href;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research - Bryan Jen | Computer Science & Actuarial Studies</title>
+    <meta name="description" content="Explore Bryan Jen's academic research, comprehensive studies, and analytical work in Computer Science and Actuarial Studies.">
+    <link rel="stylesheet" href="../assets/css/professional.css">
+    <script type="text/javascript" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="brand">
+                <h1>Bryan Jen</h1>
+                <p>Computer Science & Actuarial Studies</p>
+            </div>
+            <nav>
+                <a href="../index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="projects.html">Projects</a>
+                <a href="research.html" class="active">Research</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Research & Academic Work</h1>
+                <p class="hero-subtitle">Comprehensive studies and analytical research in actuarial science, computer science, and quantitative methods.</p>
+            </div>
+        </section>
+
+        <section class="cards-showcase">
+            <h2>Research Areas</h2>
+            <div class="cards-grid">
+                <div class="card-item" data-href="../study-notes/index.html">
+                    <h3>General Insurance Techniques</h3>
+                    <p>Advanced research in general insurance principles, risk modeling methodologies, and actuarial techniques for comprehensive risk assessment.</p>
+                    <div class="card-stats">
+                        <span>ACTL3162</span>
+                        <span>Risk Modeling</span>
+                        <span>Insurance Analytics</span>
+                    </div>
+                </div>
+
+                <div class="card-item">
+                    <h3>Computational Methods</h3>
+                    <p>Research in algorithms, data structures, and computational complexity with applications to financial modeling and optimization.</p>
+                    <div class="card-stats">
+                        <span>Algorithm Design</span>
+                        <span>Computational Finance</span>
+                        <span>Optimization</span>
+                    </div>
+                </div>
+
+                <div class="card-item">
+                    <h3>Statistical Analysis</h3>
+                    <p>Advanced statistical methods and quantitative techniques for data analysis, predictive modeling, and business intelligence.</p>
+                    <div class="card-stats">
+                        <span>Statistical Modeling</span>
+                        <span>Predictive Analytics</span>
+                        <span>Business Intelligence</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-preview" style="background: #f8fafc;">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Academic Excellence</h2>
+                    <p>My research focuses on the intersection of computational methods and actuarial science, developing innovative approaches to risk assessment and financial modeling. Through rigorous academic study and practical application, I contribute to advancing knowledge in both fields.</p>
+                    
+                    <h3 style="margin-top: 2rem; margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600;">Current Research Focus</h3>
+                    <ul style="margin: 1rem 0; padding-left: 2rem; color: #475569;">
+                        <li>Advanced risk modeling and assessment methodologies</li>
+                        <li>Computational approaches to actuarial problem-solving</li>
+                        <li>Statistical analysis and predictive modeling techniques</li>
+                        <li>Integration of technology in financial services</li>
+                    </ul>
+                    
+                    <div style="margin-top: 2rem;">
+                        <a href="../study-notes/index.html" class="btn-primary">View Research Materials</a>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="../assets/images/profile-professional.jpg" alt="Bryan Jen Research Profile" class="profile-pic">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Bryan Jen | Professional Portfolio | <a href="mailto:bryan890115@gmail.com">bryan890115@gmail.com</a></p>
+    </footer>
+
+    <script>
+        // Professional card navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card-item[data-href]');
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const href = this.getAttribute('data-href');
+                    if (href) {
+                        window.location.href = href;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
