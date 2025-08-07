@@ -8,36 +8,47 @@
     <style>
         .love-section {
             text-align: center;
-            padding: 20px;
-            font-size: 4rem; /* Huge font size */
-            color: red;
+            padding: 40px 20px;
+            font-size: 3rem;
+            color: #e74c3c;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            border-radius: 20px;
+            margin: 20px;
+            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.2);
+            animation: heartbeat 2s ease-in-out infinite;
         }
 
         .love-section img {
-            max-width: 300px; /* Adjust the image size */
+            max-width: 250px;
+            border-radius: 50%;
             margin-top: 20px;
-            border-radius: 15px; /* Optional: Make the image rounded */
+            animation: float 3s ease-in-out infinite;
         }
     </style>
+    <script type="text/javascript" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mtml-chtml.js">
+    </script>
+    <script src="script.js"></script>
 </head>
 <script type="text/javascript" async
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
 </script>
 <body>
-    <header>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#notes">Study Notes</a>
-            <a href="#projects">Projects</a>
-        </nav>
-    </header>
+    <div class="container">
+        <header>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#notes">Study Notes</a>
+                <a href="#projects">Projects</a>
+            </nav>
+        </header>
 
     <section id="home">
         <h1>Welcome to Bryan's Website</h1>
         <p>Explore my study notes, projects, and more!</p>
     </section>
 
-    <section id="notes">
+    <section id="notes" class="card">
         <h2>Study Notes</h2>
         <p>Check out my detailed notes by subject:</p>
         <ul>
@@ -46,7 +57,7 @@
         </ul>
     </section>
 
-    <section id="projects">
+    <section id="projects" class="card">
         <h2>Projects</h2>
         <p>Explore the projects I’ve worked on:</p>
         <ul>
@@ -55,20 +66,21 @@
         </ul>
     </section>
 
-    <section id="future-section">
+    <section id="future-section" class="card">
         <h2>Future Section</h2>
         <p>Content coming soon!</p>
     </section>
 
-    <!-- New Section -->
-    <section id="love-section" class="love-section">
-        ❤️❤️❤️ KATIE & ALISA❤️❤️❤️
-        <br>
-        <img src="images/love-picture.jpg" alt="I Love Katie">
-    </section>
+        <!-- New Section -->
+        <section id="love-section" class="love-section">
+            ❤️❤️❤️ KATIE & ALISA❤️❤️❤️
+            <br>
+            <img src="images/love-picture.jpg" alt="I Love Katie">
+        </section>
 
-    <footer>
-        <p>© 2024 Bryan Jen | <a href="mailto:bryan890115@gmail.com">Email Me</a></p>
-    </footer>
+        <footer>
+            <p>© 2024 Bryan Jen | <a href="mailto:bryan890115@gmail.com">Email Me</a></p>
+        </footer>
+    </div>
 </body>
 </html>
