@@ -14,127 +14,89 @@ document.addEventListener('DOMContentLoaded', function() {
                     behavior: 'smooth',
                     block: 'start'
                 });
-                
-                // Add active state visual feedback
-                navLinks.forEach(nl => nl.classList.remove('active'));
-                this.classList.add('active');
+            }
+        });
+    });
+
+    // Add click functionality to moving cards
+    const cardItems = document.querySelectorAll('.card-item');
+    cardItems.forEach(card => {
+        card.addEventListener('click', function() {
+            const href = this.getAttribute('data-href');
+            if (href) {
+                if (href.startsWith('mailto:')) {
+                    window.location.href = href;
+                } else {
+                    window.location.href = href;
+                }
+            }
+        });
+
+        // Add keyboard accessibility
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        
+        card.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
             }
         });
     });
 
     // Add intersection observer for fade-in animations
-    const sections = document.querySelectorAll('section');
+    const animatedElements = document.querySelectorAll('.card-item, .note-card, .project-card, .hero-content, .about-content');
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
 
-    const sectionObserver = new IntersectionObserver(function(entries) {
+    const elementObserver = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
-                entry.target.classList.add('section-visible');
+                entry.target.classList.add('visible');
             }
         });
     }, observerOptions);
 
-    sections.forEach(section => {
-        sectionObserver.observe(section);
+    animatedElements.forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'all 0.6s ease-out';
+        elementObserver.observe(element);
     });
 
-    // Add hover effects for cards
-    const cards = document.querySelectorAll('.card');
+    // Add typing effect for hero title if it exists
+    const heroTitle = document.querySelector('.hero-title');
+    if (heroTitle) {
+        const originalText = heroTitle.textContent;
+        heroTitle.textContent = '';
+        heroTitle.style.opacity = '1';
+        
+        let i = 0;
+        function typeWriter() {
+            if (i < originalText.length) {
+                heroTitle.textContent += originalText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 80);
+            }
+        }
+        
+        // Start typing effect after a short delay
+        setTimeout(typeWriter, 800);
+    }
+
+    // Add hover effects for project and note cards
+    const cards = document.querySelectorAll('.note-card, .project-card');
     cards.forEach(card => {
         card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-8px)';
+            this.style.transform = 'translateY(-12px)';
         });
         
         card.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0)';
         });
     });
-
-    // Add sparkle effect for the love section
-    const loveSection = document.querySelector('.love-section');
-    if (loveSection) {
-        // Create floating hearts animation
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.innerHTML = '❤️';
-            heart.style.position = 'absolute';
-            heart.style.fontSize = '20px';
-            heart.style.pointerEvents = 'none';
-            heart.style.animation = 'floatUp 3s linear forwards';
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.zIndex = '1000';
-            
-            loveSection.style.position = 'relative';
-            loveSection.appendChild(heart);
-            
-            setTimeout(() => {
-                if (heart.parentNode) {
-                    heart.parentNode.removeChild(heart);
-                }
-            }, 3000);
-        }
-
-        // Add floating hearts every 2 seconds
-        setInterval(createHeart, 2000);
-    }
-
-    // Add typing effect for main heading
-    const mainHeading = document.querySelector('#home h1');
-    if (mainHeading) {
-        const originalText = mainHeading.textContent;
-        mainHeading.textContent = '';
-        
-        let i = 0;
-        function typeWriter() {
-            if (i < originalText.length) {
-                mainHeading.textContent += originalText.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100);
-            }
-        }
-        
-        // Start typing effect after a short delay
-        setTimeout(typeWriter, 500);
-    }
 });
-
-// Add CSS for floating hearts animation
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes floatUp {
-        0% {
-            transform: translateY(0px);
-            opacity: 1;
-        }
-        100% {
-            transform: translateY(-100px);
-            opacity: 0;
-        }
-    }
-    
-    nav a.active {
-        background: rgba(255, 255, 255, 0.3) !important;
-        box-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);
-    }
-    
-    .section-visible {
-        animation: sectionFadeIn 0.8s ease-out;
-    }
-    
-    @keyframes sectionFadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-`;
-document.head.appendChild(style);
