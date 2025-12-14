@@ -284,7 +284,7 @@ main {
     opacity: 0;
     visibility: hidden;
     overflow: hidden;
-    transition: max-height 0.35s ease, opacity 0.25s ease, margin-top 0.25s ease;
+    transition: opacity 0.25s ease, margin-top 0.25s ease;
 }
 
 .card-details {
@@ -302,11 +302,12 @@ main {
 .card-item.expanded .card-details,
 .card-item.expanded .card-stats,
 .card-item.expanded .card-action {
-    max-height: 1000px;
+    max-height: none;
     opacity: 1;
     visibility: visible;
     margin-top: 1rem;
     padding-top: 0.25rem;
+    overflow: visible;
 }
 
 .card-action {
