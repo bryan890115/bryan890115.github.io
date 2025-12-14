@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const cards = document.querySelectorAll('.card-item');
     let detailIdCounter = 0;
 
-    cards.forEach((card, index) => {
+    cards.forEach((card) => {
         let detailSection = card.querySelector('.card-details');
 
         // If a navigation target exists, surface it inside the expandable area
