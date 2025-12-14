@@ -232,12 +232,32 @@ main {
     border: 1px solid #f1f5f9;
     transition: all 0.2s ease;
     cursor: pointer;
+    position: relative;
 }
 
 .card-item:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     border-color: #e2e8f0;
+}
+
+.card-item::after {
+    content: '⌄';
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    color: #94a3b8;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.card-item.expanded::after {
+    transform: rotate(180deg);
+    color: #3b82f6;
+}
+
+.card-item:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
 }
 
 .card-item h3 {
@@ -251,6 +271,56 @@ main {
     color: #64748b;
     margin-bottom: 1.5rem;
     line-height: 1.6;
+}
+
+.card-details,
+.card-stats,
+.card-action {
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+    transition: max-height 0.35s ease, opacity 0.25s ease, margin-top 0.25s ease;
+}
+
+.card-details {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 0;
+    margin-top: 0;
+    color: #475569;
+    line-height: 1.6;
+}
+
+.card-detail-text {
+    margin-bottom: 1rem;
+}
+
+.card-item.expanded .card-details,
+.card-item.expanded .card-stats,
+.card-item.expanded .card-action {
+    max-height: 600px;
+    opacity: 1;
+    visibility: visible;
+    margin-top: 1rem;
+    padding-top: 0.25rem;
+}
+
+.card-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #f8fafc;
+    color: #0f172a;
+    padding: 0.5rem 0.9rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid #e2e8f0;
+}
+
+.card-action:hover {
+    background: #e2e8f0;
+    color: #0f172a;
 }
 
 .card-stats {
