@@ -241,16 +241,20 @@ main {
     border-color: #e2e8f0;
 }
 
-.card-item::after {
-    content: '⌄';
+.card-chevron {
     position: absolute;
     right: 1.5rem;
     top: 1.5rem;
     color: #94a3b8;
     transition: transform 0.2s ease, color 0.2s ease;
+    pointer-events: none;
 }
 
-.card-item.expanded::after {
+.card-chevron::before {
+    content: '⌄';
+}
+
+.card-item.expanded .card-chevron {
     transform: rotate(180deg);
     color: #3b82f6;
 }

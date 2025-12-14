@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const cards = document.querySelectorAll('.card-item');
+    let detailIdCounter = 0;
 
     cards.forEach((card, index) => {
         let detailSection = card.querySelector('.card-details');
@@ -28,8 +29,19 @@ document.addEventListener('DOMContentLoaded', function() {
         card.setAttribute('role', 'button');
         card.setAttribute('aria-expanded', 'false');
         if (detailSection) {
-            detailSection.setAttribute('id', `card-details-${index}`);
-            card.setAttribute('aria-controls', `card-details-${index}`);
+            detailIdCounter += 1;
+            const detailId = `card-details-${detailIdCounter}`;
+            detailSection.setAttribute('id', detailId);
+            card.setAttribute('aria-controls', detailId);
+        }
+
+        // Add a chevron that is hidden from screen readers
+        let chevron = card.querySelector('.card-chevron');
+        if (!chevron) {
+            chevron = document.createElement('span');
+            chevron.className = 'card-chevron';
+            chevron.setAttribute('aria-hidden', 'true');
+            card.appendChild(chevron);
         }
 
         const toggleCard = () => {
