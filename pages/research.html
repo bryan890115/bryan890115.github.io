@@ -38,13 +38,20 @@
         <section class="cards-showcase">
             <h2>Research Areas</h2>
             <div class="cards-grid">
-                <div class="card-item" data-href="../study-notes/index.html">
+                <div class="card-item">
                     <h3>General Insurance Techniques</h3>
                     <p>Advanced research in general insurance principles, risk modeling methodologies, and actuarial techniques for comprehensive risk assessment.</p>
                     <div class="card-stats">
                         <span>ACTL3162</span>
                         <span>Risk Modeling</span>
                         <span>Insurance Analytics</span>
+                    </div>
+                    <div class="card-detail-content" hidden>
+                        <div class="detail-modal-media">
+                            <img src="../assets/images/modal-research.svg" alt="Preview for General Insurance Techniques">
+                        </div>
+                        <p>Placeholder summary outlining future deep dives into reserving methods, pricing strategies, and risk calibration experiments.</p>
+                        <p>Include a link to supporting study materials when ready: <a href="../study-notes/index.html" class="btn-secondary" style="display: inline-flex; margin-top: 0.75rem;">Open study notes</a></p>
                     </div>
                 </div>
 
@@ -56,6 +63,13 @@
                         <span>Computational Finance</span>
                         <span>Optimization</span>
                     </div>
+                    <div class="card-detail-content" hidden>
+                        <div class="detail-modal-media">
+                            <img src="../assets/images/modal-research.svg" alt="Preview for Computational Methods">
+                        </div>
+                        <p>Placeholder notes for algorithm comparisons, runtime observations, and optimization case studies to be documented later.</p>
+                        <p>Reserve space for diagrams, pseudo-code, and experiment outcomes that support the research narrative.</p>
+                    </div>
                 </div>
 
                 <div class="card-item">
@@ -66,9 +80,24 @@
                         <span>Predictive Analytics</span>
                         <span>Business Intelligence</span>
                     </div>
+                    <div class="card-detail-content" hidden>
+                        <div class="detail-modal-media">
+                            <img src="../assets/images/modal-research.svg" alt="Preview for Statistical Analysis">
+                        </div>
+                        <p>Placeholder description for datasets, feature engineering steps, and validation metrics that will be documented.</p>
+                        <p>Use this section for charts, model comparisons, and the business context that frames the findings.</p>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <div class="detail-modal" aria-hidden="true" role="dialog" aria-modal="true">
+            <div class="detail-modal-content">
+                <button class="detail-modal-close" aria-label="Close research details">&times;</button>
+                <h3 class="detail-modal-title"></h3>
+                <div class="detail-modal-body"></div>
+            </div>
+        </div>
 
         <section class="about-preview" style="background: #f8fafc;">
             <div class="about-content">
@@ -100,16 +129,43 @@
     </footer>
 
     <script>
-        // Professional card navigation
         document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.card-item[data-href]');
+            const modal = document.querySelector('.detail-modal');
+            const modalTitle = document.querySelector('.detail-modal-title');
+            const modalBody = document.querySelector('.detail-modal-body');
+            const closeButton = document.querySelector('.detail-modal-close');
+            const cards = document.querySelectorAll('.cards-grid .card-item');
+
+            if (!modal || !modalTitle || !modalBody || !closeButton) return;
+
+            const closeModal = () => {
+                modal.classList.remove('is-open');
+                modal.setAttribute('aria-hidden', 'true');
+            };
+
             cards.forEach(card => {
-                card.addEventListener('click', function() {
-                    const href = this.getAttribute('data-href');
-                    if (href) {
-                        window.location.href = href;
-                    }
+                card.addEventListener('click', () => {
+                    const detail = card.querySelector('.card-detail-content');
+                    const title = card.querySelector('h3')?.textContent || 'Research Details';
+
+                    modalTitle.textContent = title;
+                    modalBody.innerHTML = detail ? detail.innerHTML : '<p>More details coming soon.</p>';
+
+                    modal.classList.add('is-open');
+                    modal.setAttribute('aria-hidden', 'false');
                 });
+            });
+
+            closeButton.addEventListener('click', closeModal);
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+                    closeModal();
+                }
             });
         });
     </script>

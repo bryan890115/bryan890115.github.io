@@ -1,0 +1,28 @@
+<svg width="900" height="450" viewBox="0 0 900 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="gradP" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#3b82f6"/>
+    <stop offset="100%" stop-color="#1e293b"/>
+  </linearGradient>
+  <linearGradient id="gradP2" x1="1" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.75"/>
+    <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0.15"/>
+  </linearGradient>
+</defs>
+<rect width="900" height="450" rx="18" fill="url(#gradP)"/>
+<rect x="40" y="60" width="820" height="330" rx="14" fill="url(#gradP2)" stroke="#0ea5e9" stroke-opacity="0.4" stroke-width="2"/>
+<circle cx="120" cy="120" r="18" fill="#e2e8f0" fill-opacity="0.6"/>
+<circle cx="170" cy="120" r="18" fill="#e2e8f0" fill-opacity="0.4"/>
+<circle cx="220" cy="120" r="18" fill="#e2e8f0" fill-opacity="0.25"/>
+<path d="M140 220H420" stroke="#e2e8f0" stroke-width="6" stroke-linecap="round" stroke-opacity="0.75"/>
+<path d="M140 260H520" stroke="#e2e8f0" stroke-width="6" stroke-linecap="round" stroke-opacity="0.5"/>
+<path d="M140 300H380" stroke="#e2e8f0" stroke-width="6" stroke-linecap="round" stroke-opacity="0.35"/>
+<rect x="520" y="150" width="240" height="160" rx="12" fill="#0f172a" fill-opacity="0.7" stroke="#38bdf8" stroke-opacity="0.45" stroke-width="2"/>
+<path d="M540 250L600 190L660 240L720 180" stroke="#38bdf8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.8"/>
+<circle cx="600" cy="190" r="10" fill="#38bdf8"/>
+<circle cx="660" cy="240" r="10" fill="#38bdf8"/>
+<circle cx="540" cy="250" r="10" fill="#38bdf8"/>
+<circle cx="720" cy="180" r="10" fill="#38bdf8"/>
+<text x="140" y="190" fill="#e2e8f0" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="-0.5">Project Detail Preview</text>
+<text x="140" y="340" fill="#e2e8f0" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" opacity="0.8">Saved locally for offline-friendly modals.</text>
+</svg>
