@@ -132,6 +132,19 @@
         <p>© 2024 Bryan Jen | Professional Portfolio | <a href="mailto:bryan890115@gmail.com">bryan890115@gmail.com</a></p>
     </footer>
 
-    <script src="../assets/js/card-interactions.js"></script>
+    <script>
+        // Professional card navigation for research modules
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card-item[data-href]');
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const href = this.getAttribute('data-href');
+                    if (href) {
+                        window.location.href = href;
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
