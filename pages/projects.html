@@ -43,6 +43,13 @@
                         <span>Responsive Design</span>
                         <span>Performance Optimization</span>
                     </div>
+                    <div class="card-detail-content" hidden>
+                        <div class="detail-modal-media">
+                            <img src="https://via.placeholder.com/900x450.png?text=Portfolio+Preview" alt="Preview for Professional Portfolio Platform">
+                        </div>
+                        <p>Placeholder project overview showcasing where in-depth case study content will live. Include deployment metrics, performance highlights, and UX decisions here.</p>
+                        <p>Use this space for timelines, stakeholders, and the technologies that powered the build to give readers a richer narrative.</p>
+                    </div>
                 </div>
 
                 <div class="card-item">
@@ -52,6 +59,13 @@
                         <span>Data Analytics</span>
                         <span>Risk Modeling</span>
                         <span>Business Intelligence</span>
+                    </div>
+                    <div class="card-detail-content" hidden>
+                        <div class="detail-modal-media">
+                            <img src="https://via.placeholder.com/900x450.png?text=Analytics+Dashboard" alt="Preview for Risk Analytics Dashboard">
+                        </div>
+                        <p>Placeholder details for methodology, datasets, and visualization techniques used to surface risk signals across business units.</p>
+                        <p>Add future notes about statistical models, validation steps, and how insights informed decision-making.</p>
                     </div>
                 </div>
 
@@ -63,9 +77,24 @@
                         <span>Financial Analysis</span>
                         <span>Automation</span>
                     </div>
+                    <div class="card-detail-content" hidden>
+                        <div class="detail-modal-media">
+                            <img src="https://via.placeholder.com/900x450.png?text=Modeling+Suite" alt="Preview for Financial Modeling Suite">
+                        </div>
+                        <p>Placeholder content for suite architecture, scenario libraries, and validation workflows that support actuarial teams.</p>
+                        <p>Document automation wins, governance controls, and how the toolkit integrates with downstream reporting.</p>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <div class="detail-modal" aria-hidden="true" role="dialog" aria-modal="true">
+            <div class="detail-modal-content">
+                <button class="detail-modal-close" aria-label="Close project details">&times;</button>
+                <h3 class="detail-modal-title"></h3>
+                <div class="detail-modal-body"></div>
+            </div>
+        </div>
 
         <section class="about-preview" style="background: #f8fafc;">
             <div class="about-content">
@@ -134,5 +163,47 @@
     <footer>
         <p>© 2024 Bryan Jen | Professional Portfolio | <a href="mailto:bryan890115@gmail.com">bryan890115@gmail.com</a></p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.querySelector('.detail-modal');
+            const modalTitle = document.querySelector('.detail-modal-title');
+            const modalBody = document.querySelector('.detail-modal-body');
+            const closeButton = document.querySelector('.detail-modal-close');
+            const cards = document.querySelectorAll('.cards-grid .card-item');
+
+            if (!modal || !modalTitle || !modalBody || !closeButton) return;
+
+            const closeModal = () => {
+                modal.classList.remove('is-open');
+                modal.setAttribute('aria-hidden', 'true');
+            };
+
+            cards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const detail = card.querySelector('.card-detail-content');
+                    const title = card.querySelector('h3')?.textContent || 'Project Details';
+
+                    modalTitle.textContent = title;
+                    modalBody.innerHTML = detail ? detail.innerHTML : '<p>More details coming soon.</p>';
+
+                    modal.classList.add('is-open');
+                    modal.setAttribute('aria-hidden', 'false');
+                });
+            });
+
+            closeButton.addEventListener('click', closeModal);
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
