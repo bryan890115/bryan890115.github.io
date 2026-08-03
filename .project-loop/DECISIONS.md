@@ -34,3 +34,33 @@ Bryan reviewed the private packet and explicitly approved its research summary, 
 - Milestone: M-002
 - Completed approval gate: D-0002
 - Implementation directive: D-0003
+
+## DEC-002 — Approve LinkedIn as a public contact channel
+
+State: APPROVED  
+Date: 2026-08-04  
+Decision owner: Bryan Jen
+
+### Context
+
+D-0004 originally limited Contact to the email and GitHub channels already recorded in the approved specification. During implementation, Bryan explicitly requested inclusion of his LinkedIn profile and confirmed that request again during Project Director review.
+
+### Decision
+
+- The Contact page may include the exact LinkedIn URL `https://www.linkedin.com/in/bryan-c-jen-0604a311b/` as a neutral public-profile link.
+- No LinkedIn biography, employer, education, credential, activity, endorsement, connection count, or other profile content is approved by this decision.
+- The approved Contact channel set is email, GitHub, and this exact LinkedIn URL.
+- Contact must continue to make no consulting, availability, response-time, networking, mentorship, or guaranteed-reply claim.
+
+### Consequences
+
+- The single D-0004 scope deviation is explicitly approved and is not a revision blocker.
+- M-003 may be accepted with the three-link Contact boundary.
+- Any future LinkedIn URL or profile-content change requires separate verification and approval.
+
+### Affected acceptance criteria, milestones, and directives
+
+- Acceptance criteria: AC-007, AC-010, AC-014
+- Milestone: M-003
+- Reviewed directive: D-0004
+- Next directive: D-0005
