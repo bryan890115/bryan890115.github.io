@@ -15,11 +15,11 @@ No implementation files changed.
 
 ## Acceptance evidence
 
-No acceptance evidence recorded.
+Bryan explicitly approved the specification and plan without corrections on 2026-08-03. The Director-owned approval state is being activated on this branch.
 
 ## Validation
 
-No validation commands run.
+No implementation validation commands run.
 
 ## Deviations
 
@@ -31,7 +31,7 @@ No implementation risks recorded.
 
 ## Blockers
 
-Implementation is awaiting Bryan's approval of the draft specification and plan and activation of D-0001.
+None after the approval-state changes are merged into `main`.
 
 ## Review focus
 
