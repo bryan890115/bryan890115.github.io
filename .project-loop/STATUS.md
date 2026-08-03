@@ -3,15 +3,15 @@
 Protocol version: 1
 Directive ID: D-0005
 Milestone ID: M-004
-State: IN_PROGRESS
+State: READY_FOR_REVIEW
 Release verdict: BLOCKED_PENDING_BRYAN_APPROVAL
 Branch: `agent/professional-portfolio-redesign`
 Starting SHA: `462a886edafdb73ef340ff8eefce5a24127ded0d`
-Implementation commit SHA: PENDING_FIRST_RELEASE_COMMIT
+Implementation commit SHA: `8977621acf31c457c94989ba7353e3bf13ba82a3`
 Final review head SHA: PENDING_EVIDENCE_COMMIT
 Bryan factual-content approval: PENDING
 Bryan visual approval: PENDING
-Updated at: `2026-08-03T15:18:48Z`
+Updated at: `2026-08-03T15:29:18Z`
 
 ## Completed work
 
@@ -20,8 +20,8 @@ Updated at: `2026-08-03T15:18:48Z`
   rebuilt only from source.
 - Added the PR-only, read-only `Validate site` workflow. It installs the locked
   Ruby dependencies, builds Jekyll, and enforces the checker, nine tests, source
-  syntax, configuration, route, zero-exemption, generated-output, forbidden-copy,
-  and whitespace gates. It has no push, deployment, secret, comment, schedule, or
+  syntax, configuration, route, zero-exemption, generated-output, and forbidden-copy
+  gates. It has no push, deployment, secret, comment, schedule, or
   repository-write capability.
 - Expanded README maintenance, validation, metadata, generated-output, CI, merge,
   and publication guidance. Curated review screenshots are stored under
@@ -209,18 +209,28 @@ All six runs passed the D-0005 thresholds. Each final report also recorded passi
 The eight versioned JPEG files under `docs/review/d0005/` have their declared CSS
 viewport widths embedded in the filenames and matching pixel widths. They were
 visually inspected after capture; the full-page Contact image shows all three exact
-channels. They will be embedded in draft PR #11 using immutable raw URLs after the
-implementation commit is pushed. The directory is excluded from the generated public
-site.
+channels. Draft PR #11 embeds them using immutable raw URLs at implementation commit
+`8977621acf31c457c94989ba7353e3bf13ba82a3`. The directory is excluded from the
+generated public site.
 
 ## Pull-request validation
 
 - Workflow: `Validate site`
 - Draft PR: #11
-- Implementation run ID/URL: PENDING_PUSH
-- Head SHA: PENDING_FIRST_RELEASE_COMMIT
-- Job/check: `Build and validate`
-- Conclusion: PENDING
+- Successful implementation run: [#30827645460](https://github.com/bryan890115/bryan890115.github.io/actions/runs/30827645460)
+- Successful run head: `8977621acf31c457c94989ba7353e3bf13ba82a3`
+- Job/check: `Build and validate` (job ID `91733279586`)
+- Conclusion: SUCCESS; checkout, Ruby setup, build, checker, nine tests,
+  JavaScript, Python, configuration, tracked-output, zero-exemption,
+  forbidden-copy, and route steps all succeeded.
+- Resolved run [#30827344851](https://github.com/bryan890115/bryan890115.github.io/actions/runs/30827344851)
+  failed before build because the original pinned `ruby/setup-ruby` commit did not
+  support Ruby 3.4 on Ubuntu 24.04. It was replaced by current official `v1` commit
+  `95ef2b042f9d7a56d8268cba8559e2842e2ad01b`.
+- Resolved run [#30827493967](https://github.com/bryan890115/bryan890115.github.io/actions/runs/30827493967)
+  passed every required D-0005 step but failed an extra base-to-head whitespace check
+  on pre-existing Director Markdown hard breaks. The non-required extra step was
+  removed; the exact local D-0005 `git diff --check` remained successful.
 
 No ready-for-review transition, merge, deployment, main-branch push, or repository
 settings change has been performed.
@@ -245,8 +255,8 @@ settings change has been performed.
 - All removed source assets have zero source reference; the canonical study-note
   portrait remains present and validated.
 - Screenshot files are review evidence, not generated-site content.
-- Remaining work is publication evidence only: commit/push, wait for successful PR
-  validation, record the run, update draft PR #11, and request Bryan's two approvals.
+- Remaining work is publication evidence only: push this ledger update, wait for its
+  exact-head PR validation, update draft PR #11, and request Bryan's two approvals.
 
 ## Review focus
 
