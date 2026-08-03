@@ -1,40 +1,37 @@
 # Website Professional Redesign Plan
 
-State: DRAFT  
-Specification state: DRAFT  
+State: APPROVED  
+Specification state: APPROVED  
 Repository: `bryan890115/bryan890115.github.io`  
 Default branch: `main`  
 Implementation branch: `agent/professional-portfolio-redesign`  
-Base SHA: `c18d372f2e0dad67a03eba0016ae2ea1f4ac4651`
+Base SHA: `c18d372f2e0dad67a03eba0016ae2ea1f4ac4651`  
+Approval date: 2026-08-03
 
 ## Delivery strategy
 
-Use four reviewable milestones. Each milestone must leave a buildable site and must be reviewed before the next milestone begins. Keep the existing Jekyll/GitHub Pages stack, introduce only small reusable components, and prefer deletion of generic or placeholder material over adding unverified copy.
+Deliver four reviewable milestones. Each milestone must leave a buildable site and be reviewed before the next begins. Keep Jekyll/GitHub Pages, use small reusable components, and delete generic or placeholder material rather than replacing it with unverified copy.
 
 ## M-001 — Shared foundation and professional home page
 
-State: PENDING  
-Dependencies: User approval of this specification and plan  
+State: ACTIVE  
+Dependencies: Approved specification and plan; satisfied 2026-08-03  
 Covers: AC-001, AC-003, AC-008, AC-009, AC-010, AC-013, AC-015, AC-016
 
 ### Scope
 
-- Add a shared Jekyll page shell with reusable metadata, header/navigation, and footer includes.
-- Establish a restrained design system using CSS custom properties, a responsive content grid, consistent type scale, spacing, buttons, cards, focus states, and reduced-motion support.
-- Implement an accessible mobile navigation pattern with no framework dependency.
-- Redesign the home page as the first complete vertical slice using the approved research-first positioning.
-- Add a skip link and semantic landmarks.
-- Add minimal reusable metadata support for title, description, canonical URL, Open Graph fields, and verified Person structured data.
+- Add a shared Jekyll shell for metadata, header/navigation, main content, and footer.
+- Establish a restrained CSS system for typography, spacing, grid, buttons, cards, focus, reduced motion, and responsive behaviour.
+- Add accessible mobile navigation and a skip link without a framework.
+- Redesign the home page using the approved research-first positioning.
+- Add reusable title, description, canonical, Open Graph, and verified Person JSON-LD support.
 - Add or update local build instructions.
-- Add `scripts/check_site.py`, using Python's standard library, to check built HTML for broken internal links and configurable forbidden placeholder phrases.
-- Keep the other primary pages working while the shared shell is introduced; do not perform their final content rewrite in this milestone.
+- Add standard-library `scripts/check_site.py` for internal links and forbidden placeholder phrases.
+- Keep other primary routes working; defer their final rewrite.
 
-### Explicitly excluded
+### Excluded
 
-- Final research, project, about, or contact copy.
-- New project screenshots or publication assets.
-- A contact form, analytics, or third-party UI framework.
-- Removing tracked `_site/` output before the new build has been verified.
+Final research, project, about, contact, books, or study-note rewrites; new screenshots/publications; contact forms; analytics; third-party UI frameworks; and `_site/` removal before the source build is verified.
 
 ### Validation
 
@@ -48,26 +45,22 @@ git diff --check
 
 ### Exit evidence
 
-- Built home page and working navigation in `_site/`.
-- Validation command output recorded in `.project-loop/STATUS.md`.
-- Screenshots or equivalent visual evidence at 360 px, 768 px, and 1440 px for the home page.
-- Keyboard-navigation notes covering skip link, navigation, and primary calls to action.
-- Diff showing the shared shell and home-page vertical slice without unrelated content changes.
+Built primary routes; command output in `STATUS.md`; home-page evidence at 360 px, 768 px, and 1440 px; keyboard notes for skip link, navigation, and calls to action; and a focused diff without unrelated changes.
 
 ## M-002 — Evidence-backed research and project pages
 
 State: PENDING  
-Dependencies: M-001 accepted; Bryan confirms the public project/research facts and links  
+Dependencies: M-001 accepted; Bryan confirms public facts and links  
 Covers: AC-002, AC-004, AC-005, AC-011, AC-012, AC-014
 
 ### Scope
 
-- Replace the current research cards and placeholder modal copy with a clear research narrative: problem, motivation, approach, current status, and approved outputs.
-- Replace generic or invented project descriptions with three to five verified project case studies.
-- For each project, include Bryan's role, the problem, methods or technology, evidence-backed outcome or learning, and a verified public link when available.
-- Replace click-only cards and weak modal interactions with semantic links, accessible disclosures, or dedicated case-study sections.
-- Use locally stored, optimized images only when they add evidence; otherwise use a strong text-first layout.
-- Preserve the existing `/pages/research.html` and `/pages/projects.html` routes.
+- Replace research placeholders with the problem, motivation, approach, current status, and approved outputs.
+- Replace generic projects with three to five verified case studies describing Bryan's role, problem, methods, and outcome or learning.
+- Use verified public links only.
+- Replace click-only cards or weak modals with semantic links, disclosures, or case-study sections.
+- Use optimized local images only where they add evidence.
+- Preserve `/pages/research.html` and `/pages/projects.html`.
 
 ### Validation
 
@@ -81,26 +74,22 @@ git diff --check
 
 ### Exit evidence
 
-- Source list for every factual project/research claim, recorded in `STATUS.md` or the relevant page data file.
-- Working research and project pages with no placeholder or duplicated filler content.
-- Verified links for every public repository, paper, demo, or study-note reference.
-- Keyboard and mobile checks for all interactive project/research elements.
+A source for every factual claim; working pages without filler; verified links; and keyboard/mobile checks for project and research interactions.
 
 ## M-003 — About, contact, and study-note integration
 
 State: PENDING  
-Dependencies: M-002 accepted; Bryan confirms preferred public contact and profile details  
+Dependencies: M-002 accepted; Bryan confirms contact and profile details  
 Covers: AC-002, AC-006, AC-007, AC-008, AC-009, AC-010, AC-014
 
 ### Scope
 
-- Rewrite the about page around current education, MPhil research, relevant teaching, and concise technical/quantitative capability.
-- Remove generic self-praise and unverified expertise claims.
-- Rewrite the contact page with only approved channels and a simple, professional invitation to connect.
-- Remove hard-coded response-time and consulting-availability promises unless Bryan explicitly approves them.
-- Integrate study notes into the main navigation or a clearly labelled resources path while preserving existing URLs and content.
-- Confirm the profile image decision; optimize and use it accessibly, or remove it without leaving a visual gap.
-- Ensure the footer year and identity information are current and centrally managed.
+- Rewrite About around current education, MPhil research, relevant teaching, and concise technical/quantitative capability.
+- Remove generic self-praise and unverified expertise.
+- Keep Contact to approved channels and remove unsupported availability or response-time promises.
+- Integrate study notes into navigation or a clearly labelled Resources path while preserving URLs.
+- Use the portrait only if current and approved; otherwise keep a complete text-first layout.
+- Centralize current footer year and identity information.
 
 ### Validation
 
@@ -114,12 +103,9 @@ git diff --check
 
 ### Exit evidence
 
-- Approved final biography and contact details recorded in `STATUS.md`.
-- About, contact, and study-note routes verified from the built site.
-- Mobile and keyboard checks for all primary pages.
-- No unapproved personal data added.
+Approved biography/contact details in `STATUS.md`; verified about, contact, and study-note routes; mobile and keyboard checks; and no unapproved personal data.
 
-## M-004 — Repository cleanup, automated quality checks, and release candidate
+## M-004 — Cleanup, automated quality checks, and release candidate
 
 State: PENDING  
 Dependencies: M-003 accepted  
@@ -127,12 +113,12 @@ Covers: AC-009, AC-010, AC-012, AC-014, AC-015, AC-016, AC-017, AC-018
 
 ### Scope
 
-- Remove tracked generated `_site/` files after confirming the source build reproduces the site.
-- Confirm `.gitignore` excludes Jekyll output, caches, local gems, and operating-system files.
-- Add a lightweight GitHub Actions workflow that builds the Jekyll site and runs the site checker on pull requests.
-- Complete responsive, accessibility, metadata, performance, and browser-console QA.
-- Update README documentation with local build, validation, content-editing, and deployment instructions.
-- Prepare a release-candidate summary and evidence for final Project Director review.
+- Remove tracked `_site/` after confirming source reproduction.
+- Confirm `.gitignore` excludes generated output, caches, local gems, and OS files.
+- Add a lightweight pull-request workflow that builds Jekyll and runs the checker.
+- Complete responsive, accessibility, metadata, performance, and console QA.
+- Update README with build, validation, content-editing, and deployment instructions.
+- Prepare release-candidate evidence for final review.
 
 ### Validation
 
@@ -145,55 +131,25 @@ git diff --check
 git status --short
 ```
 
-Where browser tooling is available, also run a Lighthouse audit against the locally served built home page and record the report path and scores in `STATUS.md`.
+Run Lighthouse where browser tooling is available and record scores or the environment blocker.
 
 ### Exit evidence
 
-- Successful local build and site-check output.
-- Successful GitHub Actions run on the implementation pull request.
-- Evidence that `_site/` is no longer tracked.
-- Responsive screenshots for home, research, projects, about, and contact.
-- Keyboard-navigation and browser-console results.
-- Lighthouse scores or a documented environment blocker.
-- Final factual-content approval from Bryan.
+Successful local and CI checks; `_site/` untracked; responsive evidence for primary pages; keyboard and console results; Lighthouse evidence; and Bryan's final factual-content approval.
 
 ## Risks and mitigations
 
-### RISK-001 — Unverified public claims
-
-Mitigation: Treat all current placeholder or generic claims as untrusted. Publish only facts and links confirmed by Bryan or verifiable from approved public sources. Prefer omission over approximation.
-
-### RISK-002 — Breaking study-note URLs
-
-Mitigation: Preserve existing paths, include them in the internal-link checker, and verify representative deep links after every milestone.
-
-### RISK-003 — Large rewrite becomes difficult to review
-
-Mitigation: Use milestone-sized vertical slices and keep the site buildable at every accepted commit.
-
-### RISK-004 — Shared-layout migration changes old pages unexpectedly
-
-Mitigation: Introduce the page shell incrementally, compare built routes before and after, and defer final page-content changes to their assigned milestones.
-
-### RISK-005 — Portrait or project images weaken the professional result
-
-Mitigation: Use a text-first layout that does not depend on images. Include images only when current, relevant, optimized, and approved.
-
-### RISK-006 — Jekyll/GitHub Pages version mismatch
-
-Mitigation: Keep dependencies minimal, document the supported Ruby/Bundler workflow, and validate both locally and in GitHub Actions before release.
+- **RISK-001 — Unverified claims:** publish only facts and links Bryan approves or approved sources verify; omit uncertainty.
+- **RISK-002 — Broken study-note URLs:** preserve paths and test representative deep links each milestone.
+- **RISK-003 — Unreviewable rewrite:** use buildable milestone-sized vertical slices.
+- **RISK-004 — Layout migration regressions:** migrate incrementally and compare built routes.
+- **RISK-005 — Weak imagery:** use a text-first design and only current, relevant, optimized, approved images.
+- **RISK-006 — Jekyll version mismatch:** minimize dependencies and validate locally and in GitHub Actions.
 
 ## Dependency policy
 
-- No JavaScript framework or CSS framework.
-- No runtime package dependency for basic navigation or content display.
-- Ruby/Jekyll dependencies must be limited to what is required for the GitHub Pages build.
-- Python validation must use the standard library unless a new dependency is separately justified and approved.
-- External fonts, icon libraries, embeds, and analytics are excluded by default.
+No JavaScript or CSS framework; no runtime dependency for basic navigation/content; minimal Ruby/Jekyll dependencies; standard-library Python validation unless separately justified and approved; external fonts, icon libraries, embeds, and analytics excluded by default.
 
 ## Documentation, migration, and rollout
 
-- README must explain the site structure, local build, validation commands, and how to edit profile/project content.
-- Existing URLs must remain stable or receive explicit redirects.
-- The implementation remains on a non-default branch and draft pull request until final review.
-- Neither Codex nor the Project Director may merge or deploy. Bryan owns final merge and publication.
+README must explain site structure, local build, validation, and content editing. Existing URLs remain stable or receive explicit redirects. Implementation stays on a non-default branch and draft pull request until final review. Codex and the Project Director must not merge or deploy; Bryan owns final merge and publication.
