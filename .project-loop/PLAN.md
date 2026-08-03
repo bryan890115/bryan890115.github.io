@@ -50,28 +50,21 @@ Built primary routes; command output in `STATUS.md`; home-page evidence at 360 p
 
 ## M-002 — Evidence-backed research and project pages
 
-State: ACTIVE  
-Dependencies: M-001 accepted; D-0002 private discovery packet delivered; Bryan approved the private research summary, selected general-project candidates, and conservative publication decisions on 2026-08-03; recorded in DEC-001 and R-0002  
-Active implementation directive: D-0003  
+State: ACCEPTED  
+Dependencies: M-001 accepted; private discovery packet delivered and approved through DEC-001 and R-0002  
+Accepted review: R-0003 at PR #11 head `c4c262c3f431e1a32d40ef11b9e8ea1f05fd9157`  
 Covers: AC-002, AC-004, AC-005, AC-011, AC-012, AC-014
 
-### Discovery and approval gate — COMPLETE
+### Completed scope
 
-Codex inspected authorized private project material and existing repository evidence under D-0002, evaluated fifteen candidates, shortlisted five, and returned a private approval packet. Bryan approved the packet and Codex's conservative publication decisions.
-
-The packet, OneDrive evidence, private paths, raw files, private links, candidate notes, rejected candidates, uncertainty notes, and the future-upload reminder remain outside GitHub. The durable public record contains only the approval state and privacy constraints.
-
-### Active implementation scope
-
-- Replace research placeholders with the exact problem, motivation, approach, current status, and public outputs approved in the private D-0002 packet.
-- Replace generic or invented projects with the selected general-project cards approved in that packet.
-- For each selected project, publish only the approved public title, purpose, Bryan's contribution, methods or technologies, result or main learning, and verified public link or approved no-link treatment.
-- Retain all conservative exclusions, redactions, attribution limits, ownership constraints, and link decisions approved by Bryan.
-- Replace click-only cards and weak modal interactions with semantic links, articles, or accessible disclosures.
-- Use optimized local images only when the private packet marked the asset publishable and ownership or licensing is clear; otherwise use the text-first design.
-- Remove the project and research placeholder exemptions from `site-check.json` after their corresponding forbidden text is eliminated. Keep unrelated contact-page exemptions until M-003.
-- Preserve `/pages/research.html` and `/pages/projects.html` and maintain working navigation from the home page.
-- Keep all OneDrive evidence and private approval material outside GitHub.
+- Replaced research placeholders with the approved problem, motivation, staged approach, current status, and no-public-output treatment.
+- Replaced generic and invented projects with exactly five approved general-project articles.
+- Published only approved public titles, contribution statements, methods, outcomes or learnings, and verified link or no-link treatments.
+- Preserved conservative exclusions, team attribution, clinical and academic caveats, ownership constraints, omitted metrics, and text-first asset decisions.
+- Removed click-only cards, hidden placeholder details, weak modal behavior, obsolete scripts, and scoped modal CSS.
+- Removed research and project placeholder exemptions while retaining only the deferred contact-page exemption.
+- Preserved `/pages/research.html`, `/pages/projects.html`, home-page navigation, and representative study-note routes.
+- Kept all OneDrive evidence, private paths, raw files, private links, candidate notes, rejected candidates, uncertainty notes, and reminders outside GitHub.
 
 ### Validation
 
@@ -87,44 +80,69 @@ git diff --check
 git status --short
 ```
 
-### Exit evidence
+### Accepted evidence
 
-- Exact implementation starting and final SHAs.
-- A public-safe source and approval mapping for every published factual claim, without exposing private source locations.
-- Working research and projects pages with no filler or fake claims.
-- Verified link outcomes for every public link and explicit confirmation where no link is intentionally shown.
-- Keyboard and mobile checks for all project and research interactions.
-- Confirmation that no private evidence, path, raw file, note, reminder, or unapproved asset entered GitHub or built output.
-- Updated `.project-loop/STATUS.md` and a generic `CODEX_READY D-0003` PR notification.
+- Exact implementation and review SHAs.
+- Public-safe approval mapping for all research/project claims.
+- Five semantic project articles in approved order.
+- Two verified public links and three intentional no-link treatments.
+- Responsive and keyboard evidence reported for Research and Projects.
+- No private evidence, unapproved asset, metric, placeholder, or future-project card in GitHub or built output.
+- Narrow checker scope with only the deferred Contact exemption remaining.
 
 ## M-003 — About, contact, and study-note integration
 
-State: PENDING  
-Dependencies: M-002 accepted; Bryan confirms contact and profile details  
+State: ACTIVE  
+Dependencies: M-002 accepted through R-0003; approved specification confirms public email `bryan890115@gmail.com`, public GitHub account `bryan890115`, approved positioning, and a layout that must work without a portrait  
+Active implementation directive: D-0004  
 Covers: AC-002, AC-006, AC-007, AC-008, AC-009, AC-010, AC-014
 
-### Scope
+### Active scope
 
-- Rewrite About around current education, MPhil research, relevant teaching, and concise technical/quantitative capability.
-- Remove generic self-praise and unverified expertise.
-- Keep Contact to approved channels and remove unsupported availability or response-time promises.
-- Integrate study notes into navigation or a clearly labelled Resources path while preserving URLs.
-- Use the portrait only if current and approved; otherwise keep a complete text-first layout.
-- Centralize current footer year and identity information.
+- Rewrite About around the approved MPhil research positioning, Computer Science and Actuarial Studies background, selected public project evidence, and concise evidenced technical/quantitative capabilities.
+- Satisfy AC-006 through current research and relevant experience; do not invent institution names, degree dates, marks, employment, teaching appointments, credentials, or other profile details.
+- Remove generic self-praise, unsupported expertise, financial-services positioning, and broad consulting language.
+- Rewrite Contact as a neutral page using only the approved public email and GitHub account.
+- Remove consulting offers, availability promises, mentorship/networking claims, response-time guarantees, and prefilled marketing-style inquiry copy.
+- Use a complete text-first layout. Remove portrait references from About and Contact because the current image has not been explicitly confirmed as current and approved.
+- Preserve the canonical `/study-notes/` route, the `/pages/study-notes.html` compatibility page, representative note routes, and the existing Resources navigation.
+- Remove the final Contact exemption from `site-check.json` after the forbidden phrases are absent; update the regression test to require zero exemptions.
+- Update shared CSS only as needed to replace inline styles and support the bounded About/Contact presentation.
+
+### Explicit exclusions
+
+- No OneDrive access or private-source content.
+- No unapproved institution, date, mark, employment, tutoring, teaching, award, accreditation, location, phone, social profile, or credential claim.
+- No portrait or new personal image.
+- No contact form, scheduling link, response-time promise, consulting offer, availability claim, analytics, tracking, external font, icon library, or unrelated redesign.
+- No substantive rewrite of study-note content.
+- No `_site/` removal; that remains M-004.
 
 ### Validation
 
 ```bash
 bundle exec jekyll build --trace
 python3 scripts/check_site.py _site
-! grep -RniE 'Typically within 24-48 hours|Consulting Available|SITE UNDER CONSTRUCTION|Placeholder|© 2024' index.html pages _layouts _includes
+python3 -m unittest discover -s tests -v
+node --check assets/js/script.js
 python3 -m compileall scripts
+! grep -RniE 'Typically within 24-48 hours|Consulting Available|Open to consulting opportunities|Available for consulting opportunities|Available for consulting engagements|consulting services|Open to professional inquiries and collaboration discussions|SITE UNDER CONSTRUCTION|Placeholder|© 2024' index.html pages _layouts _includes
+! grep -RniE 'profile-professional\.jpg' pages/about.html pages/contact.html
+ruby -e 'required=%w[_site/pages/about.html _site/pages/contact.html _site/pages/study-notes.html _site/study-notes/index.html _site/study-notes/notes/mod0.html]; required.each { |f| abort("missing or empty: #{f}") unless File.file?(f) && File.size(f) > 0 }; puts "required routes non-empty"'
 git diff --check
+git status --short --branch
 ```
 
 ### Exit evidence
 
-Approved biography/contact details in `STATUS.md`; verified about, contact, and study-note routes; mobile and keyboard checks; and no unapproved personal data.
+- Exact starting, implementation, and final review SHAs.
+- A public-safe mapping from every new About/Contact claim to the approved specification or already accepted public page evidence.
+- About and Contact with no generic self-praise, unapproved profile claim, consulting offer, response-time promise, or portrait reference.
+- Zero site-check exemptions and passing checker tests.
+- Verified email, GitHub, study-note compatibility, canonical study-note, and representative note links.
+- Responsive checks at 360 px, 768 px, and 1440 px for About and Contact.
+- Keyboard-focus and browser-console results for all About/Contact interactions.
+- Confirmation that no private or unapproved personal information was added.
 
 ## M-004 — Cleanup, automated quality checks, and release candidate
 
@@ -168,6 +186,7 @@ Successful local and CI checks; `_site/` untracked; responsive evidence for prim
 - **RISK-006 — Jekyll version mismatch:** minimize dependencies and validate locally and in GitHub Actions.
 - **RISK-007 — Private discovery material exposed through a public PR:** implement only the privately approved public-facing set, keep evidence and notes outside GitHub, use public-safe approval mappings, and stop on ambiguity.
 - **RISK-008 — Private packet unavailable after context loss:** Codex must stop and request Bryan to re-supply or reconfirm the public-facing copy privately rather than reconstructing it from OneDrive or guessing.
+- **RISK-009 — Generic profile copy replaced with new unsupported claims:** M-003 must use only approved specification facts and accepted public project evidence, omit uncertain biography details, and use no portrait.
 
 ## Dependency policy
 
