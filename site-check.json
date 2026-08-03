@@ -18,26 +18,6 @@
   ],
   "exemptions": [
     {
-      "path": "pages/projects.html",
-      "phrases": [
-        "Placeholder",
-        "More details coming soon",
-        "Coming Soon"
-      ],
-      "reason": "Project case-study copy is explicitly deferred to M-002."
-    },
-    {
-      "path": "pages/research.html",
-      "phrases": [
-        "Placeholder",
-        "More details coming soon",
-        "Coming Soon",
-        "future deep dives",
-        "documented later"
-      ],
-      "reason": "Research-page copy is explicitly deferred to M-002."
-    },
-    {
       "path": "pages/contact.html",
       "phrases": [
         "Typically within 24-48 hours",

@@ -1,142 +1,52 @@
 ---
 layout: default
 title: Research
-description: Research and academic material from Bryan Jen.
+description: Bryan Jen's MPhil research on staged natural-language interfaces for semantic building data.
 nav_key: research
 ---
 
-        <section class="hero">
-            <div class="hero-content">
-                <h1 class="hero-title">Research & Academic Work</h1>
-                <p class="hero-subtitle">Comprehensive studies and analytical research in actuarial science, computer science, and quantitative methods.</p>
-            </div>
-        </section>
+<section class="hero" aria-labelledby="research-title">
+  <div class="hero-content">
+    <p class="eyebrow">Current MPhil research</p>
+    <h1 class="hero-title" id="research-title">Natural-language interfaces for semantic building data</h1>
+    <p class="hero-subtitle">
+      Grounding questions in building knowledge graphs before planning analysis over linked time series.
+    </p>
+  </div>
+</section>
 
-        <section class="cards-showcase">
-            <h2>Research Areas</h2>
-            <div class="cards-grid">
-                <div class="card-item">
-                    <h3>General Insurance Techniques</h3>
-                    <p>Advanced research in general insurance principles, risk modeling methodologies, and actuarial techniques for comprehensive risk assessment.</p>
-                    <div class="card-stats">
-                        <span>ACTL3162</span>
-                        <span>Risk Modeling</span>
-                        <span>Insurance Analytics</span>
-                    </div>
-                    <div class="card-detail-content" hidden>
-                        <div class="detail-modal-media">
-                            <img src="{{ '/assets/images/modal-research.svg' | relative_url }}" alt="Preview for General Insurance Techniques">
-                        </div>
-                        <p>Placeholder summary outlining future deep dives into reserving methods, pricing strategies, and risk calibration experiments.</p>
-                        <p>Include a link to supporting study materials when ready: <a href="{{ '/study-notes/' | relative_url }}" class="btn-secondary" style="display: inline-flex; margin-top: 0.75rem;">Open study notes</a></p>
-                    </div>
-                </div>
+<section class="cards-showcase research-page" aria-labelledby="research-overview-title">
+  <div class="section-heading section-heading--compact">
+    <p class="eyebrow">Research overview</p>
+    <h2 id="research-overview-title">Ground first, analyse second</h2>
+  </div>
 
-                <div class="card-item">
-                    <h3>Computational Methods</h3>
-                    <p>Research in algorithms, data structures, and computational complexity with applications to financial modeling and optimization.</p>
-                    <div class="card-stats">
-                        <span>Algorithm Design</span>
-                        <span>Computational Finance</span>
-                        <span>Optimization</span>
-                    </div>
-                    <div class="card-detail-content" hidden>
-                        <div class="detail-modal-media">
-                            <img src="{{ '/assets/images/modal-research.svg' | relative_url }}" alt="Preview for Computational Methods">
-                        </div>
-                        <p>Placeholder notes for algorithm comparisons, runtime observations, and optimization case studies to be documented later.</p>
-                        <p>Reserve space for diagrams, pseudo-code, and experiment outcomes that support the research narrative.</p>
-                    </div>
-                </div>
+  <article class="card-item research-summary">
+    <section aria-labelledby="research-problem-title">
+      <h3 id="research-problem-title">Problem and approach</h3>
+      <p>
+        Bryan’s MPhil research explores staged natural-language interfaces for building data.
+      </p>
+      <p>
+        The approach first grounds a question in Brick knowledge graphs and validates the selected equipment, spaces, points, and observed graph paths; only then does it plan analysis over linked time series.
+      </p>
+    </section>
 
-                <div class="card-item">
-                    <h3>Statistical Analysis</h3>
-                    <p>Advanced statistical methods and quantitative techniques for data analysis, predictive modeling, and business intelligence.</p>
-                    <div class="card-stats">
-                        <span>Statistical Modeling</span>
-                        <span>Predictive Analytics</span>
-                        <span>Business Intelligence</span>
-                    </div>
-                    <div class="card-detail-content" hidden>
-                        <div class="detail-modal-media">
-                            <img src="{{ '/assets/images/modal-research.svg' | relative_url }}" alt="Preview for Statistical Analysis">
-                        </div>
-                        <p>Placeholder description for datasets, feature engineering steps, and validation metrics that will be documented.</p>
-                        <p>Use this section for charts, model comparisons, and the business context that frames the findings.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <section aria-labelledby="research-motivation-title">
+      <h3 id="research-motivation-title">Motivation</h3>
+      <p>
+        By exposing graph evidence and temporal plans before calculation—and clarifying or declining when evidence is insufficient—the work aims to make failures easier to diagnose and answers more reliable.
+      </p>
+    </section>
 
-        <div class="detail-modal" aria-hidden="true" role="dialog" aria-modal="true">
-            <div class="detail-modal-content">
-                <button class="detail-modal-close" aria-label="Close research details">&times;</button>
-                <h3 class="detail-modal-title"></h3>
-                <div class="detail-modal-body"></div>
-            </div>
-        </div>
-
-        <section class="about-preview" style="background: #f8fafc;">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2>Academic Excellence</h2>
-                    <p>My research focuses on the intersection of computational methods and actuarial science, developing innovative approaches to risk assessment and financial modeling. Through rigorous academic study and practical application, I contribute to advancing knowledge in both fields.</p>
-                    
-                    <h3 style="margin-top: 2rem; margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600;">Current Research Focus</h3>
-                    <ul style="margin: 1rem 0; padding-left: 2rem; color: #475569;">
-                        <li>Advanced risk modeling and assessment methodologies</li>
-                        <li>Computational approaches to actuarial problem-solving</li>
-                        <li>Statistical analysis and predictive modeling techniques</li>
-                        <li>Integration of technology in financial services</li>
-                    </ul>
-                    
-                    <div style="margin-top: 2rem;">
-                        <a href="{{ '/study-notes/' | relative_url }}" class="btn-primary">View Research Materials</a>
-                    </div>
-                </div>
-                <div class="about-image">
-                    <img src="{{ '/assets/images/profile-professional.jpg' | relative_url }}" alt="Bryan Jen Research Profile" class="profile-pic">
-                </div>
-            </div>
-        </section>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const modal = document.querySelector('.detail-modal');
-            const modalTitle = document.querySelector('.detail-modal-title');
-            const modalBody = document.querySelector('.detail-modal-body');
-            const closeButton = document.querySelector('.detail-modal-close');
-            const cards = document.querySelectorAll('.cards-grid .card-item');
-
-            if (!modal || !modalTitle || !modalBody || !closeButton) return;
-
-            const closeModal = () => {
-                modal.classList.remove('is-open');
-                modal.setAttribute('aria-hidden', 'true');
-            };
-
-            cards.forEach(card => {
-                card.addEventListener('click', () => {
-                    const detail = card.querySelector('.card-detail-content');
-                    const title = card.querySelector('h3')?.textContent || 'Research Details';
-
-                    modalTitle.textContent = title;
-                    modalBody.innerHTML = detail ? detail.innerHTML : '<p>More details coming soon.</p>';
-
-                    modal.classList.add('is-open');
-                    modal.setAttribute('aria-hidden', 'false');
-                });
-            });
-
-            closeButton.addEventListener('click', closeModal);
-            modal.addEventListener('click', (event) => {
-                if (event.target === modal) {
-                    closeModal();
-                }
-            });
-            document.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape' && modal.classList.contains('is-open')) {
-                    closeModal();
-                }
-            });
-        });
-    </script>
+    <section aria-labelledby="research-status-title">
+      <h3 id="research-status-title">Current status</h3>
+      <p>
+        Current work includes a reproducible KGQA prototype and a preliminary feasibility study; broader BuildingQA and time-series evaluations remain in progress.
+      </p>
+      <p class="publication-note">
+        <strong>Public outputs:</strong> No verified public research output or source repository is currently available.
+      </p>
+    </section>
+  </article>
+</section>

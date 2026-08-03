@@ -185,13 +185,19 @@ class SiteCheckerTests(unittest.TestCase):
         config_path = Path(__file__).resolve().parents[1] / "site-check.json"
         config = load_config(config_path)
 
+        self.assertEqual(len(config.exemptions), 1)
+        self.assertEqual(config.exemptions[0].path, "pages/contact.html")
         self.assertEqual(
-            {exemption.path for exemption in config.exemptions},
-            {
-                "pages/projects.html",
-                "pages/research.html",
-                "pages/contact.html",
-            },
+            config.exemptions[0].phrases,
+            frozenset(
+                {
+                    "Typically within 24-48 hours",
+                    "Available for consulting opportunities",
+                    "Available for consulting engagements",
+                    "consulting services",
+                    "Open to professional inquiries and collaboration discussions",
+                }
+            ),
         )
         self.assertTrue(config.phrases)
 
