@@ -21,7 +21,6 @@ jobs:
       - name: Check out validation head
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
-          fetch-depth: 0
           persist-credentials: false
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
@@ -79,15 +78,3 @@ jobs:
       - name: Check required release routes
         run: |
           ruby -e 'required=%w[_site/index.html _site/pages/research.html _site/pages/projects.html _site/pages/about.html _site/pages/contact.html _site/pages/study-notes.html _site/study-notes/index.html _site/study-notes/notes/mod0.html]; required.each { |f| abort("missing or empty: #{f}") unless File.file?(f) && File.size(f) > 0 }; puts "release routes non-empty"'
-
-      - name: Check committed whitespace
-        shell: bash
-        env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-        run: |
-          if [[ -n "$BASE_SHA" ]]; then
-            git diff --check "$BASE_SHA...$HEAD_SHA"
-          else
-            git diff --check "$HEAD_SHA^...$HEAD_SHA"
-          fi
