@@ -1,142 +1,193 @@
 # Current Codex Directive
 
-Directive ID: D-0004  
+Directive ID: D-0005  
 Status: ACTIVE  
-Milestone ID: M-003  
+Milestone ID: M-004  
 Repository: `bryan890115/bryan890115.github.io`  
 Intended implementation branch: `agent/professional-portfolio-redesign`  
-Base SHA: `c4c262c3f431e1a32d40ef11b9e8ea1f05fd9157`  
-Issued timestamp: `2026-08-03T23:50:00+10:00`  
-Replaced directive ID: D-0003
+Base SHA: `e9a4dbba3ec2a06beffb49237e67f3f920226ae1`  
+Issued timestamp: `2026-08-04T00:32:00+10:00`  
+Replaced directive ID: D-0004
 
-## Context and approval basis
+## Context and approvals
 
-R-0003 accepted M-002 at the exact reviewed head above. The approved specification already confirms:
+R-0004 accepted M-003 at the exact reviewed head above. M-001, M-002, and M-003 are accepted. DEC-001 governs the approved research/project publication set and privacy boundary. DEC-002 confirms the approved Contact channels:
 
-- Bryan's positioning as an MPhil researcher working on natural-language interfaces for semantic building data, with a Computer Science and Actuarial Studies background;
-- public email `bryan890115@gmail.com`;
-- public GitHub account `bryan890115`;
-- existing study-note URLs must remain functional; and
-- the design must work without a portrait, with image reuse allowed only when the image is current and explicitly approved.
+- `mailto:bryan890115@gmail.com`
+- `https://github.com/bryan890115`
+- `https://www.linkedin.com/in/bryan-c-jen-0604a311b/`
 
-The current portrait has not been explicitly reconfirmed as current and approved. D-0004 therefore requires a complete text-first About and Contact implementation with no portrait. M-003 can satisfy AC-006 through current research and relevant experience; it must not invent education details, teaching appointments, employment, dates, marks, credentials, or other biography facts.
+No LinkedIn-derived biography or profile fact is approved. Public content is now frozen except for a necessary quality, accessibility, metadata, route, or documentation fix discovered during release-candidate validation.
 
 ## Required outcome
 
-Complete the About, Contact, and study-note integration milestone using only already approved specification facts and already accepted public project/research evidence. Remove generic self-praise, unsupported expertise, consulting/availability claims, response-time promises, inline legacy styling, and unapproved portrait references while preserving routes, accessibility, responsive behaviour, metadata, and the established design system.
+Produce a reviewable release candidate for the complete professional portfolio. Remove tracked generated output, add validation-only pull-request CI, complete full-site responsive/accessibility/metadata/performance QA, update maintenance and deployment documentation, attach reviewable evidence, and request Bryan's final factual and visual approval. Keep PR #11 draft and perform no merge or deployment.
 
 ## In-scope work
 
 1. Pull the current `agent/professional-portfolio-redesign` branch and record its exact pre-work head as `Starting SHA` in `.project-loop/STATUS.md`.
-2. Verify that D-0004's base SHA is an ancestor of the starting head and that intervening changes are limited to Director-owned `.project-loop/REVIEW.md`, `.project-loop/PLAN.md`, and `.project-loop/DIRECTIVE.md`.
-3. Rewrite `pages/about.html` as a concise text-first profile using only:
-   - the approved MPhil research positioning;
-   - the approved Computer Science and Actuarial Studies background;
-   - the accepted Research and Projects page evidence;
-   - relevant experience evidenced by the five accepted project articles; and
-   - concise skills directly evidenced by accepted public pages or repository source, such as Python, Brick, SPARQL, machine-learning/data workflows, Markdown, Jekyll, and MathJax.
-4. Structure About around clear sections such as current work, background, selected experience, and evidenced capabilities. Use neutral factual language and semantic headings/articles/lists.
-5. Do not add an institution name, degree title beyond the approved positioning/background, dates, marks, scholarships, accreditation, employment, tutoring/teaching appointment, award, location, age, collaborator name, publication, or credential unless that exact fact is already explicitly approved in the repository handoff. Omit rather than infer.
-6. Remove the portrait and all portrait references from `pages/about.html`. The page must remain visually complete without an image.
-7. Rewrite `pages/contact.html` as a neutral, concise contact page using only:
-   - email `bryan890115@gmail.com`; and
-   - GitHub `https://github.com/bryan890115`.
-8. Use wording limited to contacting Bryan about the research or work presented on the site. Do not claim consulting availability, collaboration availability, response times, networking/mentorship availability, or guaranteed replies.
-9. Remove prefilled marketing-style email subject/body parameters unless a simple subject is necessary and neutral; a plain `mailto:` link is preferred.
-10. Remove the portrait and all portrait references from `pages/contact.html`.
-11. Preserve the canonical `/study-notes/` route, `/pages/study-notes.html` compatibility page, existing navigation label, and representative note paths. Make only small integration/wording improvements; do not substantively rewrite study-note content.
-12. Replace page-specific inline styles in the scoped pages with existing or narrowly added shared CSS. Keep the restrained design system and avoid unrelated visual expansion.
-13. Remove the final `pages/contact.html` exemption from `site-check.json` after all forbidden phrases are absent. The final configuration must contain zero exemptions.
-14. Update `tests/test_check_site.py` so the repository-policy test requires zero exemptions and prevents silent reintroduction of page-specific exceptions.
-15. Preserve all accepted M-001 and M-002 content, routes, links, privacy boundaries, and conservative publication decisions.
-16. Update `.project-loop/STATUS.md` with exact implementation evidence, a public-safe claim mapping, validation results, deviations, risks, and blockers.
-17. Push changes to the existing branch, update draft PR #11 with a generic M-003 summary, and post `CODEX_READY D-0004 at <FULL_SHA>` when ready for Project Director review.
+2. Verify that D-0005's base SHA is an ancestor of the starting head and that intervening changes are limited to Director-owned `.project-loop/DECISIONS.md`, `.project-loop/REVIEW.md`, `.project-loop/PLAN.md`, and `.project-loop/DIRECTIVE.md`.
+3. Prove the committed source builds successfully before deleting generated output.
+4. Remove every tracked file under `_site/` from Git while keeping `_site/` ignored. Do not hand-edit generated output.
+5. Confirm `.gitignore` excludes `_site/`, local bundle/gem directories, Python caches, test/browser outputs, OS files, and other generated artifacts without excluding required source.
+6. Review source assets and remove only obsolete generated/legacy assets that are demonstrably unreferenced. Do not broaden this into a redesign or delete a source asset still used by the canonical study-note pages.
+7. Add a lightweight validation-only GitHub Actions workflow under `.github/workflows/` triggered by `pull_request` and optionally manual dispatch. It must:
+   - use supported official checkout and Ruby setup actions;
+   - install dependencies from `Gemfile.lock` with Bundler caching when supported;
+   - build Jekyll;
+   - run `scripts/check_site.py`;
+   - run the nine unit tests;
+   - check JavaScript syntax;
+   - compile Python scripts;
+   - validate `_config.yml`;
+   - assert zero checker exemptions;
+   - assert no tracked `_site/` files;
+   - scan for all forbidden placeholder, stale-footer, consulting, availability, and response-time phrases; and
+   - have read-only repository permissions unless a strictly necessary permission is documented.
+8. The workflow must not deploy, upload to GitHub Pages, push, comment automatically, mutate the repository, use secrets, or run on a schedule.
+9. Update README with:
+   - source layout and shared Jekyll structure;
+   - supported local Ruby/Bundler setup and the known macOS system-Ruby incompatibility;
+   - install, build, serve, checker, tests, and complete validation commands;
+   - content-editing guidance for home, research, projects, about, contact, and study notes;
+   - generated `_site/` policy;
+   - PR validation workflow behavior;
+   - metadata/configuration editing guidance; and
+   - explicit statement that Bryan owns merge and GitHub Pages publication.
+10. Build from a clean source state after `_site/` is untracked and confirm all required routes are non-empty:
+    - `/`
+    - `/pages/research.html`
+    - `/pages/projects.html`
+    - `/pages/about.html`
+    - `/pages/contact.html`
+    - `/pages/study-notes.html`
+    - `/study-notes/`
+    - `/study-notes/notes/mod0.html`
+11. Verify public external links used by the site, including GitHub project links and the approved LinkedIn URL, without copying external profile content into the repository. Record unavailable/blocking responses honestly.
+12. Complete responsive visual QA at 360, 768, and 1440 CSS pixels for Home, Research, Projects, About, Contact, and the study-note landing page. Check overflow, clipping, overlap, heading hierarchy, navigation state, focus visibility, and readability.
+13. Attach or otherwise make reviewable actual screenshots for at least:
+    - Home at 360 and 1440 px;
+    - Research at one mobile and one desktop width;
+    - Projects at one mobile and one desktop width;
+    - About and Contact at one representative width each.
+    Do not merely reference inaccessible local paths in `STATUS.md`.
+14. Complete keyboard-only QA covering the skip link, desktop navigation, compact menu open/close/Escape/focus restoration, all home calls to action, all Research/Projects/About/Contact links, Resources compatibility link, and representative study-note navigation.
+15. Inspect primary pages for one H1, semantic landmarks, sensible heading order, descriptive accessible names, visible focus, and no uncaught browser-console warning or error.
+16. Verify each primary page's title, description, canonical URL, Open Graph fields, and shared Person JSON-LD. Confirm that approved email, GitHub, and LinkedIn URLs are consistent where used; do not add LinkedIn to JSON-LD unless Bryan explicitly approves that separate metadata change.
+17. Run Lighthouse using available browser tooling for at least the home page at a production-like local build. Target:
+    - Performance >= 90
+    - Accessibility >= 95
+    - Best Practices >= 95
+    - SEO >= 95
+    If a target cannot be met or tooling is unavailable, record exact scores or the precise environment blocker and do not silently waive the gate.
+18. Fix only release-blocking defects discovered by these checks. Any factual-copy, project-selection, research-status, contact-channel, or strategic design change requires escalation.
+19. Update `.project-loop/STATUS.md` with exact SHAs, changed files, commands, local outputs, CI run/check identity and conclusion, route/link results, screenshots/evidence locations, responsive/keyboard/console/metadata/Lighthouse results, deviations, risks, and blockers.
+20. Update draft PR #11 to a release-candidate description, attach reviewable evidence, and post `CODEX_READY D-0005 at <FULL_SHA>` only after local checks pass and the PR validation workflow has completed successfully. If the workflow is pending or failing, do not post ready.
+21. Explicitly request Bryan's final factual-content and visual approval in the private Codex response. Do not infer that prior milestone approvals constitute final release approval.
 
 ## Explicitly out of scope
 
-- OneDrive access, private-source discovery, or reuse of private candidate notes.
-- Adding unapproved institution names, program dates, graduation dates, marks, rankings, scholarships, accreditation, employment, tutoring/teaching claims, awards, locations, phone numbers, social accounts, credentials, or other personal data.
-- Adding or retaining portrait imagery on About or Contact.
-- Consulting offers, availability statements, response-time promises, networking/mentorship claims, or sales-oriented calls to action.
-- Contact forms, scheduling tools, backend services, analytics, tracking, advertising, external fonts, icon libraries, stock imagery, or framework migration.
-- Substantive rewriting of study-note content.
-- Changing approved Research or Projects copy except for a necessary shared-style compatibility fix.
-- Removing tracked `_site/`; that belongs to M-004.
-- Merging PR #11 or deploying the site.
+- New or rewritten public biography, research, project, education, employment, teaching, metric, credential, availability, or private-source content.
+- Changing the approved email, GitHub, or LinkedIn link.
+- Adding LinkedIn or any new social URL to JSON-LD without separate explicit approval.
+- Analytics, tracking, advertising, contact forms, scheduling, backend services, CMS, authentication, external fonts, stock imagery, framework migration, or new visual concept.
+- A GitHub Pages deployment workflow, push-to-main automation, release creation, branch protection change, repository settings change, or secret use.
+- Merging PR #11, marking it ready for review, deleting the implementation branch, or deploying the site.
 
 ## Mapped acceptance criteria
 
-- AC-002
-- AC-006
-- AC-007
-- AC-008
 - AC-009
 - AC-010
+- AC-012
 - AC-014
+- AC-015
+- AC-016
+- AC-017
+- AC-018
+- All approved final quality gates
 
 ## Required evidence
 
 - Exact starting SHA, implementation commit SHA, and final review head SHA.
-- A focused changed-file inventory.
-- A public-safe mapping for every new factual About/Contact statement to the approved specification or accepted Research/Projects content.
-- Confirmation that no unapproved profile fact, personal information, private evidence, or portrait was added.
-- Confirmation that About uses neutral, evidence-backed language without generic self-praise.
-- Confirmation that Contact exposes only the approved email and GitHub channels and contains no availability or response-time claim.
-- Exact `site-check.json` change showing zero exemptions and a regression test requiring that state.
-- Built-route evidence for `/pages/about.html`, `/pages/contact.html`, `/pages/study-notes.html`, `/study-notes/`, and a representative note page.
-- Responsive evidence at 360 px, 768 px, and 1440 px for About and Contact.
-- Keyboard-focus evidence for all links and compact navigation on the scoped pages.
-- Browser-console results for About and Contact.
-- Successful output for every required validation command.
+- Focused changed-file inventory separating generated-output deletion, CI, documentation, tests/policy, and any release fix.
+- Source build success before and after `_site/` removal.
+- `test -z "$(git ls-files _site)"` success.
+- Complete local validation output.
+- PR validation workflow name, run ID/URL, head SHA, job/check names, and successful conclusion.
+- Zero checker exemptions and zero forbidden-content scan matches.
+- Built-route and representative deep-link results.
+- Public external-link results with any access limitation stated.
+- Reviewable screenshot evidence.
+- Full keyboard, responsive, heading/landmark, focus, console, and metadata results.
+- Lighthouse scores or precise blocker.
+- Confirmation that approved content and privacy boundaries did not change.
+- Bryan's final factual and visual approval status; initially `PENDING` until he responds.
 
-## Exact validation commands
+## Exact local validation commands
 
-Record the exact pre-work branch head in `STARTING_SHA`, then run:
+Record `STARTING_SHA`, then run the authority checks before work:
 
 ```bash
-git merge-base --is-ancestor c4c262c3f431e1a32d40ef11b9e8ea1f05fd9157 "$STARTING_SHA"
-git diff --name-only c4c262c3f431e1a32d40ef11b9e8ea1f05fd9157..."$STARTING_SHA"
+git merge-base --is-ancestor e9a4dbba3ec2a06beffb49237e67f3f920226ae1 "$STARTING_SHA"
+git diff --name-only e9a4dbba3ec2a06beffb49237e67f3f920226ae1..."$STARTING_SHA"
+```
+
+After implementation, run:
+
+```bash
+bundle install
 bundle exec jekyll build --trace
 python3 scripts/check_site.py _site
 python3 -m unittest discover -s tests -v
 node --check assets/js/script.js
 python3 -m compileall scripts
-! grep -RniE 'Typically within 24-48 hours|Consulting Available|Open to consulting opportunities|Available for consulting opportunities|Available for consulting engagements|consulting services|Open to professional inquiries and collaboration discussions|SITE UNDER CONSTRUCTION|Placeholder|© 2024' index.html pages _layouts _includes
-! grep -RniE 'profile-professional\.jpg' pages/about.html pages/contact.html
-ruby -e 'required=%w[_site/pages/about.html _site/pages/contact.html _site/pages/study-notes.html _site/study-notes/index.html _site/study-notes/notes/mod0.html]; required.each { |f| abort("missing or empty: #{f}") unless File.file?(f) && File.size(f) > 0 }; puts "required routes non-empty"'
+ruby -e 'require "yaml"; YAML.load_file("_config.yml"); puts "config ok"'
+test -z "$(git ls-files _site)"
+python3 - <<'PY'
+import json
+from pathlib import Path
+config = json.loads(Path("site-check.json").read_text())
+assert config.get("exemptions") == [], config.get("exemptions")
+print("zero exemptions")
+PY
+! grep -RniE 'SITE UNDER CONSTRUCTION|Placeholder|More details coming soon|Coming Soon|future deep dives|documented later|Typically within 24-48 hours|Consulting Available|Open to consulting opportunities|Available for consulting opportunities|Available for consulting engagements|consulting services|Open to professional inquiries and collaboration discussions|© 2024' index.html pages _layouts _includes
+ruby -e 'required=%w[_site/index.html _site/pages/research.html _site/pages/projects.html _site/pages/about.html _site/pages/contact.html _site/pages/study-notes.html _site/study-notes/index.html _site/study-notes/notes/mod0.html]; required.each { |f| abort("missing or empty: #{f}") unless File.file?(f) && File.size(f) > 0 }; puts "release routes non-empty"'
 git diff --check
 git status --short --branch
 git diff --name-only "$STARTING_SHA"...HEAD
 ```
 
-If the default system Ruby cannot load the repository's pinned Bundler, Codex may use the already installed compatible Ruby/Bundler launcher with otherwise identical Jekyll arguments and must record that deviation precisely.
+If the default system Ruby cannot load the pinned Bundler, use the existing compatible Ruby/Bundler launcher and record the exact deviation. Do not change dependencies merely to accommodate the system Ruby.
 
-The pre-work diff from D-0004's base to `STARTING_SHA` must contain only `.project-loop/REVIEW.md`, `.project-loop/PLAN.md`, and `.project-loop/DIRECTIVE.md`. Any other intervening change requires escalation before implementation.
+The pre-work diff from D-0005's base to `STARTING_SHA` must contain only `.project-loop/DECISIONS.md`, `.project-loop/REVIEW.md`, `.project-loop/PLAN.md`, and `.project-loop/DIRECTIVE.md`. Any other intervening change requires escalation.
 
 ## Publication permission
 
-Codex may continue on `agent/professional-portfolio-redesign`, commit and push the bounded M-003 implementation, update existing draft PR #11, and post a generic ready-for-review notification.
+Codex may continue on `agent/professional-portfolio-redesign`, commit and push the bounded M-004 release-candidate work, update existing draft PR #11, and post the generic ready notification after all required conditions are satisfied.
 
-Codex must not merge, deploy, push implementation directly to `main`, expose private material, or expand public profile facts beyond this directive.
+Codex must not merge, deploy, push directly to `main`, mark the PR ready for review, alter repository settings, expose private material, or change frozen public content beyond a necessary release-blocking fix.
 
 ## Stop and escalate conditions
 
 Codex must stop and report `BLOCKED` when:
 
-- An About or Contact statement cannot be supported by the approved specification or accepted public page evidence.
-- Completing the page would require an unapproved institution, date, mark, employment, teaching, credential, location, portrait, or personal-detail claim.
-- The existing portrait must be retained to make the design work.
-- A route or study-note path would break without an unapproved migration.
-- Removing the final checker exemption reveals forbidden text outside the bounded scope that cannot be safely deleted.
-- The starting branch contains unexpected changes after D-0004's base SHA.
-- The implementation requires an excluded dependency, backend, external service, or material design change.
+- The source does not reproduce after tracked `_site/` removal.
+- A required public route or accepted link breaks.
+- CI requires secrets, write permissions, deployment, or an unapproved third-party action.
+- The PR workflow fails and cannot be fixed within the bounded validation scope.
+- A Lighthouse gate fails and a meaningful fix would require content/design expansion rather than a small performance/accessibility correction.
+- A screenshot or browser test exposes an important visual/accessibility regression that cannot be fixed generically.
+- A factual or privacy discrepancy is discovered in accepted content.
+- The starting branch contains unexpected changes after D-0005's base SHA.
+- Bryan's final factual and visual approval is unavailable; in that case deliver the release candidate but keep final verdict blocked on approval.
 
 ## Next Project Director review focus
 
-- Whether About is current, specific, and evidence-backed without generic praise or invented biography details.
-- Whether Contact exposes only approved channels without promises or availability claims.
-- Whether the text-first layout is complete and the unapproved portrait is absent.
-- Whether study-note routes and navigation remain intact.
-- Whether checker exemptions are reduced to zero with a durable regression test.
-- Whether responsive, keyboard, metadata, and browser-console behaviour remain sound.
-- Whether the implementation remains the smallest safe route to M-004.
+- Whether `_site/` is fully untracked and source reproduction is proven.
+- Whether PR-only CI is safe, minimal, supported, passing, and non-deploying.
+- Whether all primary routes, links, accessibility semantics, keyboard paths, metadata, console state, responsive layouts, and Lighthouse gates are evidenced.
+- Whether screenshots are actually reviewable.
+- Whether README and rollout ownership are complete.
+- Whether accepted content and privacy boundaries remain unchanged.
+- Whether Bryan has explicitly approved the final factual content and visual presentation.
+- Whether the project is genuinely ready for PASS without merge or deployment by the Project Director.
