@@ -1,94 +1,111 @@
 # Current Codex Directive
 
-Directive ID: D-0001  
+Directive ID: D-0002  
 Status: ACTIVE  
-Milestone ID: M-001  
+Milestone ID: M-002  
 Repository: `bryan890115/bryan890115.github.io`  
 Intended implementation branch: `agent/professional-portfolio-redesign`  
-Base SHA: `c18d372f2e0dad67a03eba0016ae2ea1f4ac4651`  
-Issued timestamp: `2026-08-03T17:12:00+10:00`  
-Activated timestamp: `2026-08-03T17:33:00+10:00`  
-Replaced directive ID: None
+Base SHA: `22db5223a0ec1c59500b9371aa33960f04711fa6`  
+Issued timestamp: `2026-08-03T18:49:00+10:00`  
+Replaced directive ID: D-0001
 
-## Approval
+## Context
 
-Bryan explicitly approved the specification and plan without corrections on 2026-08-03. D-0001 is active.
+R-0001 accepted M-001 at PR #11 head `0f7408e0fbe1fba5ac76f373711f7eef1e89e4c6`. Bryan has stated that Codex can access OneDrive material containing some of his projects and has asked for one additional reminder entry so he remembers to upload more projects later.
+
+The GitHub repository, branch, pull request, comments, and commit history are public. OneDrive material is therefore approved for **read-only discovery**, not automatic public disclosure. Bryan must approve the exact summaries, claims, assets, and links before any OneDrive-derived content is committed to the public branch or displayed on the website.
 
 ## Required outcome
 
-Create the shared Jekyll design foundation and a complete, professional home-page vertical slice that presents Bryan as a research-focused computer scientist with an Actuarial Studies background. The site must remain buildable, responsive, accessible, and compatible with existing primary routes.
+Inspect the accessible OneDrive project material and existing repository evidence, then return a private approval packet to Bryan containing:
+
+1. A proposed research-page factual summary.
+2. Three to five strongest candidate project case studies.
+3. One non-public TODO reminder: `Future project — upload supporting material to OneDrive`.
+4. A clear list of any facts, outcomes, links, images, or privacy questions that require Bryan's decision.
+
+Do not modify the public research or projects pages in this directive. This directive is the content-discovery and approval gate for M-002.
 
 ## In-scope work
 
-1. Add a shared Jekyll page shell with reusable metadata, header/navigation, and footer includes.
-2. Establish a restrained CSS design system with reusable variables, typography, spacing, layout, buttons, cards, focus states, reduced-motion support, and responsive behaviour.
-3. Implement an accessible mobile navigation pattern without a framework.
-4. Redesign the home page using the approved positioning in `.project-loop/SPEC.md`.
-5. Remove `SITE UNDER CONSTRUCTION` from the home page.
-6. Add semantic landmarks, a skip link, descriptive headings, visible focus states, and correct link/button semantics.
-7. Add reusable title, description, canonical, Open Graph, and verified Person JSON-LD metadata support.
-8. Add or update repository build instructions needed for this milestone.
-9. Add `scripts/check_site.py` using the Python standard library to check built HTML for broken internal links and forbidden placeholder phrases.
-10. Keep existing primary routes functional. Make only minimum compatibility edits outside the home page.
-11. Update `.project-loop/STATUS.md` with exact evidence, commands, outputs, changed files, deviations, risks, and blockers.
+1. Pull the current `agent/professional-portfolio-redesign` branch and verify that the starting head is this directive's base SHA or its direct descendant containing only Director-owned handoff changes.
+2. Inspect OneDrive material that is clearly Bryan's project work and relevant to a professional technical/research portfolio.
+3. Inspect existing repository material needed to corroborate public routes, existing study notes, and already-public GitHub links.
+4. Select three to five candidate projects using these criteria:
+   - relevance to research, software, AI/data, quantitative, actuarial, or technical work;
+   - clear evidence of Bryan's own contribution;
+   - enough material to state the problem, role, methods, and outcome or learning accurately;
+   - no obvious confidentiality, assessment-integrity, licensing, personal-data, or third-party ownership concern.
+5. For each candidate, prepare in the private Codex response:
+   - proposed public title;
+   - one-sentence problem or purpose;
+   - Bryan's role and contribution;
+   - methods, technologies, or analytical approach;
+   - evidence-backed result or main learning;
+   - proposed public link, or `no public link`;
+   - evidence source location in OneDrive or the repository;
+   - privacy/licensing/assessment risks;
+   - concise proposed website copy.
+6. Prepare proposed research-page facts covering the problem, motivation, approach, current status, and any genuinely public outputs or links.
+7. Include the exact non-public TODO reminder `Future project — upload supporting material to OneDrive` in the private approval packet only.
+8. Update `.project-loop/STATUS.md` only with a non-sensitive summary such as the number of candidate projects reviewed, whether an approval packet was returned privately, validation performed, and any blocker. Do not put OneDrive paths, private titles, private URLs, raw excerpts, screenshots, or proposed confidential copy in the public status file.
+9. Post only a generic PR notification such as `CODEX_APPROVAL_REQUIRED D-0002` after the private packet is delivered. Do not place the packet in the public PR description or comments.
 
 ## Explicitly out of scope
 
-- Final rewriting of research, projects, about, contact, books, or study-note content.
-- Publishing unverified project descriptions, metrics, credentials, employment, or research results.
-- Adding a CMS, backend, contact form, analytics, tracking, advertisements, authentication, stock imagery, external fonts, or unnecessary third-party scripts.
-- Migrating to React, Next.js, a CSS framework, or a JavaScript framework.
-- Removing tracked `_site/` output before the source build is verified; that belongs to M-004.
-- Merging to `main` or deploying the site.
+- Changing `pages/projects.html`, `pages/research.html`, home-page project content, public metadata, or built website output.
+- Adding a public placeholder project card or any public `coming soon`, `placeholder`, or future-upload message.
+- Copying, uploading, committing, or linking raw OneDrive files.
+- Publishing private OneDrive URLs, local paths, credentials, secrets, unpublished research, private coursework, assessment questions/solutions, restricted datasets, third-party personal data, or material Bryan does not clearly own or control.
+- Guessing Bryan's role, outcomes, metrics, dates, collaborators, repository links, or publication status.
+- Merging PR #11 or deploying the site.
 
 ## Mapped acceptance criteria
 
-AC-001, AC-003, AC-008, AC-009, AC-010, AC-013, AC-015, and AC-016.
+This directive prepares evidence for AC-002, AC-004, AC-005, AC-011, AC-012, and AC-014. It does not complete those criteria and must not claim that M-002 is implemented.
 
 ## Required evidence
 
-- Exact starting and final implementation SHAs and a concise changed-file inventory.
-- Successful output for every required validation command.
-- Built-route evidence for `/`, `/pages/about.html`, `/pages/projects.html`, `/pages/research.html`, `/pages/contact.html`, and `/study-notes/`.
-- Home-page visual evidence at 360 px, 768 px, and 1440 px.
-- Keyboard-navigation evidence covering the skip link, navigation, and primary calls to action.
-- A list of factual home-page claims and the approved source for each.
-- Any deviation from the approved specification, with no silent scope expansion.
+- Exact starting and final branch SHAs.
+- Number of OneDrive candidate projects inspected and number shortlisted.
+- Private approval packet delivered directly to Bryan with the required fields.
+- Confirmation that the future-upload TODO appears only in the private packet.
+- Confirmation that no OneDrive file, private URL, sensitive excerpt, asset, or unapproved public copy was committed or posted to GitHub.
+- A concise public-safe update in `.project-loop/STATUS.md`.
+- Exact command results for the validation commands below.
 
 ## Exact validation commands
 
 ```bash
-bundle install
-bundle exec jekyll build --trace
-python3 scripts/check_site.py _site
-ruby -e 'require "yaml"; YAML.load_file("_config.yml"); puts "config ok"'
 git diff --check
-git status --short
+git status --short --branch
+git diff --name-only 22db5223a0ec1c59500b9371aa33960f04711fa6...HEAD
 ```
+
+The changed-file list must contain no public website source or OneDrive-derived asset. Apart from Codex-owned `.project-loop/STATUS.md`, any unexpected file change requires escalation.
 
 ## Publication permission
 
-Codex may create `agent/professional-portfolio-redesign` from the current `main` after the approval commit is merged. The original base SHA remains valid because subsequent commits changed only project-loop metadata.
+Codex may continue on `agent/professional-portfolio-redesign`, commit and push a non-sensitive `.project-loop/STATUS.md` update, and update the existing draft PR with a generic readiness/approval-required notification.
 
-Codex may commit and push changes to that non-default branch and may open or update a draft pull request targeting `main`. Codex must not merge the pull request, push website implementation directly to `main`, or deploy the site.
+Codex must not commit OneDrive-derived project content, public page changes, candidate titles, private source paths, links, images, or raw material under D-0002. Codex must not merge or deploy.
 
 ## Stop and escalate conditions
 
 Codex must stop and report `BLOCKED` when:
 
-- Approved positioning or factual copy is ambiguous or conflicts with evidence.
-- A change would break an existing public route without an approved redirect.
-- The Jekyll build cannot be reproduced without a material dependency or architecture change.
-- A requested asset, link, credential, or claim cannot be verified.
-- Work requires an explicitly excluded capability.
-- Unrelated working-tree changes cannot be safely separated.
-- The implementation code base has materially changed since the directive was issued.
+- OneDrive access is unavailable or the relevant project location cannot be identified safely.
+- Ownership, confidentiality, licensing, assessment integrity, or permission to publish is unclear.
+- A candidate's role, methods, result, or link cannot be supported by evidence.
+- Fewer than three suitable candidates can be identified without exposing private or low-quality material.
+- The current branch head contains unexpected changes after the directive base SHA.
+- Completing the task would require placing private information in GitHub or weakening AC-002's no-placeholder requirement.
 
 ## Next Project Director review focus
 
-- Truthful and distinctive home-page positioning.
-- Credible design without generic corporate decoration or claims.
-- Shared Jekyll structure with preserved routes.
-- Implemented accessibility and responsive behaviour.
-- Traceable factual content.
-- The smallest safe route to the approved outcome.
+- Whether the candidate packet is evidence-backed and useful for Bryan's approval.
+- Whether the strongest three to five projects were selected rather than merely the easiest files to find.
+- Whether research claims are appropriately modest and current.
+- Whether privacy, assessment integrity, ownership, and licensing risks were surfaced.
+- Whether the future-upload reminder remained private and no public placeholder was introduced.
+- Whether no OneDrive-derived material was exposed through the public repository or PR.
