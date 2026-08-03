@@ -181,24 +181,11 @@ class SiteCheckerTests(unittest.TestCase):
         self.assertIn("EXEMPT: index.html:1", output.getvalue())
         self.assertIn("1 exemption(s) applied", output.getvalue())
 
-    def test_repository_config_has_only_narrow_deferred_path_exemptions(self) -> None:
+    def test_repository_config_has_no_exemptions(self) -> None:
         config_path = Path(__file__).resolve().parents[1] / "site-check.json"
         config = load_config(config_path)
 
-        self.assertEqual(len(config.exemptions), 1)
-        self.assertEqual(config.exemptions[0].path, "pages/contact.html")
-        self.assertEqual(
-            config.exemptions[0].phrases,
-            frozenset(
-                {
-                    "Typically within 24-48 hours",
-                    "Available for consulting opportunities",
-                    "Available for consulting engagements",
-                    "consulting services",
-                    "Open to professional inquiries and collaboration discussions",
-                }
-            ),
-        )
+        self.assertEqual(config.exemptions, ())
         self.assertTrue(config.phrases)
 
 

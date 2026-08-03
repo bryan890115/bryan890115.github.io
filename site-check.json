@@ -16,17 +16,5 @@
     "Open to professional inquiries and collaboration discussions",
     "© 2024"
   ],
-  "exemptions": [
-    {
-      "path": "pages/contact.html",
-      "phrases": [
-        "Typically within 24-48 hours",
-        "Available for consulting opportunities",
-        "Available for consulting engagements",
-        "consulting services",
-        "Open to professional inquiries and collaboration discussions"
-      ],
-      "reason": "Contact availability and consulting copy is explicitly deferred to M-003."
-    }
-  ]
+  "exemptions": []
 }
