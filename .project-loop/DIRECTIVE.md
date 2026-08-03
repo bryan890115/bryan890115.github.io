@@ -6,7 +6,6 @@ Milestone ID: M-002
 Repository: `bryan890115/bryan890115.github.io`  
 Intended implementation branch: `agent/professional-portfolio-redesign`  
 Base SHA: `22db5223a0ec1c59500b9371aa33960f04711fa6`  
-Directive commit SHA: `e71c1c8e0702a68987a42835c051e681b23433a3`  
 Issued timestamp: `2026-08-03T18:49:00+10:00`  
 Replaced directive ID: D-0001
 
@@ -29,7 +28,7 @@ Do not modify the public research or projects pages in this directive. This dire
 
 ## In-scope work
 
-1. Pull the current `agent/professional-portfolio-redesign` branch and verify that the starting head is `e71c1c8e0702a68987a42835c051e681b23433a3` or its direct descendant containing only Director-owned handoff changes.
+1. Pull the current `agent/professional-portfolio-redesign` branch. Before making any change, record its exact current head as `Starting SHA` in `.project-loop/STATUS.md`. Verify that it is a descendant of this directive's base SHA and that the intervening changes are only Director-owned `.project-loop/PLAN.md`, `.project-loop/REVIEW.md`, and `.project-loop/DIRECTIVE.md` updates.
 2. Inspect OneDrive material that is clearly Bryan's project work and relevant to a professional technical/research portfolio.
 3. Inspect existing repository material needed to corroborate public routes, existing study notes, and already-public GitHub links.
 4. Select three to five candidate projects using these criteria:
@@ -77,13 +76,17 @@ This directive prepares evidence for AC-002, AC-004, AC-005, AC-011, AC-012, and
 
 ## Exact validation commands
 
+Record the exact pre-work branch head in `STARTING_SHA`, then run:
+
 ```bash
+git merge-base --is-ancestor 22db5223a0ec1c59500b9371aa33960f04711fa6 "$STARTING_SHA"
+git diff --name-only 22db5223a0ec1c59500b9371aa33960f04711fa6..."$STARTING_SHA"
 git diff --check
 git status --short --branch
-git diff --name-only e71c1c8e0702a68987a42835c051e681b23433a3...HEAD
+git diff --name-only "$STARTING_SHA"...HEAD
 ```
 
-The changed-file list must contain no public website source or OneDrive-derived asset. Apart from Codex-owned `.project-loop/STATUS.md`, any unexpected file change requires escalation.
+The pre-work diff from the directive base to `STARTING_SHA` must contain only Director-owned `.project-loop/PLAN.md`, `.project-loop/REVIEW.md`, and `.project-loop/DIRECTIVE.md`. The post-work diff from `STARTING_SHA` to final head must contain no public website source or OneDrive-derived asset; apart from Codex-owned `.project-loop/STATUS.md`, any unexpected file change requires escalation.
 
 ## Publication permission
 
@@ -99,7 +102,7 @@ Codex must stop and report `BLOCKED` when:
 - Ownership, confidentiality, licensing, assessment integrity, or permission to publish is unclear.
 - A candidate's role, methods, result, or link cannot be supported by evidence.
 - Fewer than three suitable candidates can be identified without exposing private or low-quality material.
-- The current branch head contains unexpected changes after the directive starting SHA.
+- The current branch head contains unexpected non-Director changes after the directive base SHA.
 - Completing the task would require placing private information in GitHub or weakening AC-002's no-placeholder requirement.
 
 ## Next Project Director review focus
