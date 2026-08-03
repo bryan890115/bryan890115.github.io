@@ -51,37 +51,51 @@ Built primary routes; command output in `STATUS.md`; home-page evidence at 360 p
 ## M-002 — Evidence-backed research and project pages
 
 State: ACTIVE  
-Dependencies: M-001 accepted; Bryan authorized Codex on 2026-08-03 to inspect accessible OneDrive project material and prepare candidates. Exact public copy, claims, assets, and links still require Bryan's approval before they are committed or published.  
+Dependencies: M-001 accepted; D-0002 private discovery packet delivered; Bryan approved the private research summary, selected general-project candidates, and conservative publication decisions on 2026-08-03; recorded in DEC-001 and R-0002  
+Active implementation directive: D-0003  
 Covers: AC-002, AC-004, AC-005, AC-011, AC-012, AC-014
 
-### Discovery and approval gate
+### Discovery and approval gate — COMPLETE
 
-Before changing the public research or projects pages, Codex must inspect the accessible OneDrive material and existing repository evidence, then return a private approval packet to Bryan containing three to five candidate projects and proposed research-page facts. Raw OneDrive files, private URLs, assessment material, credentials, secrets, unpublished research, and unapproved summaries must not be copied into the public repository, branch, pull request, comments, or screenshots.
+Codex inspected authorized private project material and existing repository evidence under D-0002, evaluated fifteen candidates, shortlisted five, and returned a private approval packet. Bryan approved the packet and Codex's conservative publication decisions.
 
-Bryan requested one additional reminder entry for future projects. This must be a **non-public TODO in the private approval packet only**, such as “Future project — upload supporting material to OneDrive.” It must not appear as a placeholder card or placeholder text on the public website or in built output.
+The packet, OneDrive evidence, private paths, raw files, private links, candidate notes, rejected candidates, uncertainty notes, and the future-upload reminder remain outside GitHub. The durable public record contains only the approval state and privacy constraints.
 
-### Scope after content approval
+### Active implementation scope
 
-- Replace research placeholders with the approved problem, motivation, approach, current status, and approved outputs.
-- Replace generic projects with three to five verified case studies describing Bryan's role, problem, methods, and outcome or learning.
-- Use verified public links only.
-- Replace click-only cards or weak modals with semantic links, disclosures, or case-study sections.
-- Use optimized local images only where they add evidence and Bryan has approved publication.
-- Preserve `/pages/research.html` and `/pages/projects.html`.
+- Replace research placeholders with the exact problem, motivation, approach, current status, and public outputs approved in the private D-0002 packet.
+- Replace generic or invented projects with the selected general-project cards approved in that packet.
+- For each selected project, publish only the approved public title, purpose, Bryan's contribution, methods or technologies, result or main learning, and verified public link or approved no-link treatment.
+- Retain all conservative exclusions, redactions, attribution limits, ownership constraints, and link decisions approved by Bryan.
+- Replace click-only cards and weak modal interactions with semantic links, articles, or accessible disclosures.
+- Use optimized local images only when the private packet marked the asset publishable and ownership or licensing is clear; otherwise use the text-first design.
+- Remove the project and research placeholder exemptions from `site-check.json` after their corresponding forbidden text is eliminated. Keep unrelated contact-page exemptions until M-003.
+- Preserve `/pages/research.html` and `/pages/projects.html` and maintain working navigation from the home page.
+- Keep all OneDrive evidence and private approval material outside GitHub.
 
 ### Validation
 
 ```bash
 bundle exec jekyll build --trace
 python3 scripts/check_site.py _site
+python3 -m unittest discover -s tests -v
+node --check assets/js/script.js
 ! grep -RniE 'SITE UNDER CONSTRUCTION|Placeholder|More details coming soon|future deep dives|documented later' index.html pages _layouts _includes
+! grep -RniE 'Future project|upload supporting material to OneDrive|private approval packet|OneDrive' index.html pages _layouts _includes assets
 ruby -e 'Dir["_site/**/*.html"].each { |f| abort("empty page: #{f}") if File.size(f) == 0 }; puts "html files non-empty"'
 git diff --check
+git status --short
 ```
 
 ### Exit evidence
 
-A source for every factual claim; Bryan's approval of the exact publishable content; working pages without filler; verified links; and keyboard/mobile checks for project and research interactions.
+- Exact implementation starting and final SHAs.
+- A public-safe source and approval mapping for every published factual claim, without exposing private source locations.
+- Working research and projects pages with no filler or fake claims.
+- Verified link outcomes for every public link and explicit confirmation where no link is intentionally shown.
+- Keyboard and mobile checks for all project and research interactions.
+- Confirmation that no private evidence, path, raw file, note, reminder, or unapproved asset entered GitHub or built output.
+- Updated `.project-loop/STATUS.md` and a generic `CODEX_READY D-0003` PR notification.
 
 ## M-003 — About, contact, and study-note integration
 
@@ -146,13 +160,14 @@ Successful local and CI checks; `_site/` untracked; responsive evidence for prim
 
 ## Risks and mitigations
 
-- **RISK-001 — Unverified claims:** publish only facts and links Bryan approves or approved sources verify; omit uncertainty.
+- **RISK-001 — Unverified claims:** publish only facts and links Bryan approved; omit uncertainty.
 - **RISK-002 — Broken study-note URLs:** preserve paths and test representative deep links each milestone.
 - **RISK-003 — Unreviewable rewrite:** use buildable milestone-sized vertical slices.
 - **RISK-004 — Layout migration regressions:** migrate incrementally and compare built routes.
 - **RISK-005 — Weak imagery:** use a text-first design and only current, relevant, optimized, approved images.
 - **RISK-006 — Jekyll version mismatch:** minimize dependencies and validate locally and in GitHub Actions.
-- **RISK-007 — Private OneDrive material exposed through a public PR:** use OneDrive read-only for discovery, keep the approval packet in the private Codex response, and commit only exact content Bryan subsequently approves.
+- **RISK-007 — Private discovery material exposed through a public PR:** implement only the privately approved public-facing set, keep evidence and notes outside GitHub, use public-safe approval mappings, and stop on ambiguity.
+- **RISK-008 — Private packet unavailable after context loss:** Codex must stop and request Bryan to re-supply or reconfirm the public-facing copy privately rather than reconstructing it from OneDrive or guessing.
 
 ## Dependency policy
 
