@@ -10,188 +10,133 @@ Approval date: 2026-08-03
 
 ## Delivery strategy
 
-Deliver four reviewable milestones. Each milestone must leave a buildable site and be reviewed before the next begins. Keep Jekyll/GitHub Pages, use small reusable components, and delete generic or placeholder material rather than replacing it with unverified copy.
+Deliver four buildable, independently reviewed milestones. Keep Jekyll/GitHub Pages, use small reusable components, preserve important routes, publish only approved evidence-backed content, and do not merge or deploy through Codex or the Project Director.
 
 ## M-001 — Shared foundation and professional home page
 
 State: ACCEPTED  
-Dependencies: Approved specification and plan; satisfied 2026-08-03  
-Accepted review: R-0001 at PR #11 head `0f7408e0fbe1fba5ac76f373711f7eef1e89e4c6`  
+Accepted review: R-0001 at `0f7408e0fbe1fba5ac76f373711f7eef1e89e4c6`  
 Covers: AC-001, AC-003, AC-008, AC-009, AC-010, AC-013, AC-015, AC-016
 
-### Scope
+### Completed scope
 
-- Add a shared Jekyll shell for metadata, header/navigation, main content, and footer.
-- Establish a restrained CSS system for typography, spacing, grid, buttons, cards, focus, reduced motion, and responsive behaviour.
-- Add accessible mobile navigation and a skip link without a framework.
-- Redesign the home page using the approved research-first positioning.
-- Add reusable title, description, canonical, Open Graph, and verified Person JSON-LD support.
-- Add or update local build instructions.
-- Add standard-library `scripts/check_site.py` for internal links and forbidden placeholder phrases.
-- Keep other primary routes working; defer their final rewrite.
-
-### Excluded
-
-Final research, project, about, contact, books, or study-note rewrites; new screenshots/publications; contact forms; analytics; third-party UI frameworks; and `_site/` removal before the source build is verified.
-
-### Validation
-
-```bash
-bundle install
-bundle exec jekyll build --trace
-python3 scripts/check_site.py _site
-ruby -e 'require "yaml"; YAML.load_file("_config.yml"); puts "config ok"'
-git diff --check
-```
-
-### Exit evidence
-
-Built primary routes; command output in `STATUS.md`; home-page evidence at 360 px, 768 px, and 1440 px; keyboard notes for skip link, navigation, and calls to action; and a focused diff without unrelated changes.
+- Shared Jekyll layout, metadata, navigation, footer, skip link, responsive design system, compact navigation, and reduced-motion/focus support.
+- Research-first home page using the approved positioning.
+- Local build documentation, standard-library site checker, policy configuration, and unit tests.
+- Required primary routes preserved during staged migration.
 
 ## M-002 — Evidence-backed research and project pages
 
 State: ACCEPTED  
-Dependencies: M-001 accepted; private discovery packet delivered and approved through DEC-001 and R-0002  
-Accepted review: R-0003 at PR #11 head `c4c262c3f431e1a32d40ef11b9e8ea1f05fd9157`  
+Accepted review: R-0003 at `c4c262c3f431e1a32d40ef11b9e8ea1f05fd9157`  
+Content approval: DEC-001 and R-0002  
 Covers: AC-002, AC-004, AC-005, AC-011, AC-012, AC-014
 
 ### Completed scope
 
-- Replaced research placeholders with the approved problem, motivation, staged approach, current status, and no-public-output treatment.
-- Replaced generic and invented projects with exactly five approved general-project articles.
-- Published only approved public titles, contribution statements, methods, outcomes or learnings, and verified link or no-link treatments.
-- Preserved conservative exclusions, team attribution, clinical and academic caveats, ownership constraints, omitted metrics, and text-first asset decisions.
-- Removed click-only cards, hidden placeholder details, weak modal behavior, obsolete scripts, and scoped modal CSS.
-- Removed research and project placeholder exemptions while retaining only the deferred contact-page exemption.
-- Preserved `/pages/research.html`, `/pages/projects.html`, home-page navigation, and representative study-note routes.
-- Kept all OneDrive evidence, private paths, raw files, private links, candidate notes, rejected candidates, uncertainty notes, and reminders outside GitHub.
-
-### Validation
-
-```bash
-bundle exec jekyll build --trace
-python3 scripts/check_site.py _site
-python3 -m unittest discover -s tests -v
-node --check assets/js/script.js
-! grep -RniE 'SITE UNDER CONSTRUCTION|Placeholder|More details coming soon|future deep dives|documented later' index.html pages _layouts _includes
-! grep -RniE 'Future project|upload supporting material to OneDrive|private approval packet|OneDrive' index.html pages _layouts _includes assets
-ruby -e 'Dir["_site/**/*.html"].each { |f| abort("empty page: #{f}") if File.size(f) == 0 }; puts "html files non-empty"'
-git diff --check
-git status --short
-```
-
-### Accepted evidence
-
-- Exact implementation and review SHAs.
-- Public-safe approval mapping for all research/project claims.
-- Five semantic project articles in approved order.
+- Approved MPhil research summary with conservative current-status and no-public-output treatment.
+- Exactly five approved project articles with contribution, methods, and outcome or learning.
 - Two verified public links and three intentional no-link treatments.
-- Responsive and keyboard evidence reported for Research and Projects.
-- No private evidence, unapproved asset, metric, placeholder, or future-project card in GitHub or built output.
-- Narrow checker scope with only the deferred Contact exemption remaining.
+- Legacy click-only cards, hidden placeholders, modal behavior, invented outcomes, and scoped exemptions removed.
+- Text-first asset decision and all private discovery boundaries preserved.
 
 ## M-003 — About, contact, and study-note integration
 
-State: ACTIVE  
-Dependencies: M-002 accepted through R-0003; approved specification confirms public email `bryan890115@gmail.com`, public GitHub account `bryan890115`, approved positioning, and a layout that must work without a portrait  
-Active implementation directive: D-0004  
+State: ACCEPTED  
+Accepted review: R-0004 at `e9a4dbba3ec2a06beffb49237e67f3f920226ae1`  
+Contact approval: DEC-002 confirms email, GitHub, and exact LinkedIn URL  
 Covers: AC-002, AC-006, AC-007, AC-008, AC-009, AC-010, AC-014
+
+### Completed scope
+
+- About rewritten as a text-first, evidence-backed profile using approved positioning and accepted public research/project evidence.
+- Contact rewritten with only approved email, GitHub, and LinkedIn channels.
+- Generic praise, unsupported biography claims, portrait references, consulting/availability language, response-time promises, and marketing inquiry copy removed.
+- Study-note compatibility and canonical routes preserved.
+- Checker exemptions reduced to zero with regression coverage.
+
+## M-004 — Cleanup, automated quality checks, and release candidate
+
+State: ACTIVE  
+Dependencies: M-003 accepted through R-0004  
+Active implementation directive: D-0005  
+Covers: AC-009, AC-010, AC-012, AC-014, AC-015, AC-016, AC-017, AC-018 and all final quality gates
 
 ### Active scope
 
-- Rewrite About around the approved MPhil research positioning, Computer Science and Actuarial Studies background, selected public project evidence, and concise evidenced technical/quantitative capabilities.
-- Satisfy AC-006 through current research and relevant experience; do not invent institution names, degree dates, marks, employment, teaching appointments, credentials, or other profile details.
-- Remove generic self-praise, unsupported expertise, financial-services positioning, and broad consulting language.
-- Rewrite Contact as a neutral page using only the approved public email and GitHub account.
-- Remove consulting offers, availability promises, mentorship/networking claims, response-time guarantees, and prefilled marketing-style inquiry copy.
-- Use a complete text-first layout. Remove portrait references from About and Contact because the current image has not been explicitly confirmed as current and approved.
-- Preserve the canonical `/study-notes/` route, the `/pages/study-notes.html` compatibility page, representative note routes, and the existing Resources navigation.
-- Remove the final Contact exemption from `site-check.json` after the forbidden phrases are absent; update the regression test to require zero exemptions.
-- Update shared CSS only as needed to replace inline styles and support the bounded About/Contact presentation.
+- Confirm source-only reproduction, then remove all tracked `_site/` generated output and ensure `_site/` remains ignored.
+- Remove stale generated or obsolete assets only when their source usage is absent and deletion is safe; do not broaden into content redesign.
+- Confirm `.gitignore` covers `_site/`, local gems, caches, OS files, test/browser artifacts, and other generated output without hiding source.
+- Add a lightweight **validation-only** GitHub Actions workflow for pull requests. It must build Jekyll and run the site checker, unit tests, JavaScript syntax, Python compilation, zero-exemption policy, placeholder/privacy scans, and tracked-`_site` assertion. It must not deploy or write to the repository.
+- Use supported official GitHub actions and a reproducible Ruby/Bundler setup derived from the repository lockfile. Avoid unnecessary third-party actions.
+- Update README with source layout, local setup, build, preview, checks, content editing, generated-output policy, CI behavior, and user-owned merge/deployment steps.
+- Complete full-site responsive QA at 360, 768, and 1440 px for Home, Research, Projects, About, Contact, and Resources/study notes.
+- Complete keyboard-only QA for skip link, primary navigation, compact navigation, all calls to action, and all public links.
+- Verify titles, descriptions, canonical URLs, Open Graph fields, Person JSON-LD, headings, landmarks, link targets, and browser-console results on primary pages.
+- Run Lighthouse on the home page and primary pages where practical. Record scores and satisfy the approved home targets—Performance at least 90 and Accessibility, Best Practices, and SEO at least 95—or provide a precise environment blocker for Project Director approval.
+- Produce reviewable release-candidate evidence. Attach or link screenshots for the home page and scoped primary pages at representative desktop/mobile widths rather than merely naming local files.
+- Update PR #11 to a release-candidate description while keeping it draft.
+- Request Bryan's final factual-content and visual approval; do not mark the project PASS or merge before that approval is returned.
 
 ### Explicit exclusions
 
-- No OneDrive access or private-source content.
-- No unapproved institution, date, mark, employment, tutoring, teaching, award, accreditation, location, phone, social profile, or credential claim.
-- No portrait or new personal image.
-- No contact form, scheduling link, response-time promise, consulting offer, availability claim, analytics, tracking, external font, icon library, or unrelated redesign.
-- No substantive rewrite of study-note content.
-- No `_site/` removal; that remains M-004.
+- No new biography, project, research, education, employment, teaching, metric, credential, private-source, or availability claim.
+- No change to approved email, GitHub, or LinkedIn channels without new approval.
+- No content redesign, framework migration, analytics, tracking, contact form, backend, CMS, external font, stock imagery, advertising, or deployment workflow.
+- No GitHub Pages deployment action or push-to-main automation.
+- No merge, release, or deployment by Codex or the Project Director.
 
-### Validation
+### Required validation
 
 ```bash
+bundle install
 bundle exec jekyll build --trace
 python3 scripts/check_site.py _site
 python3 -m unittest discover -s tests -v
 node --check assets/js/script.js
 python3 -m compileall scripts
-! grep -RniE 'Typically within 24-48 hours|Consulting Available|Open to consulting opportunities|Available for consulting opportunities|Available for consulting engagements|consulting services|Open to professional inquiries and collaboration discussions|SITE UNDER CONSTRUCTION|Placeholder|© 2024' index.html pages _layouts _includes
-! grep -RniE 'profile-professional\.jpg' pages/about.html pages/contact.html
-ruby -e 'required=%w[_site/pages/about.html _site/pages/contact.html _site/pages/study-notes.html _site/study-notes/index.html _site/study-notes/notes/mod0.html]; required.each { |f| abort("missing or empty: #{f}") unless File.file?(f) && File.size(f) > 0 }; puts "required routes non-empty"'
+ruby -e 'require "yaml"; YAML.load_file("_config.yml"); puts "config ok"'
+test -z "$(git ls-files _site)"
+python3 - <<'PY'
+import json
+from pathlib import Path
+config = json.loads(Path("site-check.json").read_text())
+assert config.get("exemptions") == [], config.get("exemptions")
+print("zero exemptions")
+PY
+! grep -RniE 'SITE UNDER CONSTRUCTION|Placeholder|More details coming soon|Coming Soon|future deep dives|documented later|Typically within 24-48 hours|Consulting Available|Open to consulting opportunities|Available for consulting opportunities|Available for consulting engagements|consulting services|Open to professional inquiries and collaboration discussions|© 2024' index.html pages _layouts _includes
 git diff --check
 git status --short --branch
 ```
 
-### Exit evidence
-
-- Exact starting, implementation, and final review SHAs.
-- A public-safe mapping from every new About/Contact claim to the approved specification or already accepted public page evidence.
-- About and Contact with no generic self-praise, unapproved profile claim, consulting offer, response-time promise, or portrait reference.
-- Zero site-check exemptions and passing checker tests.
-- Verified email, GitHub, study-note compatibility, canonical study-note, and representative note links.
-- Responsive checks at 360 px, 768 px, and 1440 px for About and Contact.
-- Keyboard-focus and browser-console results for all About/Contact interactions.
-- Confirmation that no private or unapproved personal information was added.
-
-## M-004 — Cleanup, automated quality checks, and release candidate
-
-State: PENDING  
-Dependencies: M-003 accepted  
-Covers: AC-009, AC-010, AC-012, AC-014, AC-015, AC-016, AC-017, AC-018
-
-### Scope
-
-- Remove tracked `_site/` after confirming source reproduction.
-- Confirm `.gitignore` excludes generated output, caches, local gems, and OS files.
-- Add a lightweight pull-request workflow that builds Jekyll and runs the checker.
-- Complete responsive, accessibility, metadata, performance, and console QA.
-- Update README with build, validation, content-editing, and deployment instructions.
-- Prepare release-candidate evidence for final review.
-
-### Validation
-
-```bash
-bundle install
-bundle exec jekyll build --trace
-python3 scripts/check_site.py _site
-test -z "$(git ls-files _site)"
-git diff --check
-git status --short
-```
-
-Run Lighthouse where browser tooling is available and record scores or the environment blocker.
+The new pull-request workflow must run the applicable non-browser checks successfully at the release-candidate head. Codex must inspect the workflow result and record its run/check identity and conclusion.
 
 ### Exit evidence
 
-Successful local and CI checks; `_site/` untracked; responsive evidence for primary pages; keyboard and console results; Lighthouse evidence; and Bryan's final factual-content approval.
+- Exact starting SHA, implementation commit SHA, final review head, and changed-file inventory.
+- `_site/` absent from tracked files and reproducible from source.
+- Passing local checks and passing PR validation workflow.
+- Zero checker exemptions, zero forbidden placeholder/marketing phrases, and no privacy-boundary regression.
+- Verified primary routes and representative deep study-note route.
+- Reviewable responsive screenshots and keyboard/console results.
+- Metadata and Lighthouse results or a precise approved environment exception.
+- Updated README and clear deployment ownership.
+- Bryan's explicit final factual-content and visual approval.
 
 ## Risks and mitigations
 
-- **RISK-001 — Unverified claims:** publish only facts and links Bryan approved; omit uncertainty.
-- **RISK-002 — Broken study-note URLs:** preserve paths and test representative deep links each milestone.
-- **RISK-003 — Unreviewable rewrite:** use buildable milestone-sized vertical slices.
-- **RISK-004 — Layout migration regressions:** migrate incrementally and compare built routes.
-- **RISK-005 — Weak imagery:** use a text-first design and only current, relevant, optimized, approved images.
-- **RISK-006 — Jekyll version mismatch:** minimize dependencies and validate locally and in GitHub Actions.
-- **RISK-007 — Private discovery material exposed through a public PR:** implement only the privately approved public-facing set, keep evidence and notes outside GitHub, use public-safe approval mappings, and stop on ambiguity.
-- **RISK-008 — Private packet unavailable after context loss:** Codex must stop and request Bryan to re-supply or reconfirm the public-facing copy privately rather than reconstructing it from OneDrive or guessing.
-- **RISK-009 — Generic profile copy replaced with new unsupported claims:** M-003 must use only approved specification facts and accepted public project evidence, omit uncertain biography details, and use no portrait.
+- **Unverified content:** freeze accepted public copy; omit rather than infer.
+- **Private evidence exposure:** keep all OneDrive/private discovery material outside GitHub.
+- **Broken note URLs:** build and test compatibility, canonical, and representative deep links.
+- **Generated-output confusion:** remove tracked `_site/`, validate source reproduction locally and in CI, and document the policy.
+- **CI dependency drift:** use supported official actions and lockfile-driven Ruby/Bundler setup; keep workflow validation-only.
+- **Unreviewable visual claims:** attach actual screenshots or other reviewable evidence to PR #11.
+- **Premature publication:** PR remains draft; Bryan owns final approval, merge, and deployment.
 
 ## Dependency policy
 
-No JavaScript or CSS framework; no runtime dependency for basic navigation/content; minimal Ruby/Jekyll dependencies; standard-library Python validation unless separately justified and approved; external fonts, icon libraries, embeds, and analytics excluded by default.
+No JavaScript or CSS framework; no runtime dependency for basic content/navigation; minimal Ruby/Jekyll dependencies; standard-library Python validation; external fonts, icon libraries, embeds, analytics, and deployment actions excluded by default.
 
 ## Documentation, migration, and rollout
 
-README must explain site structure, local build, validation, and content editing. Existing URLs remain stable or receive explicit redirects. Implementation stays on a non-default branch and draft pull request until final review. Codex and the Project Director must not merge or deploy; Bryan owns final merge and publication.
+README must explain site structure, local build, validation, content editing, generated output, CI, and deployment ownership. Existing URLs remain stable or receive explicit redirects. Implementation remains on a non-default branch and draft PR until final Project Director review and Bryan's final approval. Bryan alone owns merge and publication.
