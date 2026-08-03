@@ -14,8 +14,9 @@ Deliver four reviewable milestones. Each milestone must leave a buildable site a
 
 ## M-001 — Shared foundation and professional home page
 
-State: ACTIVE  
+State: ACCEPTED  
 Dependencies: Approved specification and plan; satisfied 2026-08-03  
+Accepted review: R-0001 at PR #11 head `0f7408e0fbe1fba5ac76f373711f7eef1e89e4c6`  
 Covers: AC-001, AC-003, AC-008, AC-009, AC-010, AC-013, AC-015, AC-016
 
 ### Scope
@@ -49,17 +50,23 @@ Built primary routes; command output in `STATUS.md`; home-page evidence at 360 p
 
 ## M-002 — Evidence-backed research and project pages
 
-State: PENDING  
-Dependencies: M-001 accepted; Bryan confirms public facts and links  
+State: ACTIVE  
+Dependencies: M-001 accepted; Bryan authorized Codex on 2026-08-03 to inspect accessible OneDrive project material and prepare candidates. Exact public copy, claims, assets, and links still require Bryan's approval before they are committed or published.  
 Covers: AC-002, AC-004, AC-005, AC-011, AC-012, AC-014
 
-### Scope
+### Discovery and approval gate
 
-- Replace research placeholders with the problem, motivation, approach, current status, and approved outputs.
+Before changing the public research or projects pages, Codex must inspect the accessible OneDrive material and existing repository evidence, then return a private approval packet to Bryan containing three to five candidate projects and proposed research-page facts. Raw OneDrive files, private URLs, assessment material, credentials, secrets, unpublished research, and unapproved summaries must not be copied into the public repository, branch, pull request, comments, or screenshots.
+
+Bryan requested one additional reminder entry for future projects. This must be a **non-public TODO in the private approval packet only**, such as “Future project — upload supporting material to OneDrive.” It must not appear as a placeholder card or placeholder text on the public website or in built output.
+
+### Scope after content approval
+
+- Replace research placeholders with the approved problem, motivation, approach, current status, and approved outputs.
 - Replace generic projects with three to five verified case studies describing Bryan's role, problem, methods, and outcome or learning.
 - Use verified public links only.
 - Replace click-only cards or weak modals with semantic links, disclosures, or case-study sections.
-- Use optimized local images only where they add evidence.
+- Use optimized local images only where they add evidence and Bryan has approved publication.
 - Preserve `/pages/research.html` and `/pages/projects.html`.
 
 ### Validation
@@ -74,7 +81,7 @@ git diff --check
 
 ### Exit evidence
 
-A source for every factual claim; working pages without filler; verified links; and keyboard/mobile checks for project and research interactions.
+A source for every factual claim; Bryan's approval of the exact publishable content; working pages without filler; verified links; and keyboard/mobile checks for project and research interactions.
 
 ## M-003 — About, contact, and study-note integration
 
@@ -145,6 +152,7 @@ Successful local and CI checks; `_site/` untracked; responsive evidence for prim
 - **RISK-004 — Layout migration regressions:** migrate incrementally and compare built routes.
 - **RISK-005 — Weak imagery:** use a text-first design and only current, relevant, optimized, approved images.
 - **RISK-006 — Jekyll version mismatch:** minimize dependencies and validate locally and in GitHub Actions.
+- **RISK-007 — Private OneDrive material exposed through a public PR:** use OneDrive read-only for discovery, keep the approval packet in the private Codex response, and commit only exact content Bryan subsequently approves.
 
 ## Dependency policy
 
