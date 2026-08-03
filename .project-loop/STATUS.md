@@ -1,175 +1,259 @@
 # Codex Implementation Status
 
 Protocol version: 1
-Directive ID: D-0004
-Milestone ID: M-003
-State: READY_FOR_REVIEW
+Directive ID: D-0005
+Milestone ID: M-004
+State: IN_PROGRESS
+Release verdict: BLOCKED_PENDING_BRYAN_APPROVAL
 Branch: `agent/professional-portfolio-redesign`
-Starting SHA: `6b13762deb86e5184538740a673a51cd6ac00417`
-Implementation commit SHA: `812c41dcd836b67a626b69677d2a67088b1ed651`
-Updated at: `2026-08-03T14:17:29Z`
+Starting SHA: `462a886edafdb73ef340ff8eefce5a24127ded0d`
+Implementation commit SHA: PENDING_FIRST_RELEASE_COMMIT
+Final review head SHA: PENDING_EVIDENCE_COMMIT
+Bryan factual-content approval: PENDING
+Bryan visual approval: PENDING
+Updated at: `2026-08-03T15:18:48Z`
 
 ## Completed work
 
-- Replaced the unsupported About biography, expertise, financial-services
-  positioning, generic self-praise, inline styles, and portrait with a complete
-  text-first profile.
-- Structured About as four semantic articles covering current research, the
-  approved Computer Science and Actuarial Studies background, the five accepted
-  project areas, and capabilities directly evidenced by accepted public pages and
-  repository source.
-- Replaced Contact's consulting offers, collaboration and availability statements,
-  response-time promise, networking and mentorship claims, marketing-style mailto,
-  inline styles, and portrait with a neutral text-first channel list.
-- Contact now exposes exactly the approved email, GitHub account, and the LinkedIn
-  URL Bryan explicitly added in his current instruction. No LinkedIn profile content
-  was inspected, copied, or inferred.
-- Normalized the `/pages/study-notes.html` compatibility page to the shared semantic
-  hero and button system while preserving its link to the canonical `/study-notes/`
-  route. Canonical note content was not rewritten.
-- Removed the final Contact exemption from `site-check.json` and changed the
-  repository-policy regression test to require zero exemptions.
-- Preserved the accepted Research and Projects pages, the existing design system,
-  all privacy boundaries, and tracked generated `_site/` files.
+- Proved that the accepted source reproduced before removing generated output,
+  then removed all 17 tracked `_site/` files. `_site/` remains ignored and is
+  rebuilt only from source.
+- Added the PR-only, read-only `Validate site` workflow. It installs the locked
+  Ruby dependencies, builds Jekyll, and enforces the checker, nine tests, source
+  syntax, configuration, route, zero-exemption, generated-output, forbidden-copy,
+  and whitespace gates. It has no push, deployment, secret, comment, schedule, or
+  repository-write capability.
+- Expanded README maintenance, validation, metadata, generated-output, CI, merge,
+  and publication guidance. Curated review screenshots are stored under
+  `docs/review/` and excluded from the public Jekyll build.
+- Removed three demonstrably unreferenced legacy source assets while preserving the
+  profile image still used by the canonical study-note landing page.
+- Added a local SVG favicon, converted the six click-only study-module cards to
+  native links, sized and lazy-loaded the canonical study-note portrait, contained
+  narrow-screen display mathematics, and gave keyboard-focusable MathJax output the
+  shared three-pixel focus treatment.
+- Preserved all accepted public Research, Projects, About, Contact, home, and note
+  copy. Contact still contains exactly the approved email, GitHub, and LinkedIn
+  channels. LinkedIn remains absent from Person JSON-LD, and no LinkedIn-derived
+  information was added.
 
-## Files changed
+## Changed-file inventory
 
-- `.project-loop/STATUS.md`
-- `pages/about.html`
-- `pages/contact.html`
-- `pages/study-notes.html`
-- `site-check.json`
-- `tests/test_check_site.py`
+### Generated output removed
 
-No CSS, JavaScript, Research, Projects, canonical study-note, portrait asset, or
-generated-site source was changed. The portrait asset and shared legacy portrait CSS
-remain because the canonical study-note landing page still uses them; About and
-Contact contain no portrait reference.
+- All 17 previously tracked paths under `_site/`
 
-## Acceptance and claim evidence
+### Validation and policy
 
-- **AC-002:** The exact forbidden-copy scan returned no match across `index.html`,
-  `pages`, `_layouts`, and `_includes`. About and Contact contain no placeholder,
-  consulting, availability, response-time, networking, mentorship, or generic
-  marketing copy.
-- **AC-006:** The About hero uses the positioning approved in `SPEC.md`. The current
-  research statement maps to the accepted `pages/research.html`. The five named
-  experience areas and their methods map to the accepted `pages/projects.html`.
-  Python, Brick, SPARQL, machine-learning/data workflows, Markdown, Jekyll, and
-  MathJax are expressly permitted by D-0004 and evidenced by accepted pages or
-  repository source. No institution, date, mark, employment, teaching appointment,
-  credential, location, collaborator, publication, or award was added.
-- **AC-007:** Email `bryan890115@gmail.com` and GitHub
-  `https://github.com/bryan890115` map to the approved specification and D-0004.
-  LinkedIn `https://www.linkedin.com/in/bryan-c-jen-0604a311b/` maps only to Bryan's
-  explicit instruction during implementation. The page makes no response or
-  availability promise and contains no form or prefilled inquiry.
-- **AC-008:** Both pages reuse the established hero, section-heading, cards-grid,
-  card-item, and card-link system. No page-specific style or new CSS was needed.
-- **AC-009:** About and Contact were checked at 360, 768, and 1440 CSS pixels. Each
-  viewport had `scrollWidth == clientWidth`, zero overflowing elements, zero
-  overlapping cards, and non-empty main content.
-- **AC-010:** Each scoped page has labelled regions and hierarchical headings. Every
-  content interaction is a visible native anchor with `tabIndex=0`, no disabled
-  state, and automatic shared focus styling. At 360 and 768 pixels the compact Menu
-  changed `aria-expanded` and navigation state to `true`, closed with Escape, restored
-  focus to `#nav-toggle`, and showed a solid three-pixel focus outline. Desktop
-  navigation was visible and the Menu hidden at 1440 pixels.
-- **AC-014:** The build and browser checks confirmed non-empty
-  `/pages/about.html`, `/pages/contact.html`, `/pages/study-notes.html`,
-  `/study-notes/`, and `/study-notes/notes/mod0.html` routes. The checker validated
-  all 15 built HTML files and 227 references.
+- `.github/workflows/validate.yml`
+- `.gitignore`
+
+### Documentation and review evidence
+
+- `README.md`
+- `_config.yml`
+- `docs/review/d0005/about-1440.jpg`
+- `docs/review/d0005/contact-360.jpg`
+- `docs/review/d0005/home-360.jpg`
+- `docs/review/d0005/home-1440.jpg`
+- `docs/review/d0005/projects-360.jpg`
+- `docs/review/d0005/projects-1440.jpg`
+- `docs/review/d0005/research-360.jpg`
+- `docs/review/d0005/research-1440.jpg`
+
+### Bounded release fixes
+
+- `_includes/head.html`
+- `assets/css/professional.css`
+- `assets/images/favicon.svg`
+- `study-notes/index.html`
+
+### Unreferenced legacy assets removed
+
+- `assets/images/love-picture.jpg`
+- `assets/images/modal-project.svg`
+- `assets/images/modal-research.svg`
 
 ## Authority checks
 
 ```text
-git merge-base --is-ancestor c4c262c3f431e1a32d40ef11b9e8ea1f05fd9157 "$STARTING_SHA"
+git merge-base --is-ancestor e9a4dbba3ec2a06beffb49237e67f3f920226ae1 "$STARTING_SHA"
 Exit 0; no output.
 
-git diff --name-only c4c262c3f431e1a32d40ef11b9e8ea1f05fd9157..."$STARTING_SHA"
+git diff --name-only e9a4dbba3ec2a06beffb49237e67f3f920226ae1..."$STARTING_SHA"
+.project-loop/DECISIONS.md
 .project-loop/DIRECTIVE.md
 .project-loop/PLAN.md
 .project-loop/REVIEW.md
 ```
 
-The starting branch therefore contained only the three Director-owned changes
-permitted by D-0004 after its base SHA.
+The starting branch therefore contained only the four Director-owned changes
+permitted by D-0005 after its base SHA.
 
-## Validation
+## Source reproduction and generated-output evidence
+
+Before untracking `_site/`, the supported Ruby 3.4/Bundler 2.5.23 launcher ran
+`jekyll build --trace` successfully. The checker then passed 15 HTML files and 227
+references with zero exemptions, and every required route was non-empty.
+
+After untracking `_site/`, a clean Jekyll build reproduced the site. The final build
+contains 15 HTML files and 242 validated references; the additional 15 references
+are the shared favicon on each generated page. `git ls-files _site` returns no path,
+and `_site/docs/review` is absent because review evidence is excluded from Jekyll.
+
+## Final local validation
+
+The literal `bundle install` command exited 1 because `/usr/bin/bundle` invokes the
+macOS Ruby 2.6 RubyGems environment and cannot load the lockfile's Bundler 2.5.23.
+No dependency was changed. The directive-permitted compatible launcher was used:
 
 ```text
-bundle exec jekyll build --trace
-Exit 1 under the default macOS Ruby 2.6 launcher: Bundler 2.5.23 was unavailable.
+/opt/homebrew/Cellar/ruby@3.4/3.4.10/bin/bundle _2.5.23_ install
+Exit 0; 5 Gemfile dependencies and 35 gems installed in ignored vendor/bundle.
 
 /opt/homebrew/Cellar/ruby@3.4/3.4.10/bin/bundle _2.5.23_ exec jekyll build --trace
-Exit 0 using the directive-permitted Ruby 3.4 launcher and the existing ignored
-local gem cache; generated successfully in 0.369 seconds. No network installation or
-dependency change was made.
+Exit 0; generated successfully in 0.054 seconds.
 
 python3 scripts/check_site.py _site
-Exit 0; 15 HTML files, 227 references, and 0 exemptions applied.
+Exit 0; 15 HTML files, 242 references, 0 exemptions.
 
 python3 -m unittest discover -s tests -v
-Exit 0; 9 tests passed in 0.163 seconds, including
-`test_repository_config_has_no_exemptions`.
+Exit 0; all 9 tests passed in 0.031 seconds.
 
 node --check assets/js/script.js
 Exit 0; no output.
 
 python3 -m compileall scripts
-Exit 0; both Python modules compiled.
+Exit 0; scripts compiled.
 
-D-0004 exact forbidden-copy negative grep
-Exit 0; no matches.
+ruby -e 'require "yaml"; YAML.load_file("_config.yml"); puts "config ok"'
+Exit 0; config ok.
 
-D-0004 exact About/Contact portrait-reference negative grep
-Exit 0; no matches.
+test -z "$(git ls-files _site)"
+Exit 0; no tracked generated output.
 
-ruby -e 'required=%w[_site/pages/about.html _site/pages/contact.html _site/pages/study-notes.html _site/study-notes/index.html _site/study-notes/notes/mod0.html]; required.each { |f| abort("missing or empty: #{f}") unless File.file?(f) && File.size(f) > 0 }; puts "required routes non-empty"'
-Exit 0; `required routes non-empty`.
+D-0005 zero-exemption assertion
+Exit 0; zero exemptions.
+
+D-0005 exact forbidden-copy negative grep
+Exit 0; zero matches.
+
+D-0005 exact required-route assertion
+Exit 0; release routes non-empty.
 
 git diff --check
-The first post-build run detected trailing whitespace in generated `_site/index.html`.
-After the required validation and browser checks, tracked `_site/` was restored rather
-than edited or committed. The final run exited 0 with no output.
+Exit 0; no output.
 ```
 
-The built About and Contact pages produced no browser-console warnings or errors at
-any required width. DOM and visual checks found no portrait, inline style, clipping,
-overlap, or horizontal overflow. Contact's three main-content links exactly matched
-the email, GitHub, and user-approved LinkedIn destinations. The compatibility,
-canonical, and representative note routes each loaded with their expected title and
-heading and no console warning or error.
+## Route, link, and metadata results
 
-## Checker scope
+- `/`, all five `/pages/*.html` portfolio routes, `/study-notes/`, the compatibility
+  route, and `/study-notes/notes/mod0.html` returned non-empty local content.
+- The checker validated all internal pages, assets, fragments, same-origin absolute
+  URLs, and representative deep links.
+- GitHub profile, portfolio study-note tree, and COMP9417 links returned HTTP 200.
+- The MathJax CDN asset returned HTTP 200.
+- Scripted LinkedIn access returned HTTP 999 at the exact approved URL. This is an
+  anti-automation response rather than a substituted URL; no LinkedIn content was
+  copied, inferred, or saved.
+- The configured production domain serves content only when TLS certificate
+  verification is bypassed; normal HTTPS verification currently reports a hostname
+  mismatch. The source canonical value was frozen and was not changed. This is a
+  pre-existing custom-domain/Pages publication risk that Bryan must resolve outside
+  this no-settings, no-deployment directive.
+- Each primary page has one H1, header/nav/main/footer landmarks, no heading-level
+  jump, a non-empty title and description, matching canonical and Open Graph URL,
+  and shared Person JSON-LD containing only the approved name, email, and GitHub
+  identity. LinkedIn is not present in JSON-LD.
+- Contact main content exposes exactly:
+  `mailto:bryan890115@gmail.com`, `https://github.com/bryan890115`, and
+  `https://www.linkedin.com/in/bryan-c-jen-0604a311b/`. It contains no portrait.
 
-`site-check.json` now contains `"exemptions": []`. The repository-policy test asserts
-`config.exemptions == ()`, so any future page-specific exception fails the test. The
-generic checker tests for exact, auditable exemptions remain intact.
+## Responsive, console, and keyboard QA
 
-## Deviations and risks
+- Home, Research, Projects, About, Contact, and the study-note landing page were
+  checked at 360, 768, and 1440 CSS pixels. All 18 combinations had no horizontal
+  page overflow, clipped or overlapping cards, heading jumps, missing landmarks,
+  or unreadable navigation state.
+- The representative note was separately checked at 360 pixels after the generic
+  MathJax containment fix: `scrollWidth == innerWidth == 360`, with no overflowing
+  display-math container.
+- Primary and representative note routes produced no browser-console warning or
+  error after the local favicon fix.
+- Trusted keyboard input activated the skip link and moved focus to `main`; traversed
+  every desktop navigation and scoped page control; opened the compact menu; closed
+  it with Escape; restored focus to the Menu button; activated the home fragment CTA,
+  Resources compatibility link, and representative module link; and traversed the
+  keyboard-focusable MathJax expressions. Every tested focus target displayed the
+  shared three-pixel solid outline.
 
-- Bryan's latest instruction explicitly added
-  `https://www.linkedin.com/in/bryan-c-jen-0604a311b/` after D-0004 had limited
-  Contact to email and GitHub. This is the only content-scope deviation. It is
-  confined to one neutral Contact link, is recorded for Director review, and does
-  not introduce any inferred LinkedIn fact or broader social/profile integration.
-- The default Ruby/Bundler launcher remains incompatible with the pinned Bundler
-  version. The already installed Ruby 3.4 launcher and existing ignored local gem
-  cache produced the successful build.
-- Browser evidence is local rather than attached CI evidence; CI remains assigned to
-  M-004.
+## Lighthouse
 
-## Blockers
+Lighthouse 12.8.2 ran against the final local build in Chrome 151. Scores are
+Performance / Accessibility / Best Practices / SEO:
 
-None.
+| Route | Scores |
+| --- | --- |
+| `/` | 100 / 100 / 100 / 100 |
+| `/pages/research.html` | 100 / 100 / 100 / 100 |
+| `/pages/projects.html` | 94 / 100 / 100 / 100 |
+| `/pages/about.html` | 100 / 100 / 100 / 100 |
+| `/pages/contact.html` | 100 / 100 / 100 / 100 |
+| `/study-notes/` | 100 / 100 / 100 / 100 |
+
+All six runs passed the D-0005 thresholds. Each final report also recorded passing
+`errors-in-console` and `unsized-images` audits.
+
+## Screenshot evidence
+
+The eight versioned JPEG files under `docs/review/d0005/` have their declared CSS
+viewport widths embedded in the filenames and matching pixel widths. They were
+visually inspected after capture; the full-page Contact image shows all three exact
+channels. They will be embedded in draft PR #11 using immutable raw URLs after the
+implementation commit is pushed. The directory is excluded from the generated public
+site.
+
+## Pull-request validation
+
+- Workflow: `Validate site`
+- Draft PR: #11
+- Implementation run ID/URL: PENDING_PUSH
+- Head SHA: PENDING_FIRST_RELEASE_COMMIT
+- Job/check: `Build and validate`
+- Conclusion: PENDING
+
+No ready-for-review transition, merge, deployment, main-branch push, or repository
+settings change has been performed.
+
+## Deviations, risks, and blockers
+
+- Local installation and build used the directive-approved Ruby 3.4 launcher because
+  the default `/usr/bin/bundle` is coupled to Ruby 2.6 and cannot load Bundler 2.5.23.
+- LinkedIn's HTTP 999 response prevents a scripted 200 assertion; the exact approved
+  URL is preserved and the limitation is recorded without importing profile content.
+- The production custom domain's TLS hostname mismatch is outside this directive's
+  source-only, no-settings boundary. Publication should not be approved until Bryan
+  confirms or repairs the GitHub Pages/custom-domain configuration.
+- The release candidate is complete, but the final project verdict remains blocked
+  until Bryan explicitly approves both factual content and visual presentation.
+
+## Self-review
+
+- No D-0005 edit changes accepted factual copy or adds a contact/profile fact.
+- The workflow is pull-request/manual only, read-only, credential-minimized, and
+  contains no mutation or deployment mechanism.
+- All removed source assets have zero source reference; the canonical study-note
+  portrait remains present and validated.
+- Screenshot files are review evidence, not generated-site content.
+- Remaining work is publication evidence only: commit/push, wait for successful PR
+  validation, record the run, update draft PR #11, and request Bryan's two approvals.
 
 ## Review focus
 
-- Factual restraint and source mapping across all four About articles.
-- Acceptance of Bryan's explicit LinkedIn addition as the only deviation from the
-  originally issued two-channel Contact list.
-- Complete removal of About/Contact portrait and marketing content.
-- Exact three-link Contact boundary, zero checker exemptions, and route preservation.
-- Responsive layout, compact-navigation focus restoration, and absence of console
-  errors.
+- Confirm the exact three-channel Contact boundary and absence of LinkedIn-derived
+  facts or LinkedIn JSON-LD.
+- Review the eight attached responsive screenshots and the frozen public copy.
+- Confirm `_site/` is source-reproducible and fully untracked.
+- Confirm the workflow is safe, passing, and non-deploying.
+- Decide how to resolve the production-domain TLS mismatch before publication.
+- Obtain Bryan's explicit factual-content and visual approval.

@@ -36,6 +36,7 @@ exclude:
   - README.md
   - Gemfile
   - Gemfile.lock
+  - docs/review
   - scripts
   - tests
   - site-check.json

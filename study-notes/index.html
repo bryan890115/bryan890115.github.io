@@ -18,7 +18,7 @@ nav_key: resources
         <section class="cards-showcase">
             <h2>Research Modules</h2>
             <div class="cards-grid">
-                <div class="card-item" data-href="{{ '/study-notes/notes/mod0.html' | relative_url }}">
+                <a class="card-item study-module-card" href="{{ '/study-notes/notes/mod0.html' | relative_url }}">
                     <h3>Module 0: Introduction to General Insurance</h3>
                     <p>Fundamental principles of general insurance, basic concepts, and theoretical frameworks for risk assessment.</p>
                     <div class="card-stats">
@@ -26,9 +26,9 @@ nav_key: resources
                         <span>Insurance Fundamentals</span>
                         <span>Mathematical Foundations</span>
                     </div>
-                </div>
+                </a>
 
-                <div class="card-item" data-href="{{ '/study-notes/notes/mod1.html' | relative_url }}">
+                <a class="card-item study-module-card" href="{{ '/study-notes/notes/mod1.html' | relative_url }}">
                     <h3>Module 1: Fitting Loss Models</h3>
                     <p>Advanced statistical methods for fitting loss distributions and model validation techniques.</p>
                     <div class="card-stats">
@@ -36,9 +36,9 @@ nav_key: resources
                         <span>Loss Distributions</span>
                         <span>Model Validation</span>
                     </div>
-                </div>
+                </a>
 
-                <div class="card-item" data-href="{{ '/study-notes/notes/mod2.html' | relative_url }}">
+                <a class="card-item study-module-card" href="{{ '/study-notes/notes/mod2.html' | relative_url }}">
                     <h3>Module 2: Individual Claim Size Modeling</h3>
                     <p>Comprehensive analysis of individual claim severity models and distribution fitting techniques.</p>
                     <div class="card-stats">
@@ -46,9 +46,9 @@ nav_key: resources
                         <span>Distribution Analysis</span>
                         <span>Statistical Testing</span>
                     </div>
-                </div>
+                </a>
 
-                <div class="card-item" data-href="{{ '/study-notes/notes/mod3.html' | relative_url }}">
+                <a class="card-item study-module-card" href="{{ '/study-notes/notes/mod3.html' | relative_url }}">
                     <h3>Module 3: Collective Risk Modelling</h3>
                     <p>Advanced collective risk theory, compound distributions, and aggregate loss modeling.</p>
                     <div class="card-stats">
@@ -56,9 +56,9 @@ nav_key: resources
                         <span>Compound Distributions</span>
                         <span>Aggregate Modeling</span>
                     </div>
-                </div>
+                </a>
 
-                <div class="card-item" data-href="{{ '/study-notes/notes/mod4.html' | relative_url }}">
+                <a class="card-item study-module-card" href="{{ '/study-notes/notes/mod4.html' | relative_url }}">
                     <h3>Module 4: Approximations for Compound Distributions</h3>
                     <p>Mathematical approximation methods for complex compound distribution calculations.</p>
                     <div class="card-stats">
@@ -66,9 +66,9 @@ nav_key: resources
                         <span>Approximation Theory</span>
                         <span>Computational Techniques</span>
                     </div>
-                </div>
+                </a>
 
-                <div class="card-item" data-href="{{ '/study-notes/notes/mod5.html' | relative_url }}">
+                <a class="card-item study-module-card" href="{{ '/study-notes/notes/mod5.html' | relative_url }}">
                     <h3>Module 5: Liability Valuations - Ruin Theory</h3>
                     <p>Advanced ruin theory applications, liability valuations, and capital adequacy assessment.</p>
                     <div class="card-stats">
@@ -76,7 +76,7 @@ nav_key: resources
                         <span>Liability Valuation</span>
                         <span>Capital Assessment</span>
                     </div>
-                </div>
+                </a>
             </div>
         </section>
 
@@ -99,21 +99,7 @@ nav_key: resources
                     </div>
                 </div>
                 <div class="about-image">
-                    <img src="{{ '/assets/images/profile-professional.jpg' | relative_url }}" alt="Bryan Jen Research Profile" class="profile-pic">
+                    <img src="{{ '/assets/images/profile-professional.jpg' | relative_url }}" alt="Bryan Jen Research Profile" class="profile-pic" width="800" height="533" loading="lazy" decoding="async">
                 </div>
             </div>
         </section>
-    <script>
-        // Professional card navigation for research modules
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.card-item[data-href]');
-            cards.forEach(card => {
-                card.addEventListener('click', function() {
-                    const href = this.getAttribute('data-href');
-                    if (href) {
-                        window.location.href = href;
-                    }
-                });
-            });
-        });
-    </script>
