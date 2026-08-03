@@ -88,3 +88,51 @@ Separating private evidence discovery from public implementation remains the saf
 ### Single next action
 
 Codex must execute active D-0003 on the existing branch and draft PR: implement only the approved research summary and selected general-project cards, remove the corresponding placeholders and weak modal behavior, validate the result, and keep all private discovery evidence outside GitHub.
+
+## R-0003 — M-002 research and project implementation
+
+Timestamp: `2026-08-03T23:50:00+10:00`  
+Directive ID: D-0003  
+Milestone ID: M-002  
+Pull request: `#11` (`agent/professional-portfolio-redesign`)  
+Exact reviewed head SHA: `c4c262c3f431e1a32d40ef11b9e8ea1f05fd9157`  
+Implementation commit SHA: `8b0ce3e35e210c10fd6f6b5096c9662542c0dafe`  
+Verdict: CONTINUE
+
+### Evidence inspected
+
+- PR #11 metadata, exact head, draft/mergeable state, updated description, and `CODEX_READY D-0003` notification.
+- Exact-head `.project-loop/STATUS.md`, `pages/research.html`, `pages/projects.html`, `assets/css/professional.css`, `site-check.json`, and the checker regression test.
+- The implementation commit replacing legacy research/project content and modal CSS.
+- The two public project link targets: the public `bryan890115/comp9417` repository and the existing public study-notes source on `main`.
+- Codex-reported local build, checker, unit-test, JavaScript, privacy/placeholder scan, route, responsive, keyboard-focus, and browser-console evidence.
+- GitHub status and workflow queries for the reviewed head; no Actions workflow runs or status checks were attached.
+
+The private D-0002 packet remains intentionally outside GitHub. Exact word-for-word comparison cannot be reconstructed from the public repository without defeating that privacy boundary. Bryan's explicit approval recorded in DEC-001 and the public-safe claim/order/link mapping in `STATUS.md` are therefore the durable authority available to this review.
+
+### Acceptance-criteria results
+
+- **AC-002 — PASS for the M-002 scope:** Research and Projects contain no placeholder paragraphs, repeated filler, fake consulting language, hidden future-detail content, or invented business outcomes. Contact-page debt remains explicitly assigned to M-003.
+- **AC-004 — PASS:** Research explains the problem, motivation, staged approach, current status, and no-public-output treatment without overstating results.
+- **AC-005 — PASS:** Projects contains exactly five approved entries with purpose, contribution, methods, and outcome or learning. Two public links were verified; three no-link treatments are intentional.
+- **AC-011 — PASS:** Entries use semantic `<article>` and `<dl>` structures; the only interactions are native anchors with shared visible focus. The legacy modal and click-only cards are removed from the scoped pages.
+- **AC-012 — PASS for M-002:** The approved text-first treatment adds no image, copied private evidence, or third-party asset.
+- **AC-014 — PASS on reported build evidence:** Required research, project, home, and representative study-note routes built non-empty, and the site checker reported no broken internal references.
+
+### Findings
+
+No critical or important implementation defect was found.
+
+Minor follow-up items:
+
+1. No GitHub Actions/status checks exist yet; CI remains assigned to M-004, so command and browser results are reported local evidence.
+2. Responsive and keyboard/browser evidence is documented in `STATUS.md` but was not attached as reviewable artifacts in the PR.
+3. Exact private-packet wording cannot be independently reconstructed from GitHub by design. This is an evidence limitation, not an implementation defect, because Bryan approved the packet and the implementation preserves the recorded conservative boundaries.
+
+### Strategic approach assessment
+
+The implementation is the smallest safe continuation of the accepted design. It replaces all scoped placeholder and invented content, keeps the approved conservative publication posture, avoids unnecessary interactions and assets, preserves public routes, and narrows the checker to the one remaining contact-page debt.
+
+### Single next action
+
+Codex must execute active D-0004 on the existing branch and draft PR: rewrite About and Contact using only approved/public evidence and approved contact channels, keep a text-first layout without the unapproved portrait, preserve study-note routes, remove the final contact exemption, validate the result, and do not merge or deploy.
