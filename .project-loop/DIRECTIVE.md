@@ -6,6 +6,7 @@ Milestone ID: M-002
 Repository: `bryan890115/bryan890115.github.io`  
 Intended implementation branch: `agent/professional-portfolio-redesign`  
 Base SHA: `22db5223a0ec1c59500b9371aa33960f04711fa6`  
+Directive commit SHA: `e71c1c8e0702a68987a42835c051e681b23433a3`  
 Issued timestamp: `2026-08-03T18:49:00+10:00`  
 Replaced directive ID: D-0001
 
@@ -28,7 +29,7 @@ Do not modify the public research or projects pages in this directive. This dire
 
 ## In-scope work
 
-1. Pull the current `agent/professional-portfolio-redesign` branch and verify that the starting head is this directive's base SHA or its direct descendant containing only Director-owned handoff changes.
+1. Pull the current `agent/professional-portfolio-redesign` branch and verify that the starting head is `e71c1c8e0702a68987a42835c051e681b23433a3` or its direct descendant containing only Director-owned handoff changes.
 2. Inspect OneDrive material that is clearly Bryan's project work and relevant to a professional technical/research portfolio.
 3. Inspect existing repository material needed to corroborate public routes, existing study notes, and already-public GitHub links.
 4. Select three to five candidate projects using these criteria:
@@ -79,7 +80,7 @@ This directive prepares evidence for AC-002, AC-004, AC-005, AC-011, AC-012, and
 ```bash
 git diff --check
 git status --short --branch
-git diff --name-only 22db5223a0ec1c59500b9371aa33960f04711fa6...HEAD
+git diff --name-only e71c1c8e0702a68987a42835c051e681b23433a3...HEAD
 ```
 
 The changed-file list must contain no public website source or OneDrive-derived asset. Apart from Codex-owned `.project-loop/STATUS.md`, any unexpected file change requires escalation.
@@ -98,7 +99,7 @@ Codex must stop and report `BLOCKED` when:
 - Ownership, confidentiality, licensing, assessment integrity, or permission to publish is unclear.
 - A candidate's role, methods, result, or link cannot be supported by evidence.
 - Fewer than three suitable candidates can be identified without exposing private or low-quality material.
-- The current branch head contains unexpected changes after the directive base SHA.
+- The current branch head contains unexpected changes after the directive starting SHA.
 - Completing the task would require placing private information in GitHub or weakening AC-002's no-placeholder requirement.
 
 ## Next Project Director review focus
