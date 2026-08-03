@@ -48,3 +48,43 @@ After this review, Bryan authorized Codex to inspect accessible OneDrive project
 ### Single next action
 
 Codex must execute active D-0002: inspect accessible OneDrive and repository evidence, return a private research/project approval packet with three to five candidates plus one non-public future-upload TODO, and make no public content changes until Bryan approves the exact material.
+
+## R-0002 — M-002 private content-discovery gate
+
+Timestamp: `2026-08-03T20:55:00+10:00`  
+Directive ID: D-0002  
+Milestone ID: M-002  
+Pull request: `#11` (`agent/professional-portfolio-redesign`)  
+Exact reviewed head SHA: `3675b996628ff738ce9002b5c41a074a9cf5bc47`  
+Verdict: CONTINUE
+
+### Evidence inspected
+
+- Exact branch and PR head metadata.
+- `.project-loop/STATUS.md` at the reviewed head.
+- The comparison from D-0002's starting head `51644f5492c538cbc5f3d6c539138368d5a12daa` to the reviewed head, showing one commit and only `.project-loop/STATUS.md` changed.
+- The generic `CODEX_APPROVAL_REQUIRED D-0002` PR notification.
+- Bryan's explicit approval of the private D-0002 candidate packet and Codex's conservative publication decisions.
+
+The Project Director did not copy, request, or publish the private packet contents. Bryan reviewed and approved that private material directly.
+
+### Acceptance-criteria results
+
+- **M-002 discovery gate — PASS:** Codex reports fifteen candidates evaluated, five shortlisted, and a private approval packet delivered.
+- **Privacy boundary — PASS:** Repository comparison shows only the non-sensitive status file changed during D-0002; no public page, asset, candidate detail, private path, raw file, or reminder was committed.
+- **Content approval dependency — PASS:** Bryan approved the private research summary, selected general-project candidates, and conservative publication decisions.
+- **AC-002, AC-004, AC-005, AC-011, AC-012, AC-014 — NOT YET IMPLEMENTED:** These remain assigned to the public implementation slice in D-0003.
+
+### Findings
+
+No critical or important defect was found in the discovery and approval gate.
+
+The durable public handoff intentionally does not contain private evidence or candidate notes. D-0003 therefore authorizes only the exact public-facing content marked approved in the private D-0002 packet. If Codex cannot unambiguously recover that approved set, it must stop rather than reconstruct it from private evidence or guess.
+
+### Strategic approach assessment
+
+Separating private evidence discovery from public implementation remains the safest and smallest route. It allows evidence-backed project selection without exposing OneDrive material in the public repository. The approved conservative publication set can now replace the site's generic and placeholder research/project content.
+
+### Single next action
+
+Codex must execute active D-0003 on the existing branch and draft PR: implement only the approved research summary and selected general-project cards, remove the corresponding placeholders and weak modal behavior, validate the result, and keep all private discovery evidence outside GitHub.
