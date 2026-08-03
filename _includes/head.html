@@ -1,0 +1,35 @@
+{% assign meta_title = page.title | default: site.title %}
+{% assign meta_description = page.description | default: site.description %}
+{% assign canonical_url = page.url | absolute_url %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#16324f">
+<title>{% if page.title %}{{ meta_title | escape }} | {{ site.title | escape }}{% else %}{{ site.title | escape }} — {{ site.tagline | escape }}{% endif %}</title>
+<meta name="description" content="{{ meta_description | strip_newlines | escape }}">
+<link rel="canonical" href="{{ canonical_url }}">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_AU">
+<meta property="og:site_name" content="{{ site.title | escape }}">
+<meta property="og:title" content="{{ meta_title | escape }}">
+<meta property="og:description" content="{{ meta_description | strip_newlines | escape }}">
+<meta property="og:url" content="{{ canonical_url }}">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": {{ site.author.name | jsonify }},
+  "url": {{ site.url | jsonify }},
+  "email": {{ site.author.email | prepend: "mailto:" | jsonify }},
+  "jobTitle": "MPhil researcher",
+  "description": {{ site.author.positioning | jsonify }},
+  "sameAs": [{{ site.author.github_url | jsonify }}]
+}
+</script>
+
+<link rel="stylesheet" href="{{ '/assets/css/professional.css' | relative_url }}?v={{ site.asset_version }}">
+{% if page.mathjax %}
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+{% endif %}

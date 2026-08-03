@@ -1,0 +1,32 @@
+<header class="site-header">
+  <div class="shell header-shell">
+    <a class="site-brand" href="{{ '/' | relative_url }}" aria-label="Bryan Jen — home">
+      <span class="site-brand__name">Bryan Jen</span>
+      <span class="site-brand__context">Research · Computing · Quantitative thinking</span>
+    </a>
+
+    <button
+      class="nav-toggle"
+      id="nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="primary-navigation"
+    >
+      <span class="nav-toggle__label">Menu</span>
+      <span class="nav-toggle__icon" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </span>
+    </button>
+
+    <nav class="site-nav" id="primary-navigation" aria-label="Primary" data-open="false">
+      <ul>
+        <li><a href="{{ '/' | relative_url }}"{% if page.nav_key == 'home' %} aria-current="page"{% endif %}>Home</a></li>
+        <li><a href="{{ '/pages/research.html' | relative_url }}"{% if page.nav_key == 'research' %} aria-current="page"{% endif %}>Research</a></li>
+        <li><a href="{{ '/pages/projects.html' | relative_url }}"{% if page.nav_key == 'projects' %} aria-current="page"{% endif %}>Projects</a></li>
+        <li><a href="{{ '/pages/about.html' | relative_url }}"{% if page.nav_key == 'about' %} aria-current="page"{% endif %}>About</a></li>
+        <li><a href="{{ '/study-notes/' | relative_url }}"{% if page.nav_key == 'resources' %} aria-current="page"{% endif %}>Study notes</a></li>
+        <li><a href="{{ '/pages/contact.html' | relative_url }}"{% if page.nav_key == 'contact' %} aria-current="page"{% endif %}>Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

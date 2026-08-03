@@ -1,108 +1,132 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bryan Jen - Computer Science & Actuarial Studies Professional</title>
-    <meta name="description" content="Bryan Jen - Computer Science and Actuarial Studies student showcasing professional projects, research, and academic achievements.">
-    <link rel="stylesheet" href="assets/css/professional.css">
-</head>
-<body>
-    <header>
-        <div class="header-content">
-            <div class="brand">
-                <h1>Bryan Jen</h1>
-                <p>Computer Science & Actuarial Studies</p>
-            </div>
-            <nav>
-                <a href="index.html" class="active">Home</a>
-                <a href="pages/about.html">About</a>
-                <a href="pages/projects.html">Projects</a>
-                <a href="pages/research.html">Research</a>
-                <a href="pages/contact.html">Contact</a>
-            </nav>
+---
+layout: default
+title: MPhil researcher in semantic building data
+description: >-
+  Bryan Jen is an MPhil researcher working on natural-language interfaces for
+  semantic building data, with a background in Computer Science and Actuarial Studies.
+nav_key: home
+body_class: home-page
+---
+
+<section class="home-hero" aria-labelledby="home-title">
+  <div class="shell home-hero__grid">
+    <div class="home-hero__copy">
+      <p class="eyebrow">Research · Computing · Quantitative thinking</p>
+      <h1 id="home-title">MPhil researcher working on natural-language interfaces for semantic building data.</h1>
+      <p class="home-hero__intro">
+        I’m Bryan Jen. My background spans Computer Science and Actuarial Studies,
+        bringing technical and quantitative perspectives to research questions.
+      </p>
+      <div class="button-row" aria-label="Primary actions">
+        <a class="button button--primary" href="mailto:{{ site.author.email }}">Email Bryan</a>
+        <a class="button button--secondary" href="#selected-work">Explore selected work</a>
+      </div>
+    </div>
+
+    <aside class="research-snapshot" aria-labelledby="snapshot-title">
+      <p class="research-snapshot__label" id="snapshot-title">At a glance</p>
+      <dl>
+        <div>
+          <dt>Current work</dt>
+          <dd>MPhil research</dd>
         </div>
-    </header>
+        <div>
+          <dt>Research topic</dt>
+          <dd>Natural-language interfaces for semantic building data</dd>
+        </div>
+        <div>
+          <dt>Background</dt>
+          <dd>Computer Science and Actuarial Studies</dd>
+        </div>
+      </dl>
+    </aside>
+  </div>
+</section>
 
-    <main>
-        <section class="hero">
-            <div class="hero-content">
-                <h1 class="hero-title">SITE UNDER CONSTRUCTION </h1>
-                <h1 class="hero-title">Transforming Data Into Strategic Insights </h1>
-                <p class="hero-subtitle">Computer Science and Actuarial Studies professional specializing in data analytics, risk modeling, and innovative technology solutions.</p>
-                <div class="hero-cta">
-                    <a href="pages/projects.html" class="btn-primary">View Projects</a>
-                    <a href="pages/contact.html" class="btn-secondary">Get In Touch</a>
-                </div>
-            </div>
-        </section>
+<section class="section section--focus" aria-labelledby="focus-title">
+  <div class="shell split-section">
+    <div>
+      <p class="eyebrow">Current focus</p>
+      <h2 id="focus-title">Connecting natural-language questions with structured building information.</h2>
+    </div>
+    <div class="section-copy">
+      <p>
+        My current MPhil work focuses on natural-language interfaces for semantic
+        building data. This site will present the research problem, approach, and
+        verified public outputs as they become available.
+      </p>
+      <a class="text-link" href="{{ '/pages/research.html' | relative_url }}">Visit the research page <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
 
-        <section class="cards-showcase">
-            <h2>Areas of Expertise</h2>
-            <div class="cards-grid">
-                <div class="card-item" data-href="pages/projects.html">
-                    <h3>Technical Projects</h3>
-                    <p>Innovative solutions in web development, data analysis, and software engineering with real-world applications.</p>
-                    <div class="card-stats">
-                        <span>Web Development</span>
-                        <span>Data Analysis</span>
-                        <span>Software Engineering</span>
-                    </div>
-                </div>
+<section class="section" id="selected-work" aria-labelledby="work-title">
+  <div class="shell">
+    <div class="section-heading">
+      <p class="eyebrow">Selected work</p>
+      <h2 id="work-title">Research, study material, and public code</h2>
+      <p>Evidence-led work and resources, with details added only when they are public and verified.</p>
+    </div>
 
-                <div class="card-item" data-href="pages/research.html">
-                    <h3>Academic Research</h3>
-                    <p>Comprehensive studies in actuarial science, statistical modeling, and computational methods for risk assessment.</p>
-                    <div class="card-stats">
-                        <span>Statistical Modeling</span>
-                        <span>Risk Assessment</span>
-                        <span>Research Analysis</span>
-                    </div>
-                </div>
+    <div class="work-grid">
+      <article class="work-card work-card--featured">
+        <p class="work-card__type">Current research</p>
+        <h3>Natural-language interfaces for semantic building data</h3>
+        <p>My current MPhil research focuses on this topic.</p>
+        <a class="card-link" href="{{ '/pages/research.html' | relative_url }}">Research overview <span aria-hidden="true">→</span></a>
+      </article>
 
-                <div class="card-item" data-href="pages/contact.html">
-                    <h3>Professional Collaboration</h3>
-                    <p>Open to consulting opportunities, academic partnerships, and innovative projects in technology and finance.</p>
-                    <div class="card-stats">
-                        <span>Consulting Available</span>
-                        <span>Project Collaboration</span>
-                        <span>Research Partnership</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+      <article class="work-card">
+        <p class="work-card__type">Study notes</p>
+        <h3>General Insurance Techniques</h3>
+        <p>Public notes covering topics from ACTL3162.</p>
+        <a class="card-link" href="{{ '/study-notes/' | relative_url }}">Browse study notes <span aria-hidden="true">→</span></a>
+      </article>
 
-        <section class="about-preview">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2>Professional Profile</h2>
-                    <p>I am a dedicated professional with expertise in Computer Science and Actuarial Studies, combining technical proficiency with analytical rigor. My work focuses on developing innovative solutions that bridge technology and financial modeling, creating value through data-driven insights and strategic analysis.</p>
-                    <p style="margin-top: 1rem;">With a strong foundation in both theoretical concepts and practical applications, I bring a unique perspective to complex challenges in risk management, software development, and quantitative analysis.</p>
-                </div>
-                <div class="about-image">
-                    <img src="assets/images/profile-professional.jpg" alt="Bryan Jen Professional Profile" class="profile-pic">
-                </div>
-            </div>
-        </section>
-    </main>
+      <article class="work-card">
+        <p class="work-card__type">Public code</p>
+        <h3>GitHub repositories</h3>
+        <p>Source code and projects shared through the public Bryan Jen GitHub account.</p>
+        <a class="card-link" href="{{ site.author.github_url }}">View GitHub <span aria-hidden="true">↗</span></a>
+      </article>
+    </div>
+  </div>
+</section>
 
-    <footer>
-        <p>© 2024 Bryan Jen | Professional Portfolio | <a href="mailto:bryan890115@gmail.com">bryan890115@gmail.com</a></p>
-    </footer>
+<section class="section section--capabilities" aria-labelledby="capabilities-title">
+  <div class="shell">
+    <div class="section-heading section-heading--compact">
+      <p class="eyebrow">Key capabilities</p>
+      <h2 id="capabilities-title">A cross-disciplinary foundation</h2>
+    </div>
 
-    <script>
-        // Professional card navigation
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.card-item[data-href]');
-            cards.forEach(card => {
-                card.addEventListener('click', function() {
-                    const href = this.getAttribute('data-href');
-                    if (href) {
-                        window.location.href = href;
-                    }
-                });
-            });
-        });
-    </script>
-</body>
-</html>
+    <div class="capability-grid">
+      <article>
+        <span class="capability-number" aria-hidden="true">01</span>
+        <h3>Research</h3>
+        <p>Working at the intersection of natural-language interaction and semantic data.</p>
+      </article>
+      <article>
+        <span class="capability-number" aria-hidden="true">02</span>
+        <h3>Computing</h3>
+        <p>A Computer Science background for approaching technical systems and implementation.</p>
+      </article>
+      <article>
+        <span class="capability-number" aria-hidden="true">03</span>
+        <h3>Quantitative thinking</h3>
+        <p>An Actuarial Studies background for reasoning about data, uncertainty, and risk.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--contact" aria-labelledby="contact-title">
+  <div class="shell contact-band">
+    <div>
+      <p class="eyebrow">Contact</p>
+      <h2 id="contact-title">Interested in the research or related technical work?</h2>
+      <p>Email is the clearest way to get in touch.</p>
+    </div>
+    <a class="button button--light" href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>
+  </div>
+</section>

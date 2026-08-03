@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "forbidden_phrases": [
+    "SITE UNDER CONSTRUCTION",
+    "Placeholder",
+    "More details coming soon",
+    "Coming Soon",
+    "future deep dives",
+    "documented later",
+    "Typically within 24-48 hours",
+    "Consulting Available",
+    "Open to consulting opportunities",
+    "Available for consulting opportunities",
+    "Available for consulting engagements",
+    "consulting services",
+    "Open to professional inquiries and collaboration discussions",
+    "© 2024"
+  ],
+  "exemptions": [
+    {
+      "path": "pages/projects.html",
+      "phrases": [
+        "Placeholder",
+        "More details coming soon",
+        "Coming Soon"
+      ],
+      "reason": "Project case-study copy is explicitly deferred to M-002."
+    },
+    {
+      "path": "pages/research.html",
+      "phrases": [
+        "Placeholder",
+        "More details coming soon",
+        "Coming Soon",
+        "future deep dives",
+        "documented later"
+      ],
+      "reason": "Research-page copy is explicitly deferred to M-002."
+    },
+    {
+      "path": "pages/contact.html",
+      "phrases": [
+        "Typically within 24-48 hours",
+        "Available for consulting opportunities",
+        "Available for consulting engagements",
+        "consulting services",
+        "Open to professional inquiries and collaboration discussions"
+      ],
+      "reason": "Contact availability and consulting copy is explicitly deferred to M-003."
+    }
+  ]
+}

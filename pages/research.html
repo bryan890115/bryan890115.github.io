@@ -1,33 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research - Bryan Jen | Computer Science & Actuarial Studies</title>
-    <meta name="description" content="Explore Bryan Jen's academic research, comprehensive studies, and analytical work in Computer Science and Actuarial Studies.">
-    <link rel="stylesheet" href="../assets/css/professional.css">
-    <script type="text/javascript" async
-        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-    </script>
-</head>
-<body>
-    <header>
-        <div class="header-content">
-            <div class="brand">
-                <h1>Bryan Jen</h1>
-                <p>Computer Science & Actuarial Studies</p>
-            </div>
-            <nav>
-                <a href="../index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="projects.html">Projects</a>
-                <a href="research.html" class="active">Research</a>
-                <a href="contact.html">Contact</a>
-            </nav>
-        </div>
-    </header>
+---
+layout: default
+title: Research
+description: Research and academic material from Bryan Jen.
+nav_key: research
+---
 
-    <main>
         <section class="hero">
             <div class="hero-content">
                 <h1 class="hero-title">Research & Academic Work</h1>
@@ -48,10 +25,10 @@
                     </div>
                     <div class="card-detail-content" hidden>
                         <div class="detail-modal-media">
-                            <img src="../assets/images/modal-research.svg" alt="Preview for General Insurance Techniques">
+                            <img src="{{ '/assets/images/modal-research.svg' | relative_url }}" alt="Preview for General Insurance Techniques">
                         </div>
                         <p>Placeholder summary outlining future deep dives into reserving methods, pricing strategies, and risk calibration experiments.</p>
-                        <p>Include a link to supporting study materials when ready: <a href="../study-notes/index.html" class="btn-secondary" style="display: inline-flex; margin-top: 0.75rem;">Open study notes</a></p>
+                        <p>Include a link to supporting study materials when ready: <a href="{{ '/study-notes/' | relative_url }}" class="btn-secondary" style="display: inline-flex; margin-top: 0.75rem;">Open study notes</a></p>
                     </div>
                 </div>
 
@@ -65,7 +42,7 @@
                     </div>
                     <div class="card-detail-content" hidden>
                         <div class="detail-modal-media">
-                            <img src="../assets/images/modal-research.svg" alt="Preview for Computational Methods">
+                            <img src="{{ '/assets/images/modal-research.svg' | relative_url }}" alt="Preview for Computational Methods">
                         </div>
                         <p>Placeholder notes for algorithm comparisons, runtime observations, and optimization case studies to be documented later.</p>
                         <p>Reserve space for diagrams, pseudo-code, and experiment outcomes that support the research narrative.</p>
@@ -82,7 +59,7 @@
                     </div>
                     <div class="card-detail-content" hidden>
                         <div class="detail-modal-media">
-                            <img src="../assets/images/modal-research.svg" alt="Preview for Statistical Analysis">
+                            <img src="{{ '/assets/images/modal-research.svg' | relative_url }}" alt="Preview for Statistical Analysis">
                         </div>
                         <p>Placeholder description for datasets, feature engineering steps, and validation metrics that will be documented.</p>
                         <p>Use this section for charts, model comparisons, and the business context that frames the findings.</p>
@@ -114,20 +91,14 @@
                     </ul>
                     
                     <div style="margin-top: 2rem;">
-                        <a href="../study-notes/index.html" class="btn-primary">View Research Materials</a>
+                        <a href="{{ '/study-notes/' | relative_url }}" class="btn-primary">View Research Materials</a>
                     </div>
                 </div>
                 <div class="about-image">
-                    <img src="../assets/images/profile-professional.jpg" alt="Bryan Jen Research Profile" class="profile-pic">
+                    <img src="{{ '/assets/images/profile-professional.jpg' | relative_url }}" alt="Bryan Jen Research Profile" class="profile-pic">
                 </div>
             </div>
         </section>
-    </main>
-
-    <footer>
-        <p>© 2024 Bryan Jen | Professional Portfolio | <a href="mailto:bryan890115@gmail.com">bryan890115@gmail.com</a></p>
-    </footer>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const modal = document.querySelector('.detail-modal');
@@ -169,5 +140,3 @@
             });
         });
     </script>
-</body>
-</html>

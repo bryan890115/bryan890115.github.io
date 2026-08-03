@@ -41,3 +41,7 @@ node_modules/
 # Backup files
 *.backup
 *.bak
+
+# Python caches
+__pycache__/
+*.py[cod]

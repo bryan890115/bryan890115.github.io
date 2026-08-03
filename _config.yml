@@ -1,8 +1,42 @@
+title: Bryan Jen
+tagline: Research, computing, and quantitative thinking
+description: >-
+  Bryan Jen is an MPhil researcher working on natural-language interfaces for
+  semantic building data, with a background in Computer Science and Actuarial Studies.
+url: "https://bryan-c-jen.au"
+baseurl: ""
+lang: en-AU
+timezone: Australia/Sydney
+asset_version: "1"
+
+author:
+  name: Bryan Jen
+  email: bryan890115@gmail.com
+  github_url: "https://github.com/bryan890115"
+  positioning: >-
+    MPhil researcher working on natural-language interfaces for semantic building data,
+    with a background in Computer Science and Actuarial Studies.
+
 markdown: kramdown
 kramdown:
   math_engine: mathjax
-theme: minima
 
+defaults:
+  - scope:
+      path: "study-notes/notes"
+    values:
+      layout: default
+      mathjax: true
+      nav_key: resources
 
 include:
   - "*.tex"
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - scripts
+  - tests
+  - site-check.json
+  - vendor

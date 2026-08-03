@@ -1,30 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects - Bryan Jen | Computer Science & Actuarial Studies</title>
-    <meta name="description" content="Discover Bryan Jen's professional projects in software development, data analysis, and actuarial modeling with real-world applications.">
-    <link rel="stylesheet" href="../assets/css/professional.css">
-</head>
-<body>
-    <header>
-        <div class="header-content">
-            <div class="brand">
-                <h1>Bryan Jen</h1>
-                <p>Computer Science & Actuarial Studies</p>
-            </div>
-            <nav>
-                <a href="../index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="projects.html" class="active">Projects</a>
-                <a href="research.html">Research</a>
-                <a href="contact.html">Contact</a>
-            </nav>
-        </div>
-    </header>
+---
+layout: default
+title: Projects
+description: Project material from Bryan Jen.
+nav_key: projects
+---
 
-    <main>
         <section class="hero">
             <div class="hero-content">
                 <h1 class="hero-title">Professional Projects</h1>
@@ -45,7 +25,7 @@
                     </div>
                     <div class="card-detail-content" hidden>
                         <div class="detail-modal-media">
-                            <img src="../assets/images/modal-project.svg" alt="Preview for Professional Portfolio Platform">
+                            <img src="{{ '/assets/images/modal-project.svg' | relative_url }}" alt="Preview for Professional Portfolio Platform">
                         </div>
                         <p>Placeholder project overview showcasing where in-depth case study content will live. Include deployment metrics, performance highlights, and UX decisions here.</p>
                         <p>Use this space for timelines, stakeholders, and the technologies that powered the build to give readers a richer narrative.</p>
@@ -92,7 +72,7 @@
                     </div>
                     <div class="card-detail-content" hidden>
                         <div class="detail-modal-media">
-                            <img src="../assets/images/modal-project.svg" alt="Preview for Risk Analytics Dashboard">
+                            <img src="{{ '/assets/images/modal-project.svg' | relative_url }}" alt="Preview for Risk Analytics Dashboard">
                         </div>
                         <p>Placeholder details for methodology, datasets, and visualization techniques used to surface risk signals across business units.</p>
                         <p>Add future notes about statistical models, validation steps, and how insights informed decision-making.</p>
@@ -109,7 +89,7 @@
                     </div>
                     <div class="card-detail-content" hidden>
                         <div class="detail-modal-media">
-                            <img src="../assets/images/modal-project.svg" alt="Preview for Financial Modeling Suite">
+                            <img src="{{ '/assets/images/modal-project.svg' | relative_url }}" alt="Preview for Financial Modeling Suite">
                         </div>
                         <p>Placeholder content for suite architecture, scenario libraries, and validation workflows that support actuarial teams.</p>
                         <p>Document automation wins, governance controls, and how the toolkit integrates with downstream reporting.</p>
@@ -141,11 +121,11 @@
                     </ul>
                     
                     <div style="margin-top: 2rem;">
-                        <a href="contact.html" class="btn-primary">Discuss Your Project</a>
+                        <a href="{{ '/pages/contact.html' | relative_url }}" class="btn-primary">Discuss Your Project</a>
                     </div>
                 </div>
                 <div class="about-image">
-                    <img src="../assets/images/profile-professional.jpg" alt="Bryan Jen Projects Profile" class="profile-pic">
+                    <img src="{{ '/assets/images/profile-professional.jpg' | relative_url }}" alt="Bryan Jen Projects Profile" class="profile-pic">
                 </div>
             </div>
         </section>
@@ -188,12 +168,6 @@
                 </div>
             </div>
         </section>
-    </main>
-
-    <footer>
-        <p>© 2024 Bryan Jen | Professional Portfolio | <a href="mailto:bryan890115@gmail.com">bryan890115@gmail.com</a></p>
-    </footer>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const modal = document.querySelector('.detail-modal');
@@ -235,5 +209,3 @@
             });
         });
     </script>
-</body>
-</html>

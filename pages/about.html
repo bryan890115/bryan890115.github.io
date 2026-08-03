@@ -1,30 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Bryan Jen | Computer Science & Actuarial Studies</title>
-    <meta name="description" content="Learn about Bryan Jen's professional background, expertise in Computer Science and Actuarial Studies, and academic achievements.">
-    <link rel="stylesheet" href="../assets/css/professional.css">
-</head>
-<body>
-    <header>
-        <div class="header-content">
-            <div class="brand">
-                <h1>Bryan Jen</h1>
-                <p>Computer Science & Actuarial Studies</p>
-            </div>
-            <nav>
-                <a href="../index.html">Home</a>
-                <a href="about.html" class="active">About</a>
-                <a href="projects.html">Projects</a>
-                <a href="research.html">Research</a>
-                <a href="contact.html">Contact</a>
-            </nav>
-        </div>
-    </header>
+---
+layout: default
+title: About
+description: Background information about Bryan Jen's work in Computer Science and Actuarial Studies.
+nav_key: about
+---
 
-    <main>
         <section class="hero">
             <div class="hero-content">
                 <h1 class="hero-title">Professional Background</h1>
@@ -57,7 +37,7 @@
                     </ul>
                 </div>
                 <div class="about-image">
-                    <img src="../assets/images/profile-professional.jpg" alt="Bryan Jen Professional Profile" class="profile-pic">
+                    <img src="{{ '/assets/images/profile-professional.jpg' | relative_url }}" alt="Bryan Jen Professional Profile" class="profile-pic">
                 </div>
             </div>
         </section>
@@ -96,10 +76,3 @@
                 </div>
             </div>
         </section>
-    </main>
-
-    <footer>
-        <p>© 2024 Bryan Jen | Professional Portfolio | <a href="mailto:bryan890115@gmail.com">bryan890115@gmail.com</a></p>
-    </footer>
-</body>
-</html>
