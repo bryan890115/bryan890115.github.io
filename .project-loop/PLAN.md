@@ -1,87 +1,86 @@
-# COMP6713 Course Notes Publication Plan
+# Issue #14 Study Notes Navigation Maintenance Plan
 
-State: COMPLETE  
-Specification state: APPROVED  
-Final project verdict: PASS  
+State: DRAFT  
+Specification state: DRAFT  
 Repository: `bryan890115/bryan890115.github.io`  
+Issue: `#14`  
 Default branch: `main`  
-Implementation branch: `agent/comp6713-notes`  
-Base SHA: `a19fe81dadcc03e7de85f2268bc0b5666d20d031`  
-Approval date: 2026-08-04  
-Completion date: 2026-08-04
+Planning branch: `agent/issue-14-study-notes-navigation-plan`  
+Intended implementation branch: `agent/issue-14-study-notes-navigation`  
+Base SHA: `7149c5b3305ffb2fe5bfcbc0a1cb3f05105331fc`  
+Draft date: 2026-08-04
 
-## Delivery strategy
+## Strategy
 
-Three independently reviewed milestones were completed. Private OneDrive eligibility review was separated from public implementation; the approved public edition was independently authored; final route, accessibility, responsive, CI, integrity, factual-content, and visual-presentation gates passed.
+Use one bounded maintenance milestone. Change the shared Study Notes navigation target, add a regression guard, verify both course collections and all existing routes, then stop. No content, route, design, dependency, or deployment expansion is allowed.
 
-## M-001 — Private discovery and publication eligibility
+## M-001 — Repair Study Notes discoverability
 
-State: ACCEPTED  
-Accepted review: R-0001 at PR #13 head `249ab50c7f8d89f397e41f3e80f01bcf8da5ad86`  
-Approval decision: DEC-001  
-Covers: AC-001, AC-002, AC-003, AC-004
+State: PENDING  
+Dependencies: Bryan approves this specification and plan; the planning PR is merged into `main`  
+Covers: AC-001 through AC-007
 
-### Completed scope
+### Scope
 
-- Inspected 255 COMP6713-associated files read-only, including 133 Markdown note bodies.
-- Classified 0 files as directly publishable, 97 as potentially usable after authorship confirmation and independent rewriting, 53 as official/third-party or permission-sensitive, and 105 as restricted, assessment-related, duplicate, private-metadata, or otherwise excluded.
-- Delivered the detailed packet privately to Bryan.
-- Bryan confirmed the 97 candidate notes are his own synthesis and approved their use only as private conceptual input for an independently authored public edition.
-- Bryan approved all nine modules, exact title, disclaimer, order, routes, original synthetic code examples, and permanent exclusions.
-- Changed only `.project-loop/STATUS.md`; no private evidence or public website source entered GitHub.
-- Exact-head CI run `30872531021` passed.
+- Create `agent/issue-14-study-notes-navigation` from canonical `main` after planning approval is merged.
+- Change `_includes/header.html` so **Study notes** targets `{{ '/pages/study-notes.html' | relative_url }}`.
+- Keep the `resources` active-state condition unchanged.
+- Add a focused automated regression check that requires the selector target and confirms the selector links to both `/study-notes/` and `/study-notes/comp6713/`.
+- Do not change ACTL3162 or COMP6713 note source, routes, wording, examples, or styling.
+- Verify desktop and compact navigation, keyboard focus, Escape/focus restoration, and `aria-current` behaviour.
+- Run the full existing build, checker, test, syntax, zero-exemption, route, and source-only `_site` suite.
+- Update `.project-loop/STATUS.md`, open a draft PR linked to Issue #14, and post `CODEX_READY D-0001 at <FULL_SHA>` only after local checks and exact-head CI pass.
 
-## M-002 — Approved COMP6713 clean public edition
+### Expected implementation files
 
-State: ACCEPTED  
-Accepted review: R-0002 at PR #13 head `3681324c37d2876190c4fcc01cf2564ac422151e`  
-Covers: AC-005, AC-006, AC-007, AC-008, AC-009, AC-012
+- `_includes/header.html`
+- one focused file under `tests/` or a narrowly scoped existing checker/test file
+- `.project-loop/STATUS.md`
 
-### Completed scope
+Documentation may change only if it incorrectly describes the navigation destination. CSS, JavaScript, note content, routes, metadata, dependencies, workflow permissions, and deployment settings are out of scope.
 
-- Added `/study-notes/comp6713/` with the exact approved title and disclaimer.
-- Added all nine approved module routes in the approved order.
-- Independently authored conceptual explanations, mathematics, worked examples, and one original deterministic standard-library Python example using tiny synthetic data in every module.
-- Updated `/pages/study-notes.html` into an ACTL3162/COMP6713 selector while preserving `/study-notes/` and existing ACTL3162 deep routes.
-- Reused the established Jekyll design and added only narrow notes-specific CSS.
-- Added `scripts/check_comp6713_notes.py`, eight focused tests, CI coverage, and README maintenance guidance.
-- Kept `site-check.json` at zero exemptions and `_site/` untracked.
-- Recorded zero unresolved normalized 12-word prose overlaps and passing structure, technical, mathematics, code, attribution, privacy, and assessment-integrity reviews.
-- Exact-head workflow run `30874223125` passed every step.
+### Required validation
 
-## M-003 — Full QA, evidence, and final approval
+- D-0001 base is an ancestor of the starting SHA.
+- Changes between the base and starting SHA are limited to the Director archive/planning handoff under `.project-loop/`.
+- Jekyll build passes.
+- Generated-site checker passes with zero exemptions.
+- COMP6713 checker passes.
+- Full unit suite, JavaScript syntax, Python compilation, and YAML validation pass.
+- `_site/` remains untracked.
+- Selector, ACTL3162 routes, COMP6713 index, and all nine COMP6713 modules build non-empty.
+- `git diff --check` passes and the working tree is clean.
 
-State: ACCEPTED  
-Accepted review: R-0003 at PR #13 head `436bf94c8257cd3e829bb2d7e77d58d58bae34a4`  
-Correction and QA commit: `acb8d211c86f4523a4b094f0b023ed09dfc413ee`  
-Final approval decision: DEC-002  
-Covers: AC-010, AC-011, AC-013, AC-014 and all final quality gates
+### Browser and interaction evidence
 
-### Completed scope
+At 360 px and 1440 px verify:
 
-- Corrected the Attention and Transformers wording to explain permutation equivariance and the absence of token-order representation without positional information.
-- Added a generic narrow-screen inline-MathJax containment rule after browser QA exposed one overflow.
-- Clarified that executable-example isolation is a maintainer policy check, not an adversarial security sandbox.
-- Re-ran technical, mathematics, executable-code, structure, source-distance, citation/attribution, privacy, and assessment-integrity checks; all passed for 9/9 modules and unresolved normalized 12-word overlaps remained zero.
-- Verified all ten COMP6713 routes at 360 px, 768 px, and 1440 px.
-- Completed keyboard/focus, navigation, code/table/math containment, heading/landmark, metadata, favicon, ACTL3162 route, and browser-console QA.
-- Added eight immutable screenshots under `docs/review/d0003/`, excluded from the generated site.
-- Exact-head `Validate site` run `30875922503`, job `91887243468`, passed every step.
-- Bryan explicitly approved final factual content and visual presentation.
+- Study Notes navigation opens `/pages/study-notes.html`.
+- The selector offers ACTL3162 and COMP6713.
+- The `resources` active state is visible on the selector and both collections.
+- Compact Menu opens, closes with Escape, and restores focus.
+- Keyboard activation reaches both course collections.
+- No browser-console warning or error is introduced.
 
-## Final state and ownership
+### Exit evidence
 
-All approved milestones, acceptance criteria, and final quality gates are complete. The repository/source project verdict is PASS.
+- Exact starting, implementation, and final review SHAs.
+- Focused changed-file inventory.
+- Source and rendered navigation-target evidence.
+- Regression-test evidence.
+- Selector and route-preservation evidence.
+- Keyboard, active-state, responsive, and console results.
+- Successful local validation and exact-head workflow IDs.
+- Confirmation that no unrelated content, design, dependency, route, or deployment setting changed.
 
-PR #13 remains on a non-default branch. Bryan alone owns final merge and publication. Codex and the Project Director must not merge or deploy.
+## Risks
 
-## Risks and mitigations preserved
+- Preserve `/study-notes/` as the ACTL3162 canonical route.
+- Preserve `page.nav_key == 'resources'` across the selector and both collections.
+- Prevent recurrence with a direct automated assertion.
+- Do not turn the fix into a navigation redesign.
+- Treat GitHub Pages propagation separately from source correctness; do not change Pages or DNS settings.
 
-- Official, third-party, private, assessment, team-project, exam-preparation, copied-reading, unclear-permission, and raw OneDrive material remains permanently excluded.
-- The public edition remains independently authored; private notes are not publishable source text.
-- Executable examples remain original, synthetic, deterministic, standard-library-only policy checks with no network, credentials, private files, datasets, models, or saved outputs.
-- Existing ACTL3162 routes remain stable.
+## Ownership
 
-## Documentation and rollout
-
-README documents the COMP6713 source structure, eligibility boundary, example-testing convention, local validation, and Bryan-owned merge/publication. The implementation remains on `agent/comp6713-notes` until Bryan merges PR #13.
+The completed COMP6713 cycle is archived under `.project-loop/archive/2026-08-04-comp6713-course-notes/`. Codex and the Project Director must not merge or deploy. Bryan owns final merge and post-merge verification.
