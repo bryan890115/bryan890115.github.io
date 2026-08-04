@@ -1,206 +1,61 @@
 # Current Codex Directive
 
 Directive ID: D-0003  
-Status: ACTIVE  
+Status: COMPLETE  
 Milestone ID: M-003  
+Project verdict: PASS  
 Repository: `bryan890115/bryan890115.github.io`  
-Intended implementation branch: `agent/comp6713-notes`  
-Base SHA: `3681324c37d2876190c4fcc01cf2564ac422151e`  
-Issued timestamp: `2026-08-04T13:17:00+10:00`  
+Implementation branch: `agent/comp6713-notes`  
+Reviewed implementation head: `436bf94c8257cd3e829bb2d7e77d58d58bae34a4`  
+Correction and QA commit: `acb8d211c86f4523a4b094f0b023ed09dfc413ee`  
+Exact-head validation run: `30875922503`  
+Exact-head validation job: `91887243468`  
+Completed timestamp: `2026-08-04T13:58:00+10:00`  
 Replaced directive ID: D-0002
 
-## Acceptance basis
+## Completion basis
 
-R-0002 accepted the complete M-002 public-edition implementation at the exact base SHA above. The approved index, exact disclaimer, nine-module set, routes, examples, Resources selector, checker, tests, documentation, privacy boundary, permanent exclusions, and source-distance/integrity controls are accepted.
+R-0003 accepted the complete COMP6713 release candidate. M-001, M-002, and M-003 are accepted. DEC-001 governs the approved public-edition scope, clean-room authorship boundary, original synthetic-code policy, and permanent exclusions. DEC-002 records Bryan's explicit final approvals:
 
-The private corpus and detailed comparison artifacts remain outside GitHub. Public content is frozen except for the bounded terminology correction and release-blocking technical, accessibility, responsive, metadata, route, or integrity defects discovered during this directive.
+- `Factual content: approved`
+- `Visual presentation: approved`
 
-## Required outcome
+## Final accepted result
 
-Produce the final review candidate for Bryan's COMP6713 public study notes. Correct the one identified terminology issue, complete full-route and full-width quality assurance, preserve zero source-overlap and permanent exclusions, attach immutable review evidence, pass exact-head CI, and request Bryan's explicit final factual-content and visual-presentation approval.
+The COMP6713 course-notes publication cycle is complete from the repository and source perspective:
 
-Do not merge, deploy, mark PR #13 ready, push directly to `main`, or change repository, Pages, DNS, or custom-domain settings.
+- private OneDrive eligibility review completed without exposing private material;
+- exact approved title and personal-notes disclaimer;
+- all nine approved modules at the approved routes and in the approved order;
+- independently authored conceptual explanations, mathematics, and worked examples;
+- nine newly authored deterministic standard-library Python examples using tiny synthetic data;
+- ACTL3162/COMP6713 Resources selector with existing ACTL3162 routes preserved;
+- dedicated standard-library COMP6713 checker, eight focused tests, and pull-request CI coverage;
+- zero checker exemptions and no tracked `_site/` output;
+- zero unresolved normalized contiguous prose overlaps of 12 or more words under both private integrity screens;
+- passing technical, mathematics, executable-code, structure, attribution, privacy, and assessment-integrity reviews for all nine modules;
+- all ten COMP6713 routes verified at 360 px, 768 px, and 1440 px;
+- passing keyboard/focus, navigation, code/table/MathJax containment, heading/landmark, metadata, favicon, ACTL3162-route, and browser-console QA;
+- eight immutable review screenshots excluded from the generated site;
+- exact-head validation CI passing every step; and
+- explicit final factual and visual approval from Bryan.
 
-## Required bounded correction
+No critical or important implementation, factual, technical, mathematical, privacy, copyright, assessment-integrity, accessibility, responsive, route, validation, or release-candidate defect remains.
 
-In `study-notes/comp6713/notes/attention-and-transformers.html`, replace the imprecise statement that pure self-attention is "insensitive to permutation" with a concise beginner-friendly explanation that:
+## Publication boundary
 
-- self-attention without positional information is permutation-equivariant; and
-- it therefore has no representation of token order by itself.
+Codex and the Project Director must not merge, deploy, push implementation directly to `main`, mark PR #13 ready, or change repository, Pages, DNS, or custom-domain settings.
 
-Preserve the surrounding explanation, scope, and independent wording. Re-run the private source-distance and integrity checks after editing.
+Bryan alone owns:
 
-## In-scope work
+- final merge of PR #13;
+- GitHub Pages publication; and
+- any post-publication verification.
 
-1. Pull the current `agent/comp6713-notes` branch and record its exact pre-work head as `Starting SHA` in `.project-loop/STATUS.md`.
-2. Verify D-0003's base SHA is an ancestor of the starting head and that intervening changes are limited to Director-owned `.project-loop/REVIEW.md`, `.project-loop/PLAN.md`, and `.project-loop/DIRECTIVE.md`.
-3. Make only the required terminology correction plus any small release-blocking fix discovered by the QA below. Escalate any factual scope, module selection, title, disclaimer, route, code-example purpose, or design-direction change.
-4. Re-read all nine public modules for technical and mathematical accuracy. Record public-safe per-module pass/fix outcomes without importing private source details.
-5. Re-run the private integrity suite after the final public text is frozen:
-   - normalized contiguous prose overlap of 12 or more words against the 97 eligible candidate notes;
-   - the broader excluded Markdown/notebook/PDF text screen used in D-0002;
-   - structure review;
-   - technical review;
-   - mathematics review;
-   - executable-code review;
-   - citation/attribution review;
-   - privacy review; and
-   - assessment-integrity review.
-6. Resolve every unexplained overlap. Final unresolved overlaps must be zero. Keep private source identities, paths, excerpts, overlap text, and audit artifacts outside GitHub.
-7. Verify all ten COMP6713 routes—the index and nine modules—and all previous/index/next navigation paths.
-8. Verify `/pages/study-notes.html`, `/study-notes/`, and representative ACTL3162 routes including `/study-notes/notes/mod0.html` and at least one later module.
-9. Check the COMP6713 index and every module at 360 px, 768 px, and 1440 px. For each route check:
-   - page-level horizontal overflow;
-   - clipping and overlap;
-   - heading readability;
-   - module navigation layout;
-   - code-block containment and horizontal scrolling;
-   - table containment;
-   - MathJax containment;
-   - compact and desktop navigation state; and
-   - visible focus styling.
-10. Complete trusted keyboard-only QA covering:
-    - the shared skip link;
-    - desktop navigation;
-    - compact Menu open, Escape close, and focus restoration;
-    - both course-selector cards;
-    - all nine index module links;
-    - every previous/index/next link;
-    - links after long code, tables, and MathJax content; and
-    - any focusable MathJax output generated by the existing integration.
-11. Verify each COMP6713 route has:
-    - exactly one H1;
-    - shared header/nav/main/footer landmarks;
-    - sensible heading order;
-    - a non-empty title and description;
-    - matching canonical and Open Graph URL;
-    - the shared favicon; and
-    - no unexpected Person JSON-LD or COMP6713-specific identity claim.
-12. Check the browser console on the index and every module. No uncaught warning or error may remain.
-13. Re-run all nine executable examples and confirm each remains:
-    - independently authored;
-    - standard-library-only;
-    - synthetic;
-    - deterministic;
-    - file/network/credential independent;
-    - terminating within the checker timeout; and
-    - correctly described by the surrounding prose.
-14. Confirm `scripts/check_comp6713_notes.py` and README describe an isolated interpreter and temporary working-directory policy check, not an adversarial security sandbox. Adjust wording only if it could mislead a maintainer.
-15. Attach immutable review screenshots under an excluded review-evidence directory and embed commit-pinned raw URLs in draft PR #13. At minimum include:
-    - COMP6713 index at 360 px and 1440 px;
-    - Foundations or Representation Learning at one representative width;
-    - Attention and Transformers at 360 px and 1440 px;
-    - Sequence Tagging at 360 px and 1440 px, showing its table/code containment; and
-    - one representative later module at a desktop width.
-16. Screenshot evidence must contain no private source, path, local URL, browser storage, developer tool, credential, or hidden audit content and must be excluded from the generated public site.
-17. Run the complete local validation suite and wait for the exact-head `Validate site` pull-request workflow to pass.
-18. Update `.project-loop/STATUS.md` with exact SHAs, correction, route and navigation results, per-module technical review, aggregate integrity results, responsive/keyboard/metadata/console results, screenshots, validation, deviations, risks, blockers, and Bryan approval status.
-19. Update draft PR #13 with a final-review description and immutable screenshots.
-20. Request Bryan's final approval using exactly these two lines:
+## Single next action
 
-    `Factual content: approved`
+Bryan may merge PR #13.
 
-    `Visual presentation: approved`
+## Further Codex work
 
-21. Post `CODEX_READY D-0003 at <FULL_SHA>` only after all local checks and exact-head CI pass. Keep the final project verdict blocked until Bryan explicitly approves both lines.
-
-## Explicitly out of scope
-
-- Adding, deleting, renaming, merging, or reordering modules.
-- Changing the approved title, disclaimer, routes, module scopes, permanent exclusions, or contact/profile content.
-- New external links, images, diagrams, datasets, models, PDFs, notebooks, downloads, external scripts, external stylesheets, or third-party assets.
-- Importing private vault wording, examples, structure, code, equations, tables, screenshots, source identities, or audit artifacts.
-- Assignment specifications, questions, answers, solutions, rubrics, exam preparation, project/team code, official materials, copied readings, or answer-bank content.
-- Adding dependencies, frameworks, CMS, backend, database, analytics, external fonts, or deployment automation.
-- Rewriting ACTL3162 notes.
-- Merging PR #13, marking it ready, deploying, pushing directly to `main`, or changing settings.
-
-## Mapped acceptance criteria
-
-- AC-010
-- AC-011
-- AC-013
-- AC-014
-- All final quality gates
-
-## Required evidence
-
-- Exact starting SHA, correction/QA commit SHA, and final review head SHA.
-- Focused changed-file inventory distinguishing Director handoff, terminology correction, QA/evidence, and status updates.
-- Exact wording correction and technical rationale.
-- Per-module technical and mathematics review result.
-- Public-safe aggregate source-distance/integrity method and found/resolved/unresolved counts; unresolved must be zero.
-- All route and navigation results.
-- 360/768/1440 responsive results for all ten COMP6713 routes.
-- Keyboard-only QA results for every required interaction class.
-- Metadata, heading/landmark, favicon, and browser-console results for all ten routes.
-- Nine-example inventory and pass results.
-- Immutable review screenshots and confirmation that review evidence is excluded from the generated site.
-- Successful output for every local validation command.
-- Exact-head workflow name, run ID, job ID, and all-step successful conclusion.
-- Confirmation that no private, official, third-party, assessment, excluded, or source-similar material entered GitHub or built output.
-- Bryan factual-content and visual-presentation approval status, initially `PENDING`.
-
-## Exact validation commands
-
-Set `STARTING_SHA` to the exact branch head before D-0003 edits, then run:
-
-```bash
-git merge-base --is-ancestor 3681324c37d2876190c4fcc01cf2564ac422151e "$STARTING_SHA"
-git diff --name-only 3681324c37d2876190c4fcc01cf2564ac422151e..."$STARTING_SHA"
-bundle exec jekyll build --trace
-python3 scripts/check_site.py _site
-python3 scripts/check_comp6713_notes.py study-notes/comp6713
-python3 -m unittest discover -s tests -v
-node --check assets/js/script.js
-python3 -m compileall scripts
-ruby -e 'require "yaml"; YAML.load_file("_config.yml"); puts "config ok"'
-test -z "$(git ls-files _site)"
-python3 - <<'PY'
-import json
-from pathlib import Path
-config = json.loads(Path("site-check.json").read_text())
-assert config.get("exemptions") == [], config.get("exemptions")
-print("zero exemptions")
-PY
-ruby -e 'required=%w[_site/pages/study-notes.html _site/study-notes/index.html _site/study-notes/notes/mod0.html _site/study-notes/notes/mod5.html _site/study-notes/comp6713/index.html _site/study-notes/comp6713/notes/foundations-of-nlp.html _site/study-notes/comp6713/notes/representation-learning.html _site/study-notes/comp6713/notes/attention-and-transformers.html _site/study-notes/comp6713/notes/modern-language-models.html _site/study-notes/comp6713/notes/sentiment-analysis.html _site/study-notes/comp6713/notes/sequence-tagging.html _site/study-notes/comp6713/notes/machine-translation.html _site/study-notes/comp6713/notes/summarisation-and-question-answering.html _site/study-notes/comp6713/notes/nlp-applications-and-responsible-deployment.html]; required.each { |f| abort("missing or empty: #{f}") unless File.file?(f) && File.size(f) > 0 }; puts "notes routes non-empty"'
-! grep -RniE 'onedrive|sharepoint|file://|obsidian://|/Users/|[A-Za-z]:\\|!\[\[|\[\[[^]]+\]\]' study-notes/comp6713 pages/study-notes.html
-! grep -RniE 'https?://|<img\b|\.pdf(["'"'#?]|$)|\.ipynb(["'"'#?]|$)' study-notes/comp6713
-git diff --check
-git status --short --branch
-git diff --name-only "$STARTING_SHA"...HEAD
-```
-
-If the default system Ruby cannot load the pinned Bundler, use the existing supported Ruby/Bundler launcher and record the exact deviation. Browser, screenshot, source-distance, and integrity QA supplement rather than replace these commands.
-
-## Publication permission
-
-Codex may continue on `agent/comp6713-notes`, commit and push the bounded D-0003 corrections and review evidence, update draft PR #13, and post the ready notification only after all conditions pass.
-
-Codex must not merge, deploy, mark the PR ready, push directly to `main`, change settings, expose private material, or expand the approved public scope.
-
-## Stop and escalate conditions
-
-Codex must stop and report `BLOCKED` when:
-
-- Any unresolved normalized 12-word prose overlap remains.
-- Any private, official, third-party, assessment, excluded, or unclear-permission material is discovered in public source or evidence.
-- A technical or mathematical correction would materially change an approved module's scope.
-- A route, navigation path, code example, table, equation, or responsive layout cannot be corrected within the established static design.
-- Any executable example requires a new dependency, network, private file, dataset, model, credential, or saved output.
-- A required browser, metadata, keyboard, or console defect cannot be fixed generically.
-- Screenshot evidence would expose private or local information.
-- The starting branch contains unexpected changes after the D-0003 base.
-- Exact-head CI fails and cannot be fixed within this bounded QA scope.
-- Bryan's factual or visual approval is unavailable; in that case deliver the final review candidate but keep the project verdict blocked.
-
-## Next Project Director review focus
-
-- Whether the terminology correction is precise and remains beginner-friendly.
-- Whether all nine modules are technically and mathematically accurate.
-- Whether source distance and all permanent exclusions still pass after the correction.
-- Whether every route, interaction, example, table, equation, and navigation path is responsive and accessible.
-- Whether screenshots are genuinely reviewable and contain no private evidence.
-- Whether exact-head CI and all validation gates pass.
-- Whether Bryan explicitly approves final factual content and visual presentation.
-- Whether the project can receive PASS without merge or deployment by the Project Director.
+No active Codex directive remains. Any change after this PASS requires a new user request and a new bounded maintenance or publication cycle.
