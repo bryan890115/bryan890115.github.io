@@ -1,0 +1,62 @@
+---
+layout: default
+title: "Machine Translation"
+description: Translation challenges, evaluation metrics, statistical alignment, Transformer translation, and decoding.
+nav_key: resources
+prose: true
+mathjax: true
+---
+
+<article class="note-article">
+  <p class="note-kicker">Module 7 of 9</p>
+  <h1>Machine Translation</h1>
+  <p class="note-lead">Machine translation maps meaning across languages while allowing form, word order, and explicit information to change. A fluent target sentence is not sufficient: it should preserve the source meaning and avoid unsupported additions.</p>
+
+  <h2>Why translation is not word substitution</h2>
+  <p>Languages divide meaning differently. A target expression may require grammatical number, gender, politeness, or tense that the source leaves implicit. Idioms cannot always be translated compositionally, and distant words may determine agreement. Names, numbers, terminology, and layout introduce further constraints.</p>
+  <p>There can also be several valid translations. Evaluation must not assume that a single reference exhausts the acceptable choices.</p>
+
+  <h2>From alignment to neural translation</h2>
+  <p>Statistical systems decomposed translation into interpretable components such as a translation model and a target-language model. Word or phrase alignments estimated which source fragments corresponded to target fragments. Decoding searched for a target sequence with a favourable combined score.</p>
+  <p>A Transformer translation system learns an encoder-decoder mapping end to end. The encoder builds contextual source representations. The decoder predicts target tokens autoregressively while cross-attention retrieves source information. Subword tokens help share parameters across inflections and handle rare forms.</p>
+
+  <h2>Decoding and length</h2>
+  <p>Greedy decoding can commit early to a locally attractive token. Beam search retains several partial hypotheses, but raw log-probability often favours short sequences because each additional token adds a non-positive value. Length normalisation or a task-specific penalty can make scores more comparable, though its setting should be validated rather than assumed.</p>
+
+  <h3>Worked example: competing paths</h3>
+  <p>Suppose a first choice has probability \(0.6\) but forces a continuation of probability \(0.2\), giving joint probability \(0.12\). A second first choice has probability \(0.4\) and continuation probability \(0.8\), giving \(0.32\). Greedy search takes the first path; a search that retains both candidates can recover the higher-probability complete sequence.</p>
+
+  <h2>Metrics and human judgement</h2>
+  <p>Reference-overlap metrics compare surface units such as character or token \(n\)-grams. They are reproducible and inexpensive, but a valid paraphrase may overlap little, while a semantically wrong translation may share many words. Model-based metrics can compare contextual representations but inherit their own training assumptions.</p>
+  <p>Human evaluation can separate adequacy, fluency, terminology, and error severity. It should specify annotator guidance, source visibility, sampling, and agreement. Critical content also needs targeted checks for negation, quantities, named entities, omissions, and additions.</p>
+
+  <h2>Executable example: clipped unigram precision</h2>
+  <p>This is a deliberately limited overlap calculation over invented tokens. Clipping prevents a candidate from receiving credit for repeating a word more times than the reference contains it.</p>
+  <pre class="code-example" data-executable="python"><code class="language-python">from collections import Counter
+from math import exp
+
+def unigram_score(candidate, reference):
+    candidate_counts = Counter(candidate)
+    reference_counts = Counter(reference)
+    matched = sum(min(count, reference_counts[token]) for token, count in candidate_counts.items())
+    precision = matched / len(candidate) if candidate else 0.0
+    brevity = 1.0 if len(candidate) &gt; len(reference) else exp(1 - len(reference) / max(1, len(candidate)))
+    return precision * brevity
+
+reference = "the calm river bends".split()
+exact = unigram_score("the calm river bends".split(), reference)
+repeated = unigram_score("the the the bends".split(), reference)
+assert exact == 1.0
+assert abs(repeated - 0.5) &lt; 1e-12
+print(round(exact, 2), round(repeated, 2))</code></pre>
+  <p>This score ignores order and meaning, so it belongs in a collection of evidence rather than serving as a complete quality judgement.</p>
+
+  <h2>Failure-aware use</h2>
+  <p>Translation quality varies by language pair, domain, text length, and availability of representative data. Systems should preserve the source alongside the translation when verification matters, flag low-confidence or out-of-domain cases, and provide human review for consequential communication. Feedback loops must avoid treating unverified machine output as new ground truth.</p>
+
+  <nav class="note-nav" aria-label="Module navigation">
+    <a href="sequence-tagging.html">← Sequence Tagging</a>
+    <a href="../index.html">COMP6713 index</a>
+    <a href="summarisation-and-question-answering.html">Summarisation and Question Answering →</a>
+  </nav>
+</article>

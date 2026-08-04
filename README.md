@@ -42,6 +42,7 @@ Run these checks from the repository root after installing dependencies:
 ```bash
 bundle exec jekyll build --trace
 python3 scripts/check_site.py _site
+python3 scripts/check_comp6713_notes.py study-notes/comp6713
 python3 -m unittest discover -s tests -v
 node --check assets/js/script.js
 python3 -m compileall scripts
@@ -72,8 +73,35 @@ requires zero page-specific exemptions.
 - `index.html` is the home-page source.
 - `pages/` contains Research, Projects, About, Contact, and compatibility pages.
 - `study-notes/` contains the canonical study-note landing page and note sources.
+- `study-notes/comp6713/index.html` is the COMP6713 collection index; its nine
+  approved module sources are in `study-notes/comp6713/notes/` and build to matching
+  `.html` routes.
 - `assets/css/` and `assets/js/` contain the shared visual system and navigation code.
-- `scripts/check_site.py`, `site-check.json`, and `tests/` provide validation.
+- `scripts/check_site.py`, `scripts/check_comp6713_notes.py`, `site-check.json`, and
+  `tests/` provide validation.
+
+## Maintaining the COMP6713 public edition
+
+Keep the approved title, disclaimer, nine-module order, routes, and scope unchanged
+unless Bryan approves a new project-loop directive. The edition is independently
+authored personal study material. Official slides, tutorials, handouts, notebooks,
+attachments, solutions, assessment specifications or questions, marking guidance,
+answers, project code, examination preparation, textbooks, copied readings,
+third-party material, unclear-permission material, private communications, student
+data, and private storage paths or links are permanently ineligible for this edition.
+
+Write examples from scratch with tiny synthetic inputs. Mark executable standard-
+library Python as `<pre class="code-example" data-executable="python">` containing a
+single `<code class="language-python">` element. Mark non-executable algorithms with
+`data-pseudocode="true"` and label them visibly as pseudocode; they do not count as
+tested code. Executable blocks must be deterministic, terminate quickly, and avoid
+files, network access, credentials, downloaded models, datasets, or saved output.
+
+After editing a module, run the Jekyll build, the generated-site checker, the
+COMP6713 checker, and the complete unit suite shown above. The dedicated checker
+enforces the exact source set and navigation, scans for private or external material,
+and executes every marked example twice in isolation. Bryan owns merge approval and
+publication; contributors must not broaden the collection, merge, or deploy it.
 
 ## Editing content and metadata
 

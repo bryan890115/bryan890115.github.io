@@ -1,17 +1,30 @@
 ---
 layout: default
 title: Study Notes
-description: Compatibility link to Bryan Jen's public study notes.
+description: Choose from Bryan Jen's public personal study notes in actuarial studies and natural language processing.
 nav_key: resources
 ---
 
-<section class="hero" aria-labelledby="study-notes-compatibility-title">
+<section class="hero" aria-labelledby="study-notes-title">
   <div class="hero-content">
     <p class="eyebrow">Resources</p>
-    <h1 class="hero-title" id="study-notes-compatibility-title">Study Notes</h1>
-    <p class="hero-subtitle">The public notes remain available at their canonical site route.</p>
-    <div class="hero-cta">
-      <a href="{{ '/study-notes/' | relative_url }}" class="button button--primary">Open study notes</a>
-    </div>
+    <h1 class="hero-title" id="study-notes-title">Study Notes</h1>
+    <p class="hero-subtitle">Choose a course collection. These personal notes are provided as learning resources and remain separate from official course materials.</p>
+  </div>
+</section>
+
+<section class="cards-showcase" aria-labelledby="course-collections-title">
+  <h2 id="course-collections-title">Course collections</h2>
+  <div class="cards-grid course-grid">
+    <a class="card-item study-module-card" href="{{ '/study-notes/' | relative_url }}">
+      <p class="project-card__type">Actuarial studies</p>
+      <h3>ACTL3162 General Insurance Techniques</h3>
+      <p>Existing notes on loss modelling, collective risk, compound distributions, and ruin theory.</p>
+    </a>
+    <a class="card-item study-module-card" href="{{ '/study-notes/comp6713/' | relative_url }}">
+      <p class="project-card__type">Natural language processing</p>
+      <h3>COMP6713 Personal Study Notes</h3>
+      <p>Nine independently authored modules spanning NLP foundations, modern language models, applied tasks, and responsible deployment.</p>
+    </a>
   </div>
 </section>

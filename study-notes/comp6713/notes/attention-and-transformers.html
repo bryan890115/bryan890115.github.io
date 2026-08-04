@@ -1,0 +1,61 @@
+---
+layout: default
+title: "Attention and Transformers"
+description: Query-key-value attention, Transformer blocks, tokenisation, positional information, and training objectives.
+nav_key: resources
+prose: true
+mathjax: true
+---
+
+<article class="note-article">
+  <p class="note-kicker">Module 3 of 9</p>
+  <h1>Attention and Transformers</h1>
+  <p class="note-lead">Attention lets each position construct a context-dependent mixture of information from other positions. A Transformer combines this operation with position-wise transformations, residual paths, and normalisation to process a sequence in parallel.</p>
+
+  <h2>Queries, keys, and values</h2>
+  <p>For one attention head, every input vector is projected into a query, key, and value. Queries express what a position is looking for; keys express what each position offers; values carry the information to combine. With matrices \(Q\in\mathbb{R}^{m\times d_k}\), \(K\in\mathbb{R}^{n\times d_k}\), and \(V\in\mathbb{R}^{n\times d_v}\), scaled dot-product attention is</p>
+  <div class="equation-block">\[
+    \operatorname{Attention}(Q,K,V)=\operatorname{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}+M\right)V.
+  \]</div>
+  <p>The softmax is applied across keys for each query. The optional mask \(M\) assigns a very negative score to forbidden connections. Scaling by \(\sqrt{d_k}\) prevents dot products from growing so large that softmax becomes almost one-hot early in training.</p>
+
+  <h3>Worked example: one query</h3>
+  <p>Suppose a scalar query is \(q=1\), keys are \(k=(0,\ln 3)\), and values are \(v=(2,8)\). With \(d_k=1\), the scores are \((0,\ln 3)\). Their softmax weights are \((1/4,3/4)\), so the output is \((1/4)2+(3/4)8=6.5\). Attention returns a weighted mixture, not a hard selection.</p>
+
+  <h2>Multi-head attention and the Transformer block</h2>
+  <p>Multiple heads use separate projections, allowing different subspaces to form different mixtures. Their outputs are concatenated and projected again. A typical block then applies a feed-forward network independently at every position. Residual connections preserve an information path around each sublayer, and layer normalisation stabilises the scale of activations.</p>
+  <p>Self-attention uses queries, keys, and values from the same sequence. Cross-attention takes queries from one sequence and keys and values from another, which is useful when a decoder conditions on an encoded input.</p>
+
+  <h2>Token and position information</h2>
+  <p>Text first becomes tokens. Subword tokenisation balances two extremes: a tiny character vocabulary creates long sequences, while a word-only vocabulary cannot gracefully represent rare forms. The tokeniser is part of the model interface because it determines sequence length and which fragments share parameters.</p>
+  <p>Pure self-attention is insensitive to permutation unless position information is added. Fixed or learned position vectors can be combined with token embeddings. Relative schemes instead describe distances or rotations between positions. The practical objective is the same: distinguish “first follows second” from “second follows first.”</p>
+
+  <h2>Executable example: scaled attention</h2>
+  <p>This small implementation computes the worked example directly. The inputs are fixed synthetic scalars and the result is checked numerically.</p>
+  <pre class="code-example" data-executable="python"><code class="language-python">from math import exp, log, sqrt
+
+def attention(query, keys, values):
+    scale = sqrt(len(query))
+    scores = [sum(q * k for q, k in zip(query, key)) / scale for key in keys]
+    offset = max(scores)
+    weights = [exp(score - offset) for score in scores]
+    total = sum(weights)
+    weights = [weight / total for weight in weights]
+    output = sum(weight * value for weight, value in zip(weights, values))
+    return weights, output
+
+weights, output = attention([1.0], [[0.0], [log(3.0)]], [2.0, 8.0])
+assert all(abs(a - b) &lt; 1e-12 for a, b in zip(weights, [0.25, 0.75]))
+assert abs(output - 6.5) &lt; 1e-12
+print([round(weight, 2) for weight in weights], output)</code></pre>
+
+  <h2>Training patterns and limits</h2>
+  <p>An encoder can learn from corrupted-token reconstruction and then supply representations for downstream prediction. An autoregressive decoder predicts each next token while a causal mask blocks future positions. An encoder-decoder can encode a source sequence and generate a target sequence through cross-attention.</p>
+  <p>Attention improves access to context, but it does not guarantee correct reasoning or faithful evidence use. Standard dense attention also compares every pair of positions, so memory and computation grow roughly with the square of sequence length. Long-context variants trade among exactness, memory, latency, and ease of training.</p>
+
+  <nav class="note-nav" aria-label="Module navigation">
+    <a href="representation-learning.html">← Representation Learning</a>
+    <a href="../index.html">COMP6713 index</a>
+    <a href="modern-language-models.html">Modern Language Models →</a>
+  </nav>
+</article>

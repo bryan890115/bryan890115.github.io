@@ -1,0 +1,70 @@
+---
+layout: default
+title: "Modern Language Models"
+description: BERT and GPT model families, adaptation, prompting, evaluation, and tool-augmented language systems.
+nav_key: resources
+prose: true
+mathjax: true
+---
+
+<article class="note-article">
+  <p class="note-kicker">Module 4 of 9</p>
+  <h1>Modern Language Models</h1>
+  <p class="note-lead">Modern language models reuse large-scale pretraining across many tasks. Their capabilities depend not only on architecture and parameter count, but also on the training objective, data mixture, adaptation method, inference procedure, and surrounding system.</p>
+
+  <h2>Encoder and decoder families</h2>
+  <p>A bidirectional encoder, represented by the BERT family, reads left and right context to build contextual token representations. It is naturally suited to classification, retrieval, and token-level prediction after task-specific adaptation. An autoregressive decoder, represented by the GPT family, predicts the next token from prior tokens. Repeating that prediction produces open-ended text.</p>
+  <p>The distinction is about information flow and objective, not a guarantee of task quality. Encoders can contribute to generation systems, and decoder-only models can perform classification by generating a label. Encoder-decoder models make the input-output split explicit and are effective when one sequence is transformed into another.</p>
+
+  <h2>Adaptation choices</h2>
+  <dl class="concept-list">
+    <div><dt>Full fine-tuning</dt><dd>Update all model parameters on task data. This is flexible but creates a complete specialised model and can overfit small datasets.</dd></div>
+    <div><dt>Parameter-efficient adaptation</dt><dd>Train a small set of added or low-rank parameters while keeping most pretrained weights fixed. Storage is reduced, though serving may still require the base model.</dd></div>
+    <div><dt>Prompting</dt><dd>Express instructions and demonstrations in the input without changing weights. Iteration is quick, but output can be sensitive to wording, ordering, and decoding settings.</dd></div>
+  </dl>
+  <p>The right choice follows operational constraints: data volume, latency, privacy, update frequency, reproducibility, and the cost of a wrong answer.</p>
+
+  <h2>Decoding is a decision procedure</h2>
+  <p>A model produces a distribution over the next token. Greedy decoding chooses the highest-probability token at each step. Beam search keeps several high-scoring partial sequences. Sampling retains randomness, often with temperature or probability truncation to control diversity. These methods can yield different texts from the same model probabilities.</p>
+
+  <h3>Worked example: temperature</h3>
+  <p>For logits \(z=(2,1)\), temperature \(T\) defines \(p_i\propto e^{z_i/T}\). At \(T=1\), the larger logit receives probability about \(0.731\). At \(T=0.5\), the gap doubles after scaling and that probability rises to about \(0.881\). Lower temperature sharpens the distribution; it does not make the underlying information more correct.</p>
+
+  <h2>Executable example: deterministic greedy generation</h2>
+  <p>This toy transition table is not a trained model. It isolates autoregressive generation: the new token becomes part of the next context, and stable tie-breaking makes the output reproducible.</p>
+  <pre class="code-example" data-executable="python"><code class="language-python">transitions = {
+    "&lt;start&gt;": {"small": 0.7, "quiet": 0.3},
+    "small": {"models": 0.6, "steps": 0.4},
+    "models": {"help": 0.8, "drift": 0.2},
+    "help": {"&lt;end&gt;": 1.0},
+}
+
+def greedy_generate(limit=6):
+    token = "&lt;start&gt;"
+    output = []
+    for _ in range(limit):
+        choices = transitions[token]
+        token = max(sorted(choices), key=choices.get)
+        if token == "&lt;end&gt;":
+            break
+        output.append(token)
+    return output
+
+generated = greedy_generate()
+assert generated == ["small", "models", "help"]
+print(" ".join(generated))</code></pre>
+
+  <h2>Evaluation beyond fluency</h2>
+  <p>Perplexity measures predictive fit to a token sequence, but it does not directly measure factuality, instruction following, fairness, or usefulness. Task evaluation should combine reproducible automatic measures with carefully designed human judgement where needed. A strong evaluation specifies the population, failure severity, comparison baseline, uncertainty, and known gaps.</p>
+  <p>Contamination can make a benchmark look easier if evaluation examples or close variants entered training. Prompt sensitivity and stochastic decoding also complicate comparisons. Report prompts, decoding settings, model version, and repeated-trial variation when they influence the result.</p>
+
+  <h2>Tools and retrieval</h2>
+  <p>A language model can be placed inside a system that retrieves documents, calls a calculator, or invokes another bounded tool. Retrieval can supply current evidence; tools can perform operations better handled by deterministic software. The model still needs controls that distinguish retrieved evidence from generated text, validate tool inputs, handle failures, and show when no adequate evidence exists.</p>
+  <aside class="note-callout"><p><strong>System view:</strong> a capable model does not remove the need for input validation, access control, monitoring, provenance, and a safe fallback. Those properties belong to the complete application.</p></aside>
+
+  <nav class="note-nav" aria-label="Module navigation">
+    <a href="attention-and-transformers.html">← Attention and Transformers</a>
+    <a href="../index.html">COMP6713 index</a>
+    <a href="sentiment-analysis.html">Sentiment Analysis →</a>
+  </nav>
+</article>

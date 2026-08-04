@@ -1,0 +1,76 @@
+---
+layout: default
+title: "Sequence Tagging"
+description: Part-of-speech tagging, named-entity recognition, BIO encoding, HMM and CRF structure, Viterbi decoding, and neural taggers.
+nav_key: resources
+prose: true
+mathjax: true
+---
+
+<article class="note-article">
+  <p class="note-kicker">Module 6 of 9</p>
+  <h1>Sequence Tagging</h1>
+  <p class="note-lead">Sequence tagging predicts a structured label sequence aligned with input tokens. Local evidence matters, but neighbouring labels constrain one another, so the best sequence need not contain the individually best label at every position.</p>
+
+  <h2>Tasks and label schemes</h2>
+  <p>Part-of-speech tagging labels grammatical roles such as noun or verb. Named-entity recognition marks spans such as organisations or locations. Other taggers can identify chunks, events, or domain-specific mentions.</p>
+  <p>BIO encoding represents spans with <strong>B</strong> for the first token, <strong>I</strong> for subsequent tokens, and <strong>O</strong> outside any span. Entity types can be attached, producing labels such as B-ORG and I-ORG. A valid sequence cannot begin an organisation span with I-ORG unless the chosen scheme explicitly defines a repair.</p>
+
+  <h3>Worked example: aligned labels</h3>
+  <p>For the invented sentence “Mira joined North Wind,” a possible organisation annotation is:</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th scope="col">Token</th><th scope="col">Mira</th><th scope="col">joined</th><th scope="col">North</th><th scope="col">Wind</th></tr></thead>
+      <tbody><tr><th scope="row">Tag</th><td>O</td><td>O</td><td>B-ORG</td><td>I-ORG</td></tr></tbody>
+    </table>
+  </div>
+  <p>Tokenisation and labelling must agree on boundaries. A subword model often predicts over pieces and then maps those predictions back to the task’s token or character spans.</p>
+
+  <h2>HMMs, CRFs, and neural taggers</h2>
+  <p>A hidden Markov model describes a joint probability using transition and emission terms:</p>
+  <div class="equation-block">\[
+    P(y_{1:T},x_{1:T})=P(y_1)P(x_1\mid y_1)
+    \prod_{t=2}^{T}P(y_t\mid y_{t-1})P(x_t\mid y_t).
+  \]</div>
+  <p>The Viterbi algorithm finds the highest-probability tag path without enumerating every sequence. A linear-chain conditional random field directly scores \(P(y_{1:T}\mid x_{1:T})\), allowing overlapping features of the observed sequence while still decoding globally. Neural taggers learn contextual token representations; a CRF output layer may be added when explicit transition structure remains useful.</p>
+
+  <h2>Executable example: Viterbi decoding</h2>
+  <p>This synthetic two-state decoder uses log-scores, so path multiplication becomes addition. Stable iteration order makes ties deterministic.</p>
+  <pre class="code-example" data-executable="python"><code class="language-python">states = ("N", "V")
+start = {"N": -0.2, "V": -1.2}
+transition = {
+    "N": {"N": -1.0, "V": -0.1},
+    "V": {"N": -0.2, "V": -1.1},
+}
+emission = {
+    "N": {"sparks": -0.1, "settle": -1.4},
+    "V": {"sparks": -0.8, "settle": -0.1},
+}
+
+def viterbi(tokens):
+    paths = {state: (start[state] + emission[state][tokens[0]], [state]) for state in states}
+    for token in tokens[1:]:
+        updated = {}
+        for current in states:
+            choices = [
+                (score + transition[previous][current] + emission[current][token], path + [current])
+                for previous, (score, path) in paths.items()
+            ]
+            updated[current] = max(choices, key=lambda item: (item[0], item[1]))
+        paths = updated
+    return max(paths.values(), key=lambda item: (item[0], item[1]))
+
+score, tags = viterbi(["sparks", "settle"])
+assert tags == ["N", "V"]
+print(tags, round(score, 1))</code></pre>
+
+  <h2>Evaluation and error analysis</h2>
+  <p>Token accuracy is informative for dense labels such as parts of speech, but it can be dominated by common tags. Entity extraction is usually evaluated at the span level: the predicted start, end, and type must match the reference. Partial overlaps should be analysed separately rather than silently counted as success.</p>
+  <p>Useful error categories include boundary errors, type confusions, unseen names, tokenisation mismatches, invalid BIO transitions, and context-dependent words. Compare against a simple majority or dictionary baseline and report performance on rare labels, not only the aggregate.</p>
+
+  <nav class="note-nav" aria-label="Module navigation">
+    <a href="sentiment-analysis.html">← Sentiment Analysis</a>
+    <a href="../index.html">COMP6713 index</a>
+    <a href="machine-translation.html">Machine Translation →</a>
+  </nav>
+</article>

@@ -1,0 +1,70 @@
+---
+layout: default
+title: "Foundations of NLP"
+description: An introduction to NLP tasks, language ambiguity, probability, modelling paradigms, practical tools, and limitations.
+nav_key: resources
+prose: true
+mathjax: true
+---
+
+<article class="note-article">
+  <p class="note-kicker">Module 1 of 9</p>
+  <h1>Foundations of NLP</h1>
+  <p class="note-lead">Natural language processing turns human language into representations that a computer can compare, predict, or generate. The central difficulty is that form does not uniquely determine meaning: context, speaker intent, and world knowledge all matter.</p>
+
+  <h2>From language to a task</h2>
+  <p>An NLP system needs a precisely defined input, output, and success criterion. Classification maps a whole text to a label. Sequence tagging attaches a label to each token. Retrieval ranks existing items. Generation constructs a new token sequence. The same document may support several tasks, but each task creates different errors and evaluation needs.</p>
+  <p>Ambiguity appears at several levels. A word can have multiple senses, a sentence can admit multiple syntactic structures, and a literal statement can imply something different in context. A model normally resolves these alternatives by learning which interpretations are probable in similar contexts, not by proving that one meaning is logically necessary.</p>
+
+  <h2>Probability as a language for uncertainty</h2>
+  <p>Let \(x\) denote observed text and \(y\) a target such as a label. A discriminative model estimates \(P(y\mid x)\). A generative model may instead describe \(P(x,y)\), from which Bayes’ rule gives</p>
+  <div class="equation-block">\[
+    P(y\mid x)=\frac{P(x\mid y)P(y)}{P(x)}.
+  \]</div>
+  <p>The denominator is shared by candidate labels, so classification can compare \(P(x\mid y)P(y)\). This separation is useful: the prior \(P(y)\) represents how common a label is, while the likelihood \(P(x\mid y)\) represents how compatible the text is with it.</p>
+
+  <h3>Worked example: posterior evidence</h3>
+  <p>Suppose a synthetic alert system has two labels, <em>routine</em> and <em>urgent</em>. Before reading a message, their probabilities are \(0.8\) and \(0.2\). The word “immediately” appears with probabilities \(0.1\) and \(0.6\) under the two labels. Their unnormalised scores are \(0.08\) and \(0.12\). Normalising gives \(P(\text{urgent}\mid\text{“immediately”})=0.12/(0.08+0.12)=0.6\). A less common label becomes more likely because the observed word is stronger evidence for it.</p>
+
+  <h2>Three modelling paradigms</h2>
+  <dl class="concept-list">
+    <div><dt>Rules</dt><dd>Humans specify patterns and decisions. Rules are inspectable and can work well for narrow, stable formats, but coverage is expensive and interactions become brittle.</dd></div>
+    <div><dt>Statistical learning</dt><dd>A model estimates parameters from labelled examples or counts. Features make assumptions visible, while performance depends on how training data represents deployment conditions.</dd></div>
+    <div><dt>Neural learning</dt><dd>A differentiable network learns both intermediate representations and predictions. It can exploit broad context, but its behaviour is harder to trace and often requires more data and computation.</dd></div>
+  </dl>
+  <p>Hybrid systems are common. For example, a neural classifier may produce a score, a rule may enforce an operational constraint, and a human may review uncertain cases.</p>
+
+  <h2>A tiny deterministic baseline</h2>
+  <p>This original example counts a few synthetic label words. It is deliberately simple: the purpose is to establish an executable baseline whose assumptions and failure modes are obvious.</p>
+  <pre class="code-example" data-executable="python"><code class="language-python">from collections import Counter
+
+label_words = {
+    "travel": {"train", "ticket", "platform"},
+    "weather": {"rain", "wind", "cloud"},
+}
+
+def classify(tokens):
+    counts = Counter(tokens)
+    scores = {
+        label: sum(counts[word] for word in vocabulary)
+        for label, vocabulary in label_words.items()
+    }
+    return max(sorted(scores), key=scores.get), scores
+
+label, scores = classify("rain near the train platform".split())
+assert scores == {"travel": 2, "weather": 1}
+assert label == "travel"
+print(label, scores)</code></pre>
+  <p>The example exposes a limitation immediately: “rain near the train platform” mentions both domains, and a raw count ignores relationships between words. That transparent weakness gives a later model something concrete to improve upon.</p>
+
+  <h2>Tools, evaluation, and limitations</h2>
+  <p>A practical workflow separates data inspection, preprocessing, modelling, evaluation, and error analysis. Tokenisers, vector operations, automatic differentiation, and experiment tracking can accelerate the work, but a tool does not decide whether a task is well specified.</p>
+  <p>Evaluation should match the decision being supported. A single average score can hide poor performance on rare classes, longer texts, particular dialects, or inputs that changed after training. Useful checks include a simple baseline, a held-out test set, slice-level results, qualitative error categories, and a plan for abstention or human review.</p>
+  <aside class="note-callout"><p><strong>Core limitation:</strong> language data records people and institutions, not a neutral physical process. Models can reproduce annotation choices, historical inequalities, missing perspectives, and shortcuts that cease to work after deployment.</p></aside>
+
+  <nav class="note-nav" aria-label="Module navigation">
+    <span aria-hidden="true"></span>
+    <a href="../index.html">COMP6713 index</a>
+    <a href="representation-learning.html">Representation Learning →</a>
+  </nav>
+</article>
