@@ -1,14 +1,21 @@
 # Current Codex Directive
 
 Directive ID: D-0001  
-Status: PENDING_APPROVAL  
+Status: ACTIVE  
 Milestone ID: M-001  
 Repository: `bryan890115/bryan890115.github.io`  
 Issue: `#14`  
 Intended implementation branch: `agent/issue-14-study-notes-navigation`  
 Base SHA: `7149c5b3305ffb2fe5bfcbc0a1cb3f05105331fc`  
 Issued timestamp: `2026-08-04T14:20:00+10:00`  
+Activated timestamp: `2026-08-04T14:37:00+10:00`  
 Replaced directive ID: None
+
+## Approval
+
+Bryan explicitly approved the Issue #14 maintenance specification and plan on 2026-08-04. D-0001 is active.
+
+Codex must still wait until planning PR #15 is merged into canonical `main` before creating the implementation branch or changing source.
 
 ## Required outcome
 
@@ -16,7 +23,7 @@ Fix Issue #14 by making the shared desktop and compact **Study notes** navigatio
 
 ## Required implementation
 
-1. After this directive is approved, activated, and merged into canonical `main`, create `agent/issue-14-study-notes-navigation` from the then-current `main` and record the exact starting SHA in `.project-loop/STATUS.md`.
+1. After PR #15 is merged, create `agent/issue-14-study-notes-navigation` from the then-current `main` and record the exact starting SHA in `.project-loop/STATUS.md`.
 2. Verify the directive base is an ancestor of the starting SHA and that intervening changes are limited to the Director-owned `.project-loop/` archive and maintenance handoff.
 3. In `_includes/header.html`, change only the Study Notes link target from `{{ '/study-notes/' | relative_url }}` to `{{ '/pages/study-notes.html' | relative_url }}`.
 4. Keep the `page.nav_key == 'resources'` active-state condition unchanged.
@@ -72,6 +79,6 @@ Stop and report `BLOCKED` if:
 
 ## Publication permission
 
-While this directive is `PENDING_APPROVAL`, Codex has no authority to begin.
+After PR #15 is merged into `main`, Codex may implement this bounded fix on `agent/issue-14-study-notes-navigation`, open a draft PR, and request review.
 
-After Bryan approves the specification and plan, the Project Director activates D-0001, and the planning PR is merged into `main`, Codex may implement this bounded fix on `agent/issue-14-study-notes-navigation`, open a draft PR, and request review. Codex must not merge or deploy.
+Codex must not merge, deploy, mark the implementation PR ready, push directly to `main`, or change repository settings.
