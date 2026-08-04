@@ -93,6 +93,57 @@ The implementation remains the fastest safe route to the approved result. It is 
 
 Codex must execute active D-0003 on the existing branch and draft PR #13: make the bounded terminology correction, complete full responsive/keyboard/metadata/console and final integrity QA, attach immutable review screenshots, rerun exact-head CI, and request Bryan's final factual-content and visual-presentation approval. Do not merge or deploy.
 
+## R-0003 — M-003 final QA and user approval
+
+Timestamp: `2026-08-04T13:58:00+10:00`  
+Directive ID: D-0003  
+Milestone ID: M-003  
+Pull request: `#13` (`agent/comp6713-notes`)  
+Exact reviewed head SHA: `436bf94c8257cd3e829bb2d7e77d58d58bae34a4`  
+Correction and QA commit SHA: `acb8d211c86f4523a4b094f0b023ed09dfc413ee`  
+Exact-head workflow run: `30875922503`  
+Exact-head workflow job: `91887243468`  
+Verdict: PASS
+
+### Evidence inspected
+
+- PR #13 metadata, exact head, open/draft/mergeable state, final-review description, eight immutable screenshot references, and `CODEX_READY D-0003` notification.
+- Exact D-0003 delta from Director handoff head `350d87a8613977c80c7d895a777f3a56267d3edd` to the reviewed head.
+- The bounded permutation-equivariance wording correction, generic inline-MathJax containment rule, README policy clarification, and final `.project-loop/STATUS.md` ledger.
+- Exact-head `Validate site` run `30875922503`; job `91887243468` passed every checkout, Ruby setup, Jekyll build, generated-site checker, COMP6713 notes/examples checker, seventeen tests, JavaScript syntax, Python compilation, YAML validation, source-only `_site`, zero-exemption, forbidden-copy, and required-route step.
+- Codex's final public-safe aggregate technical, mathematics, executable-code, source-distance, structure, citation/attribution, privacy, assessment-integrity, responsive, keyboard, metadata, landmark, favicon, and browser-console results.
+- Bryan's explicit final responses: `Factual content: approved` and `Visual presentation: approved`; recorded in DEC-002.
+
+The private corpus and detailed overlap artifacts remain intentionally outside GitHub. The aggregate zero-overlap evidence and the absence of private or excluded material in public source are accepted under the approved privacy boundary. The GitHub text connector could verify the screenshot files and immutable commit-pinned references but could not directly render their binary pixels; Bryan reviewed and approved the visual evidence.
+
+### Acceptance results
+
+- **AC-010 — PASS:** All ten COMP6713 routes passed the recorded 360 px, 768 px, and 1440 px matrix with no page-level overflow, clipping, overlap, broken compact/desktop navigation, or uncontrolled code/table/MathJax content. Keyboard and focus QA covered every required interaction class.
+- **AC-011 — PASS:** Exact-head CI passed the generated-site checker, COMP6713 checker, seventeen tests, syntax/configuration checks, zero-exemption policy, source-only `_site`, forbidden-copy scan, and exact route checks.
+- **AC-013 — PASS:** Bryan explicitly approved final factual content and visual presentation.
+- **AC-014 — PASS:** Work remains on the non-default implementation branch and draft PR; neither Codex nor the Project Director merged, deployed, marked ready, pushed directly to `main`, or changed repository settings.
+- **Final quality gates — PASS:** Exact title/disclaimer/routes, all nine modules, original synthetic examples, ACTL3162 route preservation, zero unresolved source overlap, privacy and assessment exclusions, responsive/keyboard/metadata/console evidence, immutable screenshots, and final user approvals are complete.
+
+### Findings
+
+No critical or important implementation, factual, technical, mathematical, privacy, copyright, assessment-integrity, accessibility, responsive, route, validation, or release-candidate defect remains.
+
+The final D-0003 changes were appropriately bounded:
+
+- one factual precision correction describing order-free self-attention as permutation-equivariant and order-unaware;
+- one generic inline-MathJax containment rule discovered through mobile QA;
+- one maintainer-documentation clarification that example execution is a policy check rather than an adversarial sandbox;
+- eight review screenshots excluded from the generated site; and
+- the final status evidence.
+
+### Final assessment
+
+All approved milestones, acceptance criteria, and quality gates are satisfied at the exact reviewed implementation head. The COMP6713 public study-notes edition is release-ready from the repository and source perspective.
+
+### Single next action
+
+Bryan may merge PR #13. The Project Director and Codex must not merge or deploy.
+
 The completed professional-portfolio redesign review history remains archived under:
 
 `.project-loop/archive/2026-08-04-professional-portfolio-redesign/REVIEW.md`
