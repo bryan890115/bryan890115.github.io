@@ -1,14 +1,15 @@
 # Issue #14 Study Notes Navigation Maintenance Plan
 
-State: DRAFT  
-Specification state: DRAFT  
+State: APPROVED  
+Specification state: APPROVED  
 Repository: `bryan890115/bryan890115.github.io`  
 Issue: `#14`  
 Default branch: `main`  
 Planning branch: `agent/issue-14-study-notes-navigation-plan`  
 Intended implementation branch: `agent/issue-14-study-notes-navigation`  
 Base SHA: `7149c5b3305ffb2fe5bfcbc0a1cb3f05105331fc`  
-Draft date: 2026-08-04
+Draft date: 2026-08-04  
+Approval date: 2026-08-04
 
 ## Strategy
 
@@ -16,8 +17,9 @@ Use one bounded maintenance milestone. Change the shared Study Notes navigation 
 
 ## M-001 — Repair Study Notes discoverability
 
-State: PENDING  
-Dependencies: Bryan approves this specification and plan; the planning PR is merged into `main`  
+State: ACTIVE  
+Dependencies: Specification and plan approved by Bryan on 2026-08-04; planning PR #15 must be merged into `main` before Codex begins  
+Active directive: D-0001  
 Covers: AC-001 through AC-007
 
 ### Scope
