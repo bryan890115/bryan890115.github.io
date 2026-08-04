@@ -64,3 +64,42 @@ D-0004 originally limited Contact to the email and GitHub channels already recor
 - Milestone: M-003
 - Reviewed directive: D-0004
 - Next directive: D-0005
+
+## DEC-003 — Approve final factual content and visual presentation
+
+State: APPROVED  
+Date: 2026-08-04  
+Decision owner: Bryan Jen
+
+### Context
+
+D-0005 produced the complete release candidate at exact reviewed head `6d312b079d4baa69e05a8fe24779f9194bd12a16`. The draft pull request includes immutable responsive screenshots, passing exact-head validation CI, source-reproduction evidence, zero checker exemptions, route and keyboard checks, metadata checks, and Lighthouse results.
+
+Bryan reviewed the final release-candidate facts and visual evidence and explicitly responded:
+
+- `Factual content: approved`
+- `Visual presentation: approved`
+
+Bryan also reported that he believes the custom-domain issue has been fixed. The Project Director could not independently re-resolve the domain from the current review environment, so this statement is recorded as user-reported publication status rather than verified source evidence.
+
+### Decision
+
+- The public factual content at release-candidate head `6d312b079d4baa69e05a8fe24779f9194bd12a16` is approved for merge and publication.
+- The visual presentation shown in the immutable D-0005 screenshots is approved for merge and publication.
+- The exact approved Contact channels remain email, GitHub, and the LinkedIn URL recorded in DEC-002.
+- The project-loop source implementation may receive a final PASS without the Project Director merging, deploying, changing repository settings, or certifying external DNS/TLS state.
+- Bryan remains the sole owner of the merge and GitHub Pages/custom-domain publication decision.
+
+### Consequences
+
+- M-004's final user-approval dependency is satisfied.
+- All four milestones are accepted.
+- D-0005 may be completed and the project verdict set to PASS.
+- PR #11 may be merged by Bryan after he is satisfied that the custom domain presents a valid certificate in his browser.
+
+### Affected acceptance criteria, milestones, and directives
+
+- Acceptance criteria: AC-009, AC-010, AC-012, AC-014, AC-015, AC-016, AC-017, AC-018
+- Milestone: M-004
+- Completed directive: D-0005
+- Final project verdict: PASS
