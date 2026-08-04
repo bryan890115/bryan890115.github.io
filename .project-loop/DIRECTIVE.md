@@ -1,13 +1,18 @@
 # Current Codex Directive
 
 Directive ID: D-0001  
-Status: PENDING_APPROVAL  
+Status: ACTIVE  
 Milestone ID: M-001  
 Repository: `bryan890115/bryan890115.github.io`  
 Intended implementation branch: `agent/comp6713-notes`  
 Base SHA: `a19fe81dadcc03e7de85f2268bc0b5666d20d031`  
 Issued timestamp: `2026-08-04T11:37:00+10:00`  
+Activated timestamp: `2026-08-04T12:03:00+10:00`  
 Replaced directive ID: None
+
+## Approval
+
+Bryan explicitly approved the COMP6713 specification and plan on 2026-08-04. D-0001 is active. Codex must still wait until the activation PR containing this handoff is merged into `main`, so that the approved state is canonical.
 
 ## Required outcome
 
@@ -17,7 +22,7 @@ The packet must identify which material is Bryan-authored and suitable for publi
 
 ## In-scope work
 
-1. After this directive is approved and activated, create or use `agent/comp6713-notes` from the then-current `main` and record the exact pre-work branch head as `Starting SHA` in `.project-loop/STATUS.md`.
+1. After the activation PR is merged, create or use `agent/comp6713-notes` from the then-current `main` and record the exact pre-work branch head as `Starting SHA` in `.project-loop/STATUS.md`.
 2. Verify the directive base is an ancestor of the implementation starting head. If `main` changed materially after approval, stop and request Project Director recovery.
 3. Inspect only OneDrive files and folders clearly associated with Bryan's COMP6713 course notes.
 4. Inventory the material privately, including file type, broad contents, apparent authorship, presence of code/mathematics/tables/diagrams, and likely module grouping.
@@ -85,9 +90,7 @@ The final diff from `STARTING_SHA` to the review head must contain only `.projec
 
 ## Publication permission
 
-While this directive is `PENDING_APPROVAL`, Codex has no authority to begin.
-
-After Bryan approves the specification and plan and the Project Director changes this directive to `ACTIVE`, Codex may:
+After the activation PR is merged into `main`, Codex may:
 
 - create or use `agent/comp6713-notes` from current `main`;
 - inspect accessible OneDrive material read-only;
@@ -101,6 +104,7 @@ Codex may not commit any public notes or website implementation under D-0001.
 
 Codex must stop and report `BLOCKED` when:
 
+- The activation PR has not been merged into `main`.
 - OneDrive access is unavailable or the relevant COMP6713 location cannot be identified safely.
 - Material ownership, authorship, copyright permission, confidentiality, or assessment status is unclear.
 - The source contains current or restricted assessment material that cannot be separated safely.
