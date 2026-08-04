@@ -1,0 +1,65 @@
+---
+layout: default
+title: "NLP Applications and Responsible Deployment"
+description: NLP applications, hallucination, fairness, mitigation, commonsense reasoning, explanations, and responsible deployment controls.
+nav_key: resources
+prose: true
+mathjax: true
+---
+
+<article class="note-article">
+  <p class="note-kicker">Module 9 of 9</p>
+  <h1>NLP Applications and Responsible Deployment</h1>
+  <p class="note-lead">An NLP model becomes an application only when it is embedded in people, data flows, interfaces, and decisions. Responsible deployment therefore evaluates the complete system: who is affected, what can fail, how failures are detected, and who can intervene.</p>
+
+  <h2>Match the system to the decision</h2>
+  <p>NLP can support search, routing, drafting, extraction, moderation, accessibility, and analysis. The same model error has different consequences in each setting. A poor search ranking may cost time; an incorrect eligibility decision may deny a service. Risk controls should scale with impact and reversibility.</p>
+  <p>Start by documenting the intended users, data population, output consumer, unacceptable uses, and fallback. Then choose metrics that represent those commitments. A benchmark average cannot substitute for a clear operational decision.</p>
+
+  <h2>Hallucination and evidence</h2>
+  <p>A generated statement can be fluent yet unsupported. This is often called hallucination, but the practical categories matter more: contradiction of supplied evidence, invented detail, outdated information, mistaken tool output, or an answer to an unanswerable request.</p>
+  <p>Mitigations include retrieval from controlled sources, constrained output schemas, deterministic tools for calculations, explicit evidence display, uncertainty-aware abstention, and human review. Each mitigation adds its own failure mode, so it must be tested as part of the end-to-end system.</p>
+
+  <h2>Fairness is context-specific</h2>
+  <p>A model can differ across groups because of representation gaps, annotation conventions, proxy variables, or deployment conditions. Group error rates are diagnostic, not a complete definition of fairness. Some fairness criteria conflict mathematically, and a sensitive attribute may be required for auditing even when it should not be used for prediction.</p>
+
+  <h3>Worked example: an aggregate can hide a gap</h3>
+  <p>Suppose a synthetic classifier is correct on 81 of 90 examples in group A and 5 of 10 in group B. Overall accuracy is \(86/100=0.86\), while group accuracies are \(0.90\) and \(0.50\). The aggregate looks strong because the larger group dominates it. The gap does not by itself identify a cause, but it establishes a question that the overall score concealed.</p>
+
+  <h2>Executable example: slice metrics</h2>
+  <p>The following standard-library example calculates these values from tiny synthetic records and reports the largest accuracy gap.</p>
+  <pre class="code-example" data-executable="python"><code class="language-python">records = [
+    ("A", 81, 90),
+    ("B", 5, 10),
+]
+
+def accuracy(correct, total):
+    return correct / total if total else 0.0
+
+by_group = {group: accuracy(correct, total) for group, correct, total in records}
+overall = accuracy(sum(row[1] for row in records), sum(row[2] for row in records))
+gap = max(by_group.values()) - min(by_group.values())
+
+assert by_group == {"A": 0.9, "B": 0.5}
+assert abs(overall - 0.86) &lt; 1e-12
+assert abs(gap - 0.4) &lt; 1e-12
+print(round(overall, 2), by_group, round(gap, 2))</code></pre>
+
+  <h2>Commonsense and explanations</h2>
+  <p>Some tasks depend on unstated physical or social expectations. Models may learn recurring associations without representing whether those associations remain valid in a new situation. Tests should vary irrelevant wording, reverse relations, and include counterexamples rather than rewarding memorised templates.</p>
+  <p>An explanation can help a user inspect a decision, but generated reasoning is not guaranteed to be the process that caused the output. Treat explanations as claims to validate. Prefer evidence links, feature-level diagnostics, counterfactual tests, and reproducible tool traces when they better match the question being asked.</p>
+
+  <h2>A deployment control loop</h2>
+  <ol>
+    <li><strong>Before release:</strong> define scope, assess data rights and privacy, threat-model misuse, test important slices, and establish human escalation.</li>
+    <li><strong>At inference:</strong> validate inputs, minimise access, constrain outputs, log only what is necessary, and make uncertainty visible.</li>
+    <li><strong>After release:</strong> monitor drift and incidents, sample real errors, preserve an appeal path, and be prepared to disable or roll back the system.</li>
+  </ol>
+  <aside class="note-callout"><p><strong>Decision rule:</strong> when a model cannot meet the required reliability, privacy, or accountability threshold, the responsible design may be a narrower task, mandatory review, or no automation.</p></aside>
+
+  <nav class="note-nav" aria-label="Module navigation">
+    <a href="summarisation-and-question-answering.html">← Summarisation and Question Answering</a>
+    <a href="../index.html">COMP6713 index</a>
+    <span aria-hidden="true"></span>
+  </nav>
+</article>

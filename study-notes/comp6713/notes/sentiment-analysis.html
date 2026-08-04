@@ -1,0 +1,76 @@
+---
+layout: default
+title: "Sentiment Analysis"
+description: Sentiment task design, annotation, evaluation, and rule-based, statistical, neural, Transformer, and prompting approaches.
+nav_key: resources
+prose: true
+mathjax: true
+---
+
+<article class="note-article">
+  <p class="note-kicker">Module 5 of 9</p>
+  <h1>Sentiment Analysis</h1>
+  <p class="note-lead">Sentiment analysis predicts an evaluative stance expressed in text. Before choosing a model, the task must say whose sentiment matters, what its target is, which labels are allowed, and how ambiguity or mixed opinions are handled.</p>
+
+  <h2>Define the unit and target</h2>
+  <p>Document-level classification assigns one label to a whole review. Sentence-level classification narrows the unit but can still combine several targets. Aspect-based analysis separates targets: “the screen is bright but the battery is weak” contains positive and negative evaluations at once.</p>
+  <p>Labels may be binary, multi-class, ordinal, or continuous. Neutral is not the same as uncertain, irrelevant, or evenly mixed. These states should only be combined when the application can tolerate the lost distinction.</p>
+
+  <h2>Annotation is part of the model specification</h2>
+  <p>Annotators need rules for quotation, sarcasm, hypothetical statements, politeness, and target scope. Multiple independent judgements reveal where the scheme is unclear. Agreement does not prove objective truth, but low agreement warns that the labels or instructions may not support a reliable prediction task.</p>
+
+  <h3>Worked example: why accuracy can mislead</h3>
+  <p>Imagine 100 synthetic messages: 90 are neutral and 10 are negative. A classifier that always predicts neutral has \(90\%\) accuracy but negative-class recall \(0/10=0\). If missed negative messages are costly, the high accuracy is operationally useless.</p>
+  <p>For a chosen positive class, precision and recall are</p>
+  <div class="equation-block">\[
+    \operatorname{precision}=\frac{TP}{TP+FP},\qquad
+    \operatorname{recall}=\frac{TP}{TP+FN}.
+  \]</div>
+  <p>Macro-averaging gives each class equal weight; micro-averaging pools decisions and therefore gives frequent classes more influence.</p>
+
+  <h2>Approach ladder</h2>
+  <ol>
+    <li><strong>Rules and lexicons:</strong> sum known word orientations, then handle negation or intensifiers with explicit logic.</li>
+    <li><strong>Statistical classifiers:</strong> learn weights for sparse token or character features.</li>
+    <li><strong>Neural models:</strong> learn representations and interactions from labelled examples.</li>
+    <li><strong>Pretrained Transformers:</strong> adapt contextual representations or prompt a model to emit constrained labels.</li>
+  </ol>
+  <p>Increasing model complexity may help with context, but it does not repair a vague target or a shifted evaluation set.</p>
+
+  <h2>Executable example: a scoped lexicon baseline</h2>
+  <p>This example uses a tiny invented vocabulary and flips the next sentiment word after “not.” It is intentionally limited, deterministic, and useful as an error-analysis baseline.</p>
+  <pre class="code-example" data-executable="python"><code class="language-python">LEXICON = {"clear": 2, "useful": 1, "slow": -1, "confusing": -2}
+
+def sentiment(tokens):
+    score = 0
+    negate_next = False
+    for token in tokens:
+        if token == "not":
+            negate_next = True
+            continue
+        value = LEXICON.get(token, 0)
+        score += -value if negate_next and value else value
+        if value:
+            negate_next = False
+    return score
+
+examples = {
+    "clear and useful": 3,
+    "useful not confusing": 3,
+    "clear but slow": 1,
+}
+for text, expected in examples.items():
+    assert sentiment(text.split()) == expected
+print([sentiment(text.split()) for text in examples])</code></pre>
+  <p>The rule fails on long-range negation, irony, new vocabulary, and target-specific sentiment. Recording those error types is more informative than treating the baseline score as a final answer.</p>
+
+  <h2>Evaluation and deployment</h2>
+  <p>Split data so that near-duplicate authors, templates, or conversations do not leak across training and testing. Inspect results by class, target, time period, language variety, and message length. When scores drive consequential actions, calibrate confidence and define an abstention route.</p>
+  <p>Sentiment is especially sensitive to domain shift: “unpredictable” can praise a story but criticise a service. A deployed system therefore needs drift checks, sampled human review, and a way to revise the label scheme when real inputs expose missing categories.</p>
+
+  <nav class="note-nav" aria-label="Module navigation">
+    <a href="modern-language-models.html">← Modern Language Models</a>
+    <a href="../index.html">COMP6713 index</a>
+    <a href="sequence-tagging.html">Sequence Tagging →</a>
+  </nav>
+</article>

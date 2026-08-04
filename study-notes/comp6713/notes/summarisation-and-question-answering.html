@@ -1,0 +1,65 @@
+---
+layout: default
+title: "Summarisation and Question Answering"
+description: Extractive and abstractive summarisation, long-document processing, question answering, retrieval, and grounded alignment.
+nav_key: resources
+prose: true
+mathjax: true
+---
+
+<article class="note-article">
+  <p class="note-kicker">Module 8 of 9</p>
+  <h1>Summarisation and Question Answering</h1>
+  <p class="note-lead">Summarisation compresses information; question answering selects or generates information in response to a query. Both tasks become safer when the system makes its evidence boundary explicit and can decline when that evidence is insufficient.</p>
+
+  <h2>Extractive and abstractive summaries</h2>
+  <p>An extractive system selects spans or sentences from the source. It preserves source wording but can produce a disjointed result or omit context needed to interpret a sentence. An abstractive system generates new wording, which supports compression and coherence but can introduce claims absent from the document.</p>
+  <p>A useful summary objective balances coverage, non-redundancy, readability, and faithfulness under a length budget. Those goals can conflict: including one more detail may reduce clarity or crowd out a more central fact.</p>
+
+  <h3>Worked example: marginal coverage</h3>
+  <p>Suppose three sentences cover topic sets \(A=\{a,b\}\), \(B=\{b,c\}\), and \(C=\{d\}\), and only two may be selected. Choosing \(A\) first covers two topics. The marginal gain of \(B\) is then one, while the gain of \(C\) is one. A tie-breaker might favour \(B\) for coherence or \(C\) for broader diversity. The example shows that sentence importance is not independent: value depends on what is already selected.</p>
+
+  <h2>Long documents</h2>
+  <p>Long inputs create computational and information-selection problems. Truncation is simple but may discard the answer. Chunking processes manageable segments, after which a second stage ranks, merges, or summarises them. Hierarchical models first build local representations and then combine them. Sparse or structured attention reduces pairwise computation by limiting which positions interact.</p>
+  <p>Chunk boundaries can separate a claim from its qualification. Overlap and document-aware metadata help, but the final system should still test whether key information survives the pipeline.</p>
+
+  <h2>Question answering and retrieval</h2>
+  <p>Extractive question answering predicts an answer span inside a supplied passage. Generative question answering can synthesise an answer, which is more flexible but increases faithfulness risk. Retrieval-augmented systems first rank candidate passages and then answer from the selected evidence.</p>
+  <p>Retrieval recall limits the entire pipeline: a generator cannot ground an answer in evidence it never receives. Conversely, high retrieval recall can deliver distracting passages. Evaluation should therefore measure retrieval and answering separately as well as end to end.</p>
+
+  <h2>Executable example: extractive sentence ranking</h2>
+  <p>This tiny scorer ranks invented sentences by overlap with a query after removing a small stop-word set. The lexical method is intentionally transparent and deterministic.</p>
+  <pre class="code-example" data-executable="python"><code class="language-python">import re
+
+STOP = {"a", "is", "the", "to"}
+
+def terms(text):
+    return {token for token in re.findall(r"[a-z]+", text.lower()) if token not in STOP}
+
+def best_sentence(question, sentences):
+    query = terms(question)
+    ranked = [
+        (len(query &amp; terms(sentence)), -index, sentence)
+        for index, sentence in enumerate(sentences)
+    ]
+    return max(ranked)[2]
+
+sentences = [
+    "A lantern uses a small battery.",
+    "The battery lasts ten hours.",
+    "The case is painted blue.",
+]
+answer = best_sentence("Which sentence says the battery lasts?", sentences)
+assert answer == "The battery lasts ten hours."
+print(answer)</code></pre>
+
+  <h2>Evaluation and alignment to evidence</h2>
+  <p>Summary overlap scores measure similarity to references but only approximate usefulness and faithfulness. QA exact match can be too strict for equivalent wording, while token-level scores may reward incomplete answers. Human review can separately judge correctness, relevance, completeness, and evidence support.</p>
+  <p>Grounded systems should attach answer claims to retrieved passages, detect conflicting evidence, and abstain when support is missing. Citations are not enough by themselves: the cited text must actually entail the associated claim. Adversarial and unanswerable questions are important tests because a system that always answers can appear helpful while fabricating information.</p>
+
+  <nav class="note-nav" aria-label="Module navigation">
+    <a href="machine-translation.html">← Machine Translation</a>
+    <a href="../index.html">COMP6713 index</a>
+    <a href="nlp-applications-and-responsible-deployment.html">NLP Applications and Responsible Deployment →</a>
+  </nav>
+</article>

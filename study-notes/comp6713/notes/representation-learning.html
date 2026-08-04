@@ -1,0 +1,70 @@
+---
+layout: default
+title: "Representation Learning"
+description: Discrete text vectors, dense embeddings, probabilistic language models, and neural language modelling.
+nav_key: resources
+prose: true
+mathjax: true
+---
+
+<article class="note-article">
+  <p class="note-kicker">Module 2 of 9</p>
+  <h1>Representation Learning</h1>
+  <p class="note-lead">A representation decides which distinctions a model can use. Discrete vectors preserve explicit counts; learned embeddings compress patterns of usage into dense coordinates. Neither representation is meaning itself: each is a task-shaped summary of observed data.</p>
+
+  <h2>Discrete vectors</h2>
+  <p>Choose a vocabulary \(V\) of size \(d\). A one-hot vector for word \(w_i\) has a single one at coordinate \(i\). A bag-of-words document vector instead stores token counts or weights at those coordinates. This discards order but provides an interpretable baseline.</p>
+  <p>Term frequency can be tempered with inverse document frequency so that a word appearing in nearly every document contributes less. One common form is</p>
+  <div class="equation-block">\[
+    \operatorname{tfidf}(w,d)=\operatorname{tf}(w,d)\log\frac{N+1}{\operatorname{df}(w)+1},
+  \]</div>
+  <p>where \(N\) is the number of documents and \(\operatorname{df}(w)\) counts documents containing \(w\). Adding one to both counts keeps the ratio defined for a previously unseen term and gives a corpus-wide term zero inverse-document weight.</p>
+
+  <h3>Worked example: cosine rather than magnitude</h3>
+  <p>Take two count vectors \(a=(2,1,0)\) and \(b=(4,2,0)\). Their cosine similarity is</p>
+  <div class="equation-block">\[
+    \cos(a,b)=\frac{a\cdot b}{\lVert a\rVert_2\lVert b\rVert_2}
+    =\frac{10}{\sqrt{5}\sqrt{20}}=1.
+  \]</div>
+  <p>The documents point in exactly the same direction even though one has twice as many tokens. Cosine similarity therefore compares relative composition while ignoring overall scale.</p>
+
+  <h2>Dense embeddings</h2>
+  <p>An embedding table maps each vocabulary item to a learned vector in \(\mathbb{R}^k\), usually with \(k\ll d\). Training adjusts nearby coordinates only indirectly: words become similar when they help make similar predictions. Contextual encoders go further by producing a different vector for each occurrence, so the representation of a word can change with its surrounding tokens.</p>
+  <p>Distances must be interpreted cautiously. A compact vector can encode several correlated properties at once, and apparent analogies may be unstable across training runs or data subsets. Embeddings can also preserve social associations present in the corpus.</p>
+
+  <h2>Language models</h2>
+  <p>A language model assigns probability to token sequences. The chain rule factorises a sequence \(w_{1:T}\) without assuming independence:</p>
+  <div class="equation-block">\[
+    P(w_{1:T})=\prod_{t=1}^{T} P(w_t\mid w_{1:t-1}).
+  \]</div>
+  <p>An \(n\)-gram model shortens the context to the previous \(n-1\) tokens and estimates probabilities from counts, with smoothing for unseen events. A neural language model embeds the context and learns a nonlinear predictor. Its parameters can share statistical strength across similar contexts rather than treating every count table entry independently.</p>
+
+  <h2>Executable example: vector comparison</h2>
+  <p>The following synthetic example builds count vectors and verifies cosine similarity using only the standard library.</p>
+  <pre class="code-example" data-executable="python"><code class="language-python">from collections import Counter
+from math import sqrt
+
+def cosine(left, right):
+    vocabulary = sorted(set(left) | set(right))
+    a, b = Counter(left), Counter(right)
+    dot = sum(a[word] * b[word] for word in vocabulary)
+    norm_a = sqrt(sum(a[word] ** 2 for word in vocabulary))
+    norm_b = sqrt(sum(b[word] ** 2 for word in vocabulary))
+    return 0.0 if norm_a == 0 or norm_b == 0 else dot / (norm_a * norm_b)
+
+same_mix = cosine("blue blue green".split(), "blue blue blue blue green green".split())
+different_mix = cosine("blue blue green".split(), "orange orange".split())
+assert abs(same_mix - 1.0) &lt; 1e-12
+assert different_mix == 0.0
+print(round(same_mix, 3), round(different_mix, 3))</code></pre>
+
+  <h2>Choosing a representation</h2>
+  <p>Use the simplest representation that preserves the distinctions needed by the task. Sparse counts are valuable when data is small and feature inspection matters. Static embeddings help when vocabulary items must share information. Contextual representations suit ambiguous language and transfer across tasks, but add computational cost and make attribution harder.</p>
+  <p>Representation quality should be evaluated through the downstream behaviour that matters, not only through attractive geometric plots. A useful audit asks what information is retained, what is erased, and which groups or contexts are poorly represented.</p>
+
+  <nav class="note-nav" aria-label="Module navigation">
+    <a href="foundations-of-nlp.html">← Foundations of NLP</a>
+    <a href="../index.html">COMP6713 index</a>
+    <a href="attention-and-transformers.html">Attention and Transformers →</a>
+  </nav>
+</article>

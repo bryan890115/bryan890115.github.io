@@ -36,6 +36,9 @@ jobs:
       - name: Check generated site
         run: python3 scripts/check_site.py _site
 
+      - name: Check COMP6713 notes and examples
+        run: python3 scripts/check_comp6713_notes.py study-notes/comp6713
+
       - name: Run checker unit tests
         run: python3 -m unittest discover -s tests -v
 
@@ -77,4 +80,4 @@ jobs:
 
       - name: Check required release routes
         run: |
-          ruby -e 'required=%w[_site/index.html _site/pages/research.html _site/pages/projects.html _site/pages/about.html _site/pages/contact.html _site/pages/study-notes.html _site/study-notes/index.html _site/study-notes/notes/mod0.html]; required.each { |f| abort("missing or empty: #{f}") unless File.file?(f) && File.size(f) > 0 }; puts "release routes non-empty"'
+          ruby -e 'required=%w[_site/index.html _site/pages/research.html _site/pages/projects.html _site/pages/about.html _site/pages/contact.html _site/pages/study-notes.html _site/study-notes/index.html _site/study-notes/notes/mod0.html _site/study-notes/comp6713/index.html _site/study-notes/comp6713/notes/foundations-of-nlp.html _site/study-notes/comp6713/notes/representation-learning.html _site/study-notes/comp6713/notes/attention-and-transformers.html _site/study-notes/comp6713/notes/modern-language-models.html _site/study-notes/comp6713/notes/sentiment-analysis.html _site/study-notes/comp6713/notes/sequence-tagging.html _site/study-notes/comp6713/notes/machine-translation.html _site/study-notes/comp6713/notes/summarisation-and-question-answering.html _site/study-notes/comp6713/notes/nlp-applications-and-responsible-deployment.html]; required.each { |f| abort("missing or empty: #{f}") unless File.file?(f) && File.size(f) > 0 }; puts "release routes non-empty"'
