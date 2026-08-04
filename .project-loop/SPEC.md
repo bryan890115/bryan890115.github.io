@@ -1,14 +1,15 @@
 # Issue #14 Study Notes Navigation Maintenance Specification
 
 Protocol version: 1  
-State: DRAFT  
+State: APPROVED  
 Repository: `bryan890115/bryan890115.github.io`  
 Issue: `#14` — Fix Study Notes navigation to show both course collections  
 Default branch: `main`  
 Planning branch: `agent/issue-14-study-notes-navigation-plan`  
 Intended implementation branch: `agent/issue-14-study-notes-navigation`  
-Approval state: PENDING BRYAN REVIEW  
+Approval state: APPROVED BY BRYAN JEN  
 Draft date: 2026-08-04  
+Approval date: 2026-08-04  
 Base SHA: `7149c5b3305ffb2fe5bfcbc0a1cb3f05105331fc`
 
 ## Problem
