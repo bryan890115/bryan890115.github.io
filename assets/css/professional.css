@@ -957,6 +957,14 @@ button[disabled],
   overflow-y: hidden;
 }
 
+.site-main--prose mjx-container:not([display="true"]) {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  vertical-align: middle;
+}
+
 .site-main--prose mjx-container[tabindex]:focus-visible {
   outline: 0.1875rem solid var(--focus);
   outline-offset: 0.1875rem;

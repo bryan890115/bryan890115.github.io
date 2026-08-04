@@ -100,8 +100,10 @@ files, network access, credentials, downloaded models, datasets, or saved output
 After editing a module, run the Jekyll build, the generated-site checker, the
 COMP6713 checker, and the complete unit suite shown above. The dedicated checker
 enforces the exact source set and navigation, scans for private or external material,
-and executes every marked example twice in isolation. Bryan owns merge approval and
-publication; contributors must not broaden the collection, merge, or deploy it.
+and launches every marked example twice with Python's isolated-interpreter flag from
+a fresh temporary working directory. This is a maintainership policy check, not a
+security sandbox for untrusted code. Bryan owns merge approval and publication;
+contributors must not broaden the collection, merge, or deploy it.
 
 ## Editing content and metadata
 

@@ -28,7 +28,7 @@ mathjax: true
 
   <h2>Token and position information</h2>
   <p>Text first becomes tokens. Subword tokenisation balances two extremes: a tiny character vocabulary creates long sequences, while a word-only vocabulary cannot gracefully represent rare forms. The tokeniser is part of the model interface because it determines sequence length and which fragments share parameters.</p>
-  <p>Pure self-attention is insensitive to permutation unless position information is added. Fixed or learned position vectors can be combined with token embeddings. Relative schemes instead describe distances or rotations between positions. The practical objective is the same: distinguish “first follows second” from “second follows first.”</p>
+  <p>Without positional information, self-attention is permutation-equivariant: if the input tokens are reordered, its output vectors are reordered in the same way. It therefore has no representation of token order by itself. Fixed or learned position vectors can be combined with token embeddings. Relative schemes instead describe distances or rotations between positions. The practical objective is the same: distinguish “first follows second” from “second follows first.”</p>
 
   <h2>Executable example: scaled attention</h2>
   <p>This small implementation computes the worked example directly. The inputs are fixed synthetic scalars and the result is checked numerically.</p>
