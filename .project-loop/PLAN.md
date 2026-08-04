@@ -34,12 +34,12 @@ Covers: AC-001, AC-002, AC-003, AC-004
 
 ## M-002 — Approved COMP6713 clean public edition
 
-State: ACTIVE  
+State: ACCEPTED  
 Dependencies: M-001 accepted through R-0001; exact publication scope approved through DEC-001  
-Active directive: D-0002  
+Accepted review: R-0002 at PR #13 head `3681324c37d2876190c4fcc01cf2564ac422151e`  
 Covers: AC-005, AC-006, AC-007, AC-008, AC-009, AC-012
 
-### Approved public structure
+### Completed public structure
 
 Course index:
 
@@ -65,34 +65,20 @@ Approved disclaimer:
 
 > These are Bryan Jen’s personal study notes for COMP6713 Natural Language Processing. They are not official UNSW course materials and are not endorsed by UNSW. Assessment questions, solutions, marking guidance, restricted course content, and copied teaching materials are intentionally excluded. Any errors are my own.
 
-### Active scope
+### Completed scope
 
-- Independently author the index and all nine module pages. The private notes may guide conceptual coverage only; they must not be exported, copied, line-edited, sentence-transformed, or closely paraphrased.
-- Preserve the approved module order and broad scope while using an original explanatory structure within each page.
-- Use semantic headings, concise explanations, independently re-derived mathematics, original examples, accessible code blocks, and source-independent comparison lists or tables only when they materially aid understanding.
-- Include newly authored code examples where pedagogically useful. Every executable example must:
-  - use synthetic data;
-  - be minimal and deterministic;
-  - require no credentials, network access, private files, downloaded models, or saved outputs;
-  - be independently written rather than adapted from course notebooks, assignments, solutions, team projects, or private code; and
-  - be automatically tested using standard-library validation or the repository test suite.
-- Clearly label non-executable pseudocode and do not present it as tested code.
-- Do not reuse existing code, outputs, datasets, trained models, tables, screenshots, PDFs, diagrams, course attachments, or raw assets from the private material.
-- Do not add external links or assets in this milestone. Shared existing site assets and MathJax remain permitted.
-- Remove all private embeds, local links, vault syntax, course logistics, assessment references outside the approved disclaimer, and source-specific metadata.
-- Update `/pages/study-notes.html` into a clear selector for ACTL3162 and COMP6713.
-- Preserve `/study-notes/` as the existing ACTL3162 landing page and preserve all existing `/study-notes/notes/*.html` routes.
-- Reuse the established Jekyll layout, metadata, favicon, navigation, focus styles, and responsive system.
-- Add only narrow shared CSS or static source support needed for note typography, code, tables, mathematics, and module navigation.
-- Add a standard-library COMP6713 validation script and tests that verify the exact module set, approved disclaimer, relative navigation, absence of private/local/embed syntax, absence of unapproved external links/assets, and execution of marked Python examples.
-- Update README or nearby maintenance documentation with the COMP6713 structure, example-testing method, and publication-eligibility boundary.
-- Perform a local private-source integrity review before requesting evaluation:
-  - compare public prose against the private candidate corpus for unexplained normalized contiguous prose overlap of 12 or more words, excluding titles, the approved disclaimer, code, equations, standard named terms, and explicitly permitted quotations;
-  - resolve all unexplained overlap through independent rewriting;
-  - review every module for technical accuracy, equation correctness, code correctness, privacy, attribution needs, and assessment integrity; and
-  - record only public-safe aggregate results and affected public paths, never private excerpts or source identities.
+- Independently authored the approved index and all nine module pages using the private notes only as a post-draft concept-coverage checklist.
+- Added semantic headings, concise explanations, independently re-derived mathematics, and original worked examples.
+- Added one newly authored, deterministic, standard-library Python example using tiny synthetic data in every module; all nine are automatically executed by the COMP6713 checker.
+- Added no external link, image, diagram, PDF, notebook, dataset, trained model, downloadable raw asset, external script, or external stylesheet.
+- Updated `/pages/study-notes.html` into an ACTL3162/COMP6713 selector while preserving `/study-notes/` and representative ACTL3162 deep routes.
+- Reused the established Jekyll layout, metadata, favicon, navigation, focus system, responsive styles, and MathJax support.
+- Added narrow shared CSS for the collection index, note callouts, concepts, code, equations, tables, and module navigation.
+- Added `scripts/check_comp6713_notes.py`, eight focused tests, workflow coverage, and README maintenance guidance.
+- Kept `site-check.json` at zero exemptions and `_site/` untracked.
+- Completed public-safe source-distance, structure, technical, mathematics, code, attribution, privacy, and assessment-integrity reviews. Recorded unresolved normalized 12-word prose overlaps: zero.
 
-### Permanent exclusions
+### Permanent exclusions preserved
 
 - Official slides, tutorials, handouts, notebooks, attachments, and solutions.
 - Assignment specifications, assessment questions, rubrics, answers, project code, examination preparation, and the entire team-assessment collection.
@@ -101,78 +87,54 @@ Approved disclaimer:
 - Archived duplicates, hidden artifacts, private metadata, private communications, and student data.
 - Private OneDrive paths, links, comments, revision history, screenshots, raw documents, and evidence files.
 
-### Validation
+### Accepted validation evidence
 
-```bash
-git merge-base --is-ancestor 249ab50c7f8d89f397e41f3e80f01bcf8da5ad86 "$STARTING_SHA"
-git diff --name-only 249ab50c7f8d89f397e41f3e80f01bcf8da5ad86..."$STARTING_SHA"
-bundle exec jekyll build --trace
-python3 scripts/check_site.py _site
-python3 scripts/check_comp6713_notes.py study-notes/comp6713
-python3 -m unittest discover -s tests -v
-node --check assets/js/script.js
-python3 -m compileall scripts
-ruby -e 'require "yaml"; YAML.load_file("_config.yml"); puts "config ok"'
-test -z "$(git ls-files _site)"
-python3 - <<'PY'
-import json
-from pathlib import Path
-config = json.loads(Path("site-check.json").read_text())
-assert config.get("exemptions") == [], config.get("exemptions")
-print("zero exemptions")
-PY
-ruby -e 'required=%w[_site/pages/study-notes.html _site/study-notes/index.html _site/study-notes/notes/mod0.html _site/study-notes/comp6713/index.html _site/study-notes/comp6713/notes/foundations-of-nlp.html _site/study-notes/comp6713/notes/representation-learning.html _site/study-notes/comp6713/notes/attention-and-transformers.html _site/study-notes/comp6713/notes/modern-language-models.html _site/study-notes/comp6713/notes/sentiment-analysis.html _site/study-notes/comp6713/notes/sequence-tagging.html _site/study-notes/comp6713/notes/machine-translation.html _site/study-notes/comp6713/notes/summarisation-and-question-answering.html _site/study-notes/comp6713/notes/nlp-applications-and-responsible-deployment.html]; required.each { |f| abort("missing or empty: #{f}") unless File.file?(f) && File.size(f) > 0 }; puts "notes routes non-empty"'
-! grep -RniE 'onedrive|sharepoint|file://|obsidian://|/Users/|[A-Za-z]:\\|!\[\[|\[\[[^]]+\]\]' study-notes/comp6713 pages/study-notes.html
-git diff --check
-git status --short --branch
-git diff --name-only "$STARTING_SHA"...HEAD
-```
-
-If the default system Ruby cannot load the pinned Bundler, use the existing supported Ruby/Bundler launcher and record the exact deviation. The COMP6713 checker may define safe exceptions for ordinary Markdown links only when they are relative public-site links; it must not weaken the no-private-link or no-external-link boundary.
-
-### Exit evidence
-
-- Exact implementation starting SHA, implementation commit SHA, and final review head.
-- Public-safe module and approval mapping for all nine pages.
-- Working index and all nine approved module routes.
-- Resources page linking ACTL3162 and COMP6713.
-- Preserved ACTL3162 landing and representative deep links.
-- Inventory of newly authored executable and pseudocode examples, with test outcomes and synthetic-data confirmation.
-- Public-safe source-similarity results, including method, exclusions, count of unresolved overlaps, and public paths rewritten.
-- Technical, mathematics, code, attribution, privacy, and assessment-integrity review results for every module.
-- Confirmation that no excluded, private, assessment, official, third-party, raw, or unclear-ownership material entered the repository or build.
-- Successful local validation and exact-head PR workflow result.
-- Generic `CODEX_READY D-0002 at <FULL_SHA>` notification.
+- Starting SHA `d7f754dc9b36e4edb372bf59383dbdcdebd438af`.
+- Implementation commit `5dac1aa679e057ec0f58c0a8b8d1036da1497da5`.
+- Reviewed head `3681324c37d2876190c4fcc01cf2564ac422151e`.
+- Jekyll build produced 25 HTML pages.
+- Generated-site checker validated 428 references with zero exemptions.
+- COMP6713 checker validated nine modules and nine executable examples across nine modules.
+- Seventeen tests passed.
+- JavaScript syntax, Python compilation, YAML, source-only `_site`, exact routes, privacy syntax, external-link/asset, and diff checks passed.
+- Exact-head workflow run `30874223125` passed every step.
+- 360 px smoke checks passed for the index, code-heavy Sequence Tagging page, and mathematics-heavy Attention page.
 
 ## M-003 — Full QA, evidence, and final approval
 
-State: PENDING  
-Dependencies: M-002 accepted  
+State: ACTIVE  
+Dependencies: M-002 accepted through R-0002  
+Active directive: D-0003  
 Covers: AC-010, AC-011, AC-013, AC-014 and all final quality gates
 
-### Scope
+### Active scope
 
-- Review all M-002 implementation and integrity evidence at the exact head.
-- Resolve only bounded integration, accessibility, route, technical-accuracy, source-distance, code, mathematics, or formatting defects.
-- Verify every COMP6713 module and navigation path.
-- Check COMP6713 index and representative modules at 360 px, 768 px, and 1440 px.
-- Test keyboard navigation, focus visibility, code scrolling, table containment, MathJax containment, heading structure, landmarks, accessible names, and browser-console state.
-- Verify title, description, canonical URL, Open Graph metadata, and favicon for the COMP6713 index and representative module pages.
-- Attach immutable screenshots for the COMP6713 index and representative text-, code-, table-, and mathematics-heavy modules.
-- Confirm site checker, COMP6713 checker, tests, zero exemptions, source-only `_site`, required routes, and exact-head workflow success.
-- Obtain Bryan's final factual-content and visual approval.
-- Keep the PR draft and perform no merge or deployment.
+- Correct the bounded terminology issue in Attention and Transformers: explain that self-attention without positional information is permutation-equivariant/order-unaware, rather than simply “insensitive to permutation.”
+- Confirm no other important technical or mathematical defect across all nine modules.
+- Re-run the public-safe source-distance, structure, technical, mathematics, code, attribution, privacy, and assessment-integrity reviews after any final correction; unresolved normalized 12-word prose overlaps must remain zero.
+- Verify every COMP6713 index/module navigation path and the ACTL3162 selector/representative deep routes.
+- Check the COMP6713 index and every module at 360 px, 768 px, and 1440 px, with focused worst-case evidence for code, tables, long headings, and mathematics.
+- Test keyboard navigation, visible focus, skip link, desktop and compact navigation, module cards, previous/index/next links, code scrolling, table containment, MathJax containment, heading hierarchy, landmarks, and accessible names.
+- Verify browser-console state and title, description, canonical URL, Open Graph fields, favicon, and one-H1 structure on the index and every module.
+- Attach immutable screenshots for the index and representative text-, code-, table-, and mathematics-heavy pages at mobile and desktop widths.
+- Confirm documentation describes example execution as an isolated interpreter/temporary working-directory policy check, not an adversarial security sandbox.
+- Run the complete local suite and exact-head PR workflow.
+- Request Bryan's explicit final factual-content and visual-presentation approval.
+- Keep PR #13 draft and perform no merge or deployment.
 
 ### Validation
 
-Run the full M-002 local suite plus the existing `Validate site` workflow at the exact final head. Record the workflow run ID, job ID, step conclusions, responsive/keyboard/console/metadata results, screenshots, integrity evidence, and any external limitation.
+Run the full M-002 local suite plus the existing `Validate site` workflow at the exact final head. Record the workflow run ID, job ID, step conclusions, responsive/keyboard/console/metadata results, screenshots, integrity evidence, and any environment limitation.
 
 ### Exit evidence
 
+- Exact starting, correction/QA, and final review SHAs.
 - Exact-head successful CI.
 - Reviewable immutable screenshots.
-- Responsive, keyboard, code/table/math-overflow, heading/landmark, metadata, and browser-console evidence.
+- Responsive evidence at 360 px, 768 px, and 1440 px across all ten COMP6713 routes.
+- Keyboard, code/table/math-overflow, heading/landmark, metadata, and browser-console evidence.
 - Zero unexplained source overlap, zero broken links, zero checker exemptions, no tracked `_site`, and all required routes present.
+- Confirmation that every executable example remains original, synthetic, deterministic, standard-library-only, and passing.
 - Bryan's explicit factual-content and visual-presentation approval.
 - Final Project Director review with no unresolved critical or important defect.
 
@@ -184,7 +146,7 @@ Run the full M-002 local suite plus the existing `Validate site` workflow at the
 - **RISK-004 — The all-nine-module scope encourages shortcuts:** stop rather than export or lightly transform source notes; require per-module technical and integrity evidence.
 - **RISK-005 — Code examples reproduce private notebooks or require unsafe resources:** allow only newly authored, deterministic, synthetic, tested examples with no network, credentials, private files, datasets, models, or saved outputs.
 - **RISK-006 — Note conversion changes meaning or introduces technical errors:** independently re-derive explanations and mathematics; run per-module technical, equation, code, and terminology review.
-- **RISK-007 — Code, tables, or mathematics overflow on mobile:** reuse the responsive/MathJax system and test representative worst-case modules at required widths.
+- **RISK-007 — Code, tables, or mathematics overflow on mobile:** reuse the responsive/MathJax system and test all modules plus representative worst cases at required widths.
 - **RISK-008 — Existing ACTL3162 links break:** retain `/study-notes/` and `/study-notes/notes/`; validate representative deep links locally and in CI.
 - **RISK-009 — The notes become an unofficial answer bank:** publish learning explanations and synthetic examples only; preserve the approved disclaimer and permanent assessment exclusions.
 
@@ -192,14 +154,14 @@ Run the full M-002 local suite plus the existing `Validate site` workflow at the
 
 - Keep the current Jekyll, Liquid, HTML, CSS, MathJax, and minimal vanilla JavaScript stack.
 - Use no new framework, CMS, backend, database, analytics, external font, or deployment action.
-- Executable examples should use Python's standard library unless a material dependency is separately proposed and approved.
-- The COMP6713 checker and tests must use the Python standard library.
+- Executable examples use Python's standard library.
+- The COMP6713 checker and tests use the Python standard library.
 - Prefer static source files and existing validation tooling.
 
 ## Documentation, migration, and rollout
 
 - Preserve the completed redesign archive under `.project-loop/archive/2026-08-04-professional-portfolio-redesign/`.
-- README or nearby maintenance documentation must explain COMP6713 source paths, module creation, code-example testing, supported formatting, eligibility restrictions, integrity review, local validation, and Bryan-owned merge/publication.
+- README or nearby maintenance documentation explains COMP6713 source paths, module creation, code-example testing, supported formatting, eligibility restrictions, integrity review, local validation, and Bryan-owned merge/publication.
 - Existing ACTL3162 URLs remain stable; no migration or redirect is planned for them.
 - Implementation remains on `agent/comp6713-notes` and draft PR #13 until final review.
 - Codex and the Project Director must not merge or deploy; Bryan owns final publication.
