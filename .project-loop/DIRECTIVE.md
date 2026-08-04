@@ -1,61 +1,84 @@
 # Current Codex Directive
 
-Directive ID: D-0003  
-Status: COMPLETE  
-Milestone ID: M-003  
-Project verdict: PASS  
+Directive ID: D-0001  
+Status: ACTIVE  
+Milestone ID: M-001  
 Repository: `bryan890115/bryan890115.github.io`  
-Implementation branch: `agent/comp6713-notes`  
-Reviewed implementation head: `436bf94c8257cd3e829bb2d7e77d58d58bae34a4`  
-Correction and QA commit: `acb8d211c86f4523a4b094f0b023ed09dfc413ee`  
-Exact-head validation run: `30875922503`  
-Exact-head validation job: `91887243468`  
-Completed timestamp: `2026-08-04T13:58:00+10:00`  
-Replaced directive ID: D-0002
+Issue: `#14`  
+Intended implementation branch: `agent/issue-14-study-notes-navigation`  
+Base SHA: `7149c5b3305ffb2fe5bfcbc0a1cb3f05105331fc`  
+Issued timestamp: `2026-08-04T14:20:00+10:00`  
+Activated timestamp: `2026-08-04T14:37:00+10:00`  
+Replaced directive ID: None
 
-## Completion basis
+## Approval
 
-R-0003 accepted the complete COMP6713 release candidate. M-001, M-002, and M-003 are accepted. DEC-001 governs the approved public-edition scope, clean-room authorship boundary, original synthetic-code policy, and permanent exclusions. DEC-002 records Bryan's explicit final approvals:
+Bryan explicitly approved the Issue #14 maintenance specification and plan on 2026-08-04. D-0001 is active.
 
-- `Factual content: approved`
-- `Visual presentation: approved`
+Codex must still wait until planning PR #15 is merged into canonical `main` before creating the implementation branch or changing source.
 
-## Final accepted result
+## Required outcome
 
-The COMP6713 course-notes publication cycle is complete from the repository and source perspective:
+Fix Issue #14 by making the shared desktop and compact **Study notes** navigation open `/pages/study-notes.html`, the existing two-course selector, while preserving `/study-notes/` as the ACTL3162 landing page and preserving every COMP6713 route.
 
-- private OneDrive eligibility review completed without exposing private material;
-- exact approved title and personal-notes disclaimer;
-- all nine approved modules at the approved routes and in the approved order;
-- independently authored conceptual explanations, mathematics, and worked examples;
-- nine newly authored deterministic standard-library Python examples using tiny synthetic data;
-- ACTL3162/COMP6713 Resources selector with existing ACTL3162 routes preserved;
-- dedicated standard-library COMP6713 checker, eight focused tests, and pull-request CI coverage;
-- zero checker exemptions and no tracked `_site/` output;
-- zero unresolved normalized contiguous prose overlaps of 12 or more words under both private integrity screens;
-- passing technical, mathematics, executable-code, structure, attribution, privacy, and assessment-integrity reviews for all nine modules;
-- all ten COMP6713 routes verified at 360 px, 768 px, and 1440 px;
-- passing keyboard/focus, navigation, code/table/MathJax containment, heading/landmark, metadata, favicon, ACTL3162-route, and browser-console QA;
-- eight immutable review screenshots excluded from the generated site;
-- exact-head validation CI passing every step; and
-- explicit final factual and visual approval from Bryan.
+## Required implementation
 
-No critical or important implementation, factual, technical, mathematical, privacy, copyright, assessment-integrity, accessibility, responsive, route, validation, or release-candidate defect remains.
+1. After PR #15 is merged, create `agent/issue-14-study-notes-navigation` from the then-current `main` and record the exact starting SHA in `.project-loop/STATUS.md`.
+2. Verify the directive base is an ancestor of the starting SHA and that intervening changes are limited to the Director-owned `.project-loop/` archive and maintenance handoff.
+3. In `_includes/header.html`, change only the Study Notes link target from `{{ '/study-notes/' | relative_url }}` to `{{ '/pages/study-notes.html' | relative_url }}`.
+4. Keep the `page.nav_key == 'resources'` active-state condition unchanged.
+5. Add or update one focused automated regression check that:
+   - identifies the primary Study Notes navigation link;
+   - requires `/pages/study-notes.html` as its destination;
+   - rejects `/study-notes/` as the primary-navigation destination; and
+   - confirms `/pages/study-notes.html` links to both `/study-notes/` and `/study-notes/comp6713/`.
+6. Make no change to ACTL3162 or COMP6713 note source, wording, examples, routes, metadata, or styling.
+7. Build and validate the complete site.
+8. Verify the desktop and compact navigation at 360 px and 1440 px, including keyboard focus, compact Menu open, Escape close, focus restoration, and `aria-current` behaviour.
+9. Update `.project-loop/STATUS.md` with exact SHAs, changed files, test evidence, rendered-link evidence, route preservation, browser results, deviations, risks, and blockers.
+10. Open a draft implementation PR targeting `main`, link it to Issue #14, and post `CODEX_READY D-0001 at <FULL_SHA>` only after local checks and exact-head PR CI pass.
 
-## Publication boundary
+## Expected changed-file boundary
 
-Codex and the Project Director must not merge, deploy, push implementation directly to `main`, mark PR #13 ready, or change repository, Pages, DNS, or custom-domain settings.
+- `_includes/header.html`
+- one focused file under `tests/` or a narrowly scoped checker/test file
+- `.project-loop/STATUS.md`
 
-Bryan alone owns:
+Documentation may change only if it currently states the wrong navigation destination. CSS, JavaScript, page content, note source, route structure, dependencies, workflow permissions, deployment automation, Pages settings, DNS, and custom-domain configuration are out of scope.
 
-- final merge of PR #13;
-- GitHub Pages publication; and
-- any post-publication verification.
+## Required validation
 
-## Single next action
+- Jekyll build succeeds.
+- `scripts/check_site.py` passes with zero exemptions.
+- `scripts/check_comp6713_notes.py` passes.
+- Full unit tests, JavaScript syntax, Python compilation, and YAML validation pass.
+- `_site/` remains untracked.
+- The selector, ACTL3162 landing and representative deep routes, COMP6713 index, and all nine COMP6713 modules build non-empty.
+- The regression check proves the primary navigation points to the selector and the selector exposes both collections.
+- `git diff --check` passes and the working tree is clean.
+- Exact-head `Validate site` CI passes.
 
-Bryan may merge PR #13.
+## Explicitly out of scope
 
-## Further Codex work
+- Redirecting or replacing `/study-notes/`.
+- Rewriting or redesigning study notes.
+- Adding, removing, renaming, or reordering courses or modules.
+- Changing accepted public content, CSS, JavaScript, metadata, dependencies, workflows beyond a strictly necessary validation assertion, or deployment settings.
+- Merging, deploying, marking a PR ready, pushing directly to `main`, or changing repository settings.
 
-No active Codex directive remains. Any change after this PASS requires a new user request and a new bounded maintenance or publication cycle.
+## Stop and escalate conditions
+
+Stop and report `BLOCKED` if:
+
+- the implementation starting head contains unexpected production changes after the base SHA;
+- the selector does not already contain both course links;
+- the fix requires changing a canonical route, note content, styling, JavaScript, dependency, or deployment setting;
+- the `resources` active state cannot be preserved generically;
+- any existing ACTL3162 or COMP6713 route breaks;
+- exact-head CI fails and cannot be fixed within the narrow navigation/test scope.
+
+## Publication permission
+
+After PR #15 is merged into `main`, Codex may implement this bounded fix on `agent/issue-14-study-notes-navigation`, open a draft PR, and request review.
+
+Codex must not merge, deploy, mark the implementation PR ready, push directly to `main`, or change repository settings.
