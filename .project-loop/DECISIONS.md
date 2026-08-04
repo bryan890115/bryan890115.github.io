@@ -76,6 +76,43 @@ Bryan reviewed the private packet and explicitly approved the publication decisi
 - Completed directive: D-0001
 - Active directive: D-0002
 
+## DEC-002 — Approve final COMP6713 factual content and visual presentation
+
+State: APPROVED  
+Date: 2026-08-04  
+Decision owner: Bryan Jen
+
+### Context
+
+D-0003 produced the final COMP6713 review candidate at exact reviewed head `436bf94c8257cd3e829bb2d7e77d58d58bae34a4`. The candidate includes the accepted index and nine modules, the bounded permutation-equivariance correction, the generic narrow-screen MathJax containment fix, immutable screenshots, final responsive/keyboard/metadata/console evidence, zero unresolved normalized 12-word prose overlaps, and successful exact-head CI.
+
+Bryan reviewed the final public content and visual evidence and explicitly responded:
+
+- `Factual content: approved`
+- `Visual presentation: approved`
+
+### Decision
+
+- The public COMP6713 factual content at exact reviewed head `436bf94c8257cd3e829bb2d7e77d58d58bae34a4` is approved for merge and publication.
+- The visual presentation represented by the immutable D-0003 review screenshots is approved for merge and publication.
+- The approved title, disclaimer, nine-module order, routes, examples, privacy boundary, permanent exclusions, and clean-room authorship requirements remain unchanged.
+- The repository/source project may receive PASS without the Project Director merging, deploying, marking the PR ready, or changing repository settings.
+- Bryan remains the sole owner of final merge and publication.
+
+### Consequences
+
+- M-003's final user-approval dependency is satisfied.
+- All three COMP6713 milestones are accepted.
+- D-0003 may be completed and the project verdict set to PASS.
+- PR #13 may be merged by Bryan after the final Director handoff and validation complete.
+
+### Affected acceptance criteria, milestones, and directives
+
+- Acceptance criteria: AC-010, AC-011, AC-013, AC-014 and all final quality gates
+- Milestone: M-003
+- Completed directive: D-0003
+- Final project verdict: PASS
+
 The completed professional-portfolio redesign decisions remain archived under:
 
 `.project-loop/archive/2026-08-04-professional-portfolio-redesign/DECISIONS.md`
