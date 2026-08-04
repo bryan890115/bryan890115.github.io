@@ -6,7 +6,7 @@ Milestone ID: M-001
 State: NOT_STARTED
 Branch: `agent/comp6713-notes`
 Starting SHA: `TO_BE_SET_BY_CODEX`
-Updated at: `2026-08-04T11:37:00+10:00`
+Updated at: `2026-08-04T12:03:00+10:00`
 
 ## Implemented work
 
@@ -18,7 +18,8 @@ None.
 
 ## Acceptance evidence
 
-None.
+- Bryan approved the COMP6713 specification and plan on 2026-08-04.
+- D-0001 is active on the planning branch.
 
 ## Validation
 
@@ -35,6 +36,4 @@ None.
 
 ## Blockers
 
-- Specification and plan are DRAFT.
-- D-0001 is PENDING_APPROVAL.
-- Codex must not begin until Bryan explicitly approves the specification and plan and the Project Director activates D-0001.
+- The activation PR must be merged into `main` before Codex begins, so the approved specification, approved plan, and active directive are canonical.
