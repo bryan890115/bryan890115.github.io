@@ -6,7 +6,7 @@ Milestone ID: M-001
 State: NOT_STARTED
 Branch: `agent/issue-14-study-notes-navigation`
 Starting SHA: `TO_BE_SET_BY_CODEX`
-Updated at: `2026-08-04T14:20:00+10:00`
+Updated at: `2026-08-04T14:37:00+10:00`
 
 ## Implemented work
 
@@ -32,6 +32,5 @@ None.
 
 ## Blockers
 
-- Specification and plan are DRAFT.
-- D-0001 is PENDING_APPROVAL.
-- Codex must not begin until Bryan approves the maintenance specification and plan, the Project Director activates D-0001, and the planning PR is merged into `main`.
+- Planning PR #15 has not yet been merged into `main`.
+- Codex must not begin until the approved and active handoff is canonical on `main`.
