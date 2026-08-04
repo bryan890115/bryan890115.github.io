@@ -1,97 +1,174 @@
-# Website Professional Redesign Plan
+# COMP6713 Course Notes Publication Plan
 
-State: COMPLETE  
+State: APPROVED  
 Specification state: APPROVED  
-Final project verdict: PASS  
 Repository: `bryan890115/bryan890115.github.io`  
 Default branch: `main`  
-Implementation branch: `agent/professional-portfolio-redesign`  
-Base SHA: `c18d372f2e0dad67a03eba0016ae2ea1f4ac4651`  
-Approval date: 2026-08-03  
-Completion date: 2026-08-04
+Planning branch: `agent/comp6713-notes-plan`  
+Intended implementation branch: `agent/comp6713-notes`  
+Base SHA: `a19fe81dadcc03e7de85f2268bc0b5666d20d031`  
+Draft date: 2026-08-04  
+Approval date: 2026-08-04
 
 ## Delivery strategy
 
-Four buildable, independently reviewed milestones were completed. The implementation keeps Jekyll/GitHub Pages, uses reusable components, preserves important routes, publishes only approved evidence-backed content, and remains unmerged and undeployed by Codex or the Project Director.
+Deliver three reviewable milestones. First separate publication eligibility from implementation so private OneDrive material, assessment content, and third-party course material cannot leak into the public repository. Then implement only the exact module set Bryan approves. Finish with full route, accessibility, responsive, CI, and final-content review.
 
-## M-001 — Shared foundation and professional home page
+## M-001 — Private discovery and publication eligibility
 
-State: ACCEPTED  
-Accepted review: R-0001 at `0f7408e0fbe1fba5ac76f373711f7eef1e89e4c6`  
-Covers: AC-001, AC-003, AC-008, AC-009, AC-010, AC-013, AC-015, AC-016
+State: ACTIVE  
+Dependencies: Specification and plan approved by Bryan on 2026-08-04  
+Active directive: D-0001  
+Covers: AC-001, AC-002, AC-003, AC-004
 
-### Completed scope
+### Scope
 
-- Shared Jekyll layout, metadata, navigation, footer, skip link, responsive design system, compact navigation, and reduced-motion/focus support.
-- Research-first home page using the approved positioning.
-- Local build documentation, standard-library site checker, policy configuration, and unit tests.
-- Required primary routes preserved during staged migration.
+- Inspect only the OneDrive material clearly associated with Bryan's COMP6713 notes.
+- Inventory file formats and note bodies without copying private source material into GitHub.
+- Classify every candidate file, section, and asset as:
+  - Bryan-authored and publishable;
+  - publishable after redaction or conversion into Bryan's own words;
+  - official/third-party material requiring permission; or
+  - restricted/assessment material that must be excluded.
+- Identify assignment specifications, questions, solutions, marking rubrics, current assessment material, official slides/handouts, copied readings, private communications, student data, and unclear-ownership material for exclusion.
+- Prepare a private approval packet with:
+  - proposed public course title and disclaimer;
+  - proposed module titles, order, and one-sentence summaries;
+  - proposed handling for code, mathematics, tables, diagrams, and citations;
+  - ownership and assessment-risk classification;
+  - exact proposed public links/assets or no-link/no-asset treatment;
+  - excluded or uncertain material and the reason; and
+  - any decision Bryan must make before publication.
+- Commit only a public-safe `.project-loop/STATUS.md` update and post a generic approval-required PR notification.
+- Make no public website or note-content change.
 
-## M-002 — Evidence-backed research and project pages
+### Validation
 
-State: ACCEPTED  
-Accepted review: R-0003 at `c4c262c3f431e1a32d40ef11b9e8ea1f05fd9157`  
-Content approval: DEC-001 and R-0002  
-Covers: AC-002, AC-004, AC-005, AC-011, AC-012, AC-014
+```bash
+git merge-base --is-ancestor <D-0001_BASE_SHA> "$STARTING_SHA"
+git diff --name-only <D-0001_BASE_SHA>..."$STARTING_SHA"
+git diff --check
+git status --short --branch
+git diff --name-only "$STARTING_SHA"...HEAD
+```
 
-### Completed scope
+The post-work diff must contain only `.project-loop/STATUS.md`. Any public note, page, asset, OneDrive-derived path, title, excerpt, or candidate detail in GitHub is a blocker.
 
-- Approved MPhil research summary with conservative current-status and no-public-output treatment.
-- Exactly five approved project articles with contribution, methods, and outcome or learning.
-- Two verified public links and three intentional no-link treatments.
-- Legacy click-only cards, hidden placeholders, modal behavior, invented outcomes, and scoped exemptions removed.
-- Text-first asset decision and all private discovery boundaries preserved.
+### Exit evidence
 
-## M-003 — About, contact, and study-note integration
+- Exact starting and final branch SHAs.
+- Number of private source files or note bodies inspected and number proposed for publication.
+- Private approval packet delivered directly to Bryan.
+- Confirmation that assessment, official, third-party, private, and uncertain material remains excluded.
+- Confirmation that no OneDrive path, raw file, private URL, excerpt, image, candidate title, or public note content entered GitHub.
+- Public-safe `STATUS.md` and generic `CODEX_APPROVAL_REQUIRED D-0001` notification.
 
-State: ACCEPTED  
-Accepted review: R-0004 at `e9a4dbba3ec2a06beffb49237e67f3f920226ae1`  
-Contact approval: DEC-002 confirms email, GitHub, and exact LinkedIn URL  
-Covers: AC-002, AC-006, AC-007, AC-008, AC-009, AC-010, AC-014
+## M-002 — Approved COMP6713 notes implementation
 
-### Completed scope
+State: PENDING  
+Dependencies: M-001 accepted; Bryan approves the exact module set, copy, assets, links, exclusions, and transformations  
+Covers: AC-005, AC-006, AC-007, AC-008, AC-009, AC-012
 
-- About rewritten as a text-first, evidence-backed profile using approved positioning and accepted public research/project evidence.
-- Contact rewritten with only approved email, GitHub, and LinkedIn channels.
-- Generic praise, unsupported biography claims, portrait references, consulting/availability language, response-time promises, and marketing inquiry copy removed.
-- Study-note compatibility and canonical routes preserved.
-- Checker exemptions reduced to zero with regression coverage.
+### Scope
 
-## M-004 — Cleanup, automated quality checks, and release candidate
+- Create `/study-notes/comp6713/` as the COMP6713 course-notes index.
+- Add only the approved module pages beneath `/study-notes/comp6713/notes/`.
+- Use the approved course title and a clear personal-notes/not-official-course-material disclaimer.
+- Preserve the approved note substance and order; perform formatting and light editorial cleanup only where it does not change meaning.
+- Use semantic headings, module navigation, code blocks, MathJax, tables, citations, and approved diagrams as required by the source material.
+- Do not invent missing content, fill perceived gaps, add assignment answers, or publish excluded evidence.
+- Update `/pages/study-notes.html` into a clear course selector for existing ACTL3162 and new COMP6713 notes.
+- Keep `/study-notes/` as the existing ACTL3162 landing page and preserve all ACTL3162 module URLs.
+- Add only narrow shared CSS or layout support needed for technical notes, code, tables, diagrams, or module navigation.
+- Update maintenance documentation with the new COMP6713 source structure and publication boundary.
 
-State: ACCEPTED  
-Accepted review: R-0005  
-Reviewed implementation head: `6d312b079d4baa69e05a8fe24779f9194bd12a16`  
-Final approval: DEC-003  
-Covers: AC-009, AC-010, AC-012, AC-014, AC-015, AC-016, AC-017, AC-018 and all final quality gates
+### Validation
 
-### Completed scope
+```bash
+bundle exec jekyll build --trace
+python3 scripts/check_site.py _site
+python3 -m unittest discover -s tests -v
+node --check assets/js/script.js
+python3 -m compileall scripts
+ruby -e 'require "yaml"; YAML.load_file("_config.yml"); puts "config ok"'
+test -z "$(git ls-files _site)"
+python3 - <<'PY'
+import json
+from pathlib import Path
+config = json.loads(Path("site-check.json").read_text())
+assert config.get("exemptions") == [], config.get("exemptions")
+print("zero exemptions")
+PY
+ruby -e 'required=%w[_site/pages/study-notes.html _site/study-notes/index.html _site/study-notes/notes/mod0.html _site/study-notes/comp6713/index.html]; required.each { |f| abort("missing or empty: #{f}") unless File.file?(f) && File.size(f) > 0 }; puts "notes routes non-empty"'
+git diff --check
+git status --short --branch
+```
 
-- Proved source reproduction and removed every tracked `_site/` file while keeping generated output ignored.
-- Added read-only, validation-only PR CI with no deployment, secret, write, comment, or scheduled behavior.
-- Updated README with supported setup, source layout, full checks, content editing, generated-output policy, CI behavior, and Bryan-owned merge/publication instructions.
-- Completed responsive, keyboard, accessibility, route, link, metadata, console, and Lighthouse checks.
-- Added eight immutable release-review screenshots excluded from the generated public site.
-- Converted legacy click-only study-module cards to links, contained narrow-screen MathJax, improved focus treatment, sized the retained note portrait, and added a local favicon.
-- Removed only demonstrably unreferenced legacy assets.
-- Preserved accepted content, Contact boundaries, and all privacy constraints.
+The required-route command must be expanded to include every approved COMP6713 module page.
 
-### Accepted validation evidence
+### Exit evidence
 
-- Exact-head workflow run `30827825395` succeeded at `6d312b079d4baa69e05a8fe24779f9194bd12a16`; every validation step passed.
-- Local build passed with the supported Ruby 3.4/Bundler 2.5.23 launcher.
-- Site checker: 15 HTML files, 242 references, zero exemptions.
-- Nine tests passed; JavaScript, Python, YAML, route, generated-output, and forbidden-copy checks passed.
-- `_site/` has zero tracked files and rebuilds from source.
-- All required primary and representative study-note routes are non-empty.
-- Responsive/keyboard/console/metadata checks passed.
-- Lighthouse Performance is at least 94; Accessibility, Best Practices, and SEO are 100 for all recorded routes.
-- Bryan explicitly approved final factual content and visual presentation.
+- Exact implementation starting SHA, implementation commit SHA, and final review head.
+- Approved module list and public-safe source/approval mapping.
+- Working COMP6713 index and all approved modules.
+- Resources page linking both courses.
+- Preserved ACTL3162 landing and representative deep links.
+- Confirmation that no excluded, private, assessment, official, or unclear-ownership material entered the repository or build.
+- Successful local validation and a generic `CODEX_READY` notification.
 
-## Final state and ownership
+## M-003 — Full QA, CI, and final approval
 
-All milestones and approved acceptance criteria are complete. The repository/source project verdict is PASS.
+State: PENDING  
+Dependencies: M-002 accepted  
+Covers: AC-010, AC-011, AC-013, AC-014 and all final quality gates
 
-PR #11 remains on a non-default branch. Bryan alone owns the final merge, GitHub Pages publication, and custom-domain configuration. The Project Director and Codex must not merge or deploy.
+### Scope
 
-Bryan reports that the custom-domain issue may now be fixed. Because the Project Director environment could not independently resolve the domain during finalization, Bryan should confirm a valid browser certificate for `https://bryan-c-jen.au` before or immediately after merging.
+- Run exact-head pull-request CI and resolve only bounded integration, accessibility, route, or formatting defects.
+- Verify every COMP6713 module and navigation path.
+- Check COMP6713 index and representative modules at 360 px, 768 px, and 1440 px.
+- Test keyboard navigation, focus visibility, code scrolling, table containment, MathJax containment, heading structure, landmarks, accessible names, and browser-console state.
+- Verify title, description, canonical URL, Open Graph metadata, and favicon for the COMP6713 index and representative module pages.
+- Attach immutable screenshots for the COMP6713 index and representative text/code/math-heavy modules.
+- Confirm site checker, tests, zero exemptions, source-only `_site`, required routes, and exact-head workflow success.
+- Obtain Bryan's final factual-content and visual approval.
+- Keep the PR draft and perform no merge or deployment.
+
+### Validation
+
+Run the full M-002 local suite plus the existing `Validate site` workflow at the exact final head. Record the workflow run ID, job ID, step conclusions, responsive/keyboard/console/metadata results, screenshots, and any external-link limitation.
+
+### Exit evidence
+
+- Exact-head successful CI.
+- Reviewable immutable screenshots.
+- Responsive, keyboard, code/table/math-overflow, heading/landmark, metadata, and browser-console evidence.
+- Zero broken links, zero checker exemptions, no tracked `_site`, and all required routes present.
+- Bryan's explicit factual-content and visual-presentation approval.
+- Final Project Director review with no unresolved critical or important defect.
+
+## Risks and mitigations
+
+- **RISK-001 — Restricted assessment material is published:** use a private eligibility gate; exclude assignment specifications, questions, solutions, rubrics, current assessment material, and unclear items by default.
+- **RISK-002 — Official or third-party course content is copied:** classify authorship and permission section by section; publish only Bryan-authored content or clearly permitted material.
+- **RISK-003 — OneDrive details leak through a public PR:** keep private paths, links, raw files, candidate notes, screenshots, and discovery details outside GitHub; use only public-safe counts and approval states.
+- **RISK-004 — Note conversion changes meaning:** preserve approved ordering and substance; limit edits to formatting and light clarity improvements; require Bryan's content approval.
+- **RISK-005 — Code, tables, or mathematics overflow on mobile:** reuse the existing responsive/MathJax system and test representative worst-case modules at required widths.
+- **RISK-006 — Existing ACTL3162 links break:** retain `/study-notes/` and `/study-notes/notes/`; validate representative deep links locally and in CI.
+- **RISK-007 — The notes become an unofficial answer bank:** publish learning notes only, include a personal-notes disclaimer, and omit restricted or assessment-answer material.
+- **RISK-008 — Source format is difficult to convert:** record the format and blocker in the private packet; do not upload raw documents merely to make conversion easier.
+
+## Dependency policy
+
+- Keep the current Jekyll, Liquid, HTML, CSS, MathJax, and minimal vanilla JavaScript stack.
+- Use no new framework, CMS, backend, database, analytics, external font, or deployment action.
+- Add no new runtime dependency unless the approved notes cannot be represented safely with the existing stack and Bryan approves the material change.
+- Prefer static source files and the existing standard-library validation tooling.
+
+## Documentation, migration, and rollout
+
+- Preserve the completed redesign archive under `.project-loop/archive/2026-08-04-professional-portfolio-redesign/`.
+- README or nearby maintenance documentation must explain COMP6713 source paths, module creation, supported formatting, eligibility restrictions, local validation, and Bryan-owned merge/publication.
+- Existing ACTL3162 URLs remain stable; no migration or redirect is planned for them.
+- Implementation remains on `agent/comp6713-notes` and a draft PR until final review.
+- Codex and the Project Director must not merge or deploy; Bryan owns final publication.
