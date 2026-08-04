@@ -1,155 +1,97 @@
 # Website Professional Redesign Plan
 
-State: APPROVED  
+State: COMPLETE  
 Specification state: APPROVED  
+Final project verdict: PASS  
 Repository: `bryan890115/bryan890115.github.io`  
 Default branch: `main`  
 Implementation branch: `agent/professional-portfolio-redesign`  
 Base SHA: `c18d372f2e0dad67a03eba0016ae2ea1f4ac4651`  
-Approval date: 2026-08-03
+Approval date: 2026-08-03  
+Completion date: 2026-08-04
 
 ## Delivery strategy
 
-Deliver four reviewable milestones. Each milestone must leave a buildable site and be reviewed before the next begins. Keep Jekyll/GitHub Pages, use small reusable components, and delete generic or placeholder material rather than replacing it with unverified copy.
+Four buildable, independently reviewed milestones were completed. The implementation keeps Jekyll/GitHub Pages, uses reusable components, preserves important routes, publishes only approved evidence-backed content, and remains unmerged and undeployed by Codex or the Project Director.
 
 ## M-001 — Shared foundation and professional home page
 
-State: ACTIVE  
-Dependencies: Approved specification and plan; satisfied 2026-08-03  
+State: ACCEPTED  
+Accepted review: R-0001 at `0f7408e0fbe1fba5ac76f373711f7eef1e89e4c6`  
 Covers: AC-001, AC-003, AC-008, AC-009, AC-010, AC-013, AC-015, AC-016
 
-### Scope
+### Completed scope
 
-- Add a shared Jekyll shell for metadata, header/navigation, main content, and footer.
-- Establish a restrained CSS system for typography, spacing, grid, buttons, cards, focus, reduced motion, and responsive behaviour.
-- Add accessible mobile navigation and a skip link without a framework.
-- Redesign the home page using the approved research-first positioning.
-- Add reusable title, description, canonical, Open Graph, and verified Person JSON-LD support.
-- Add or update local build instructions.
-- Add standard-library `scripts/check_site.py` for internal links and forbidden placeholder phrases.
-- Keep other primary routes working; defer their final rewrite.
-
-### Excluded
-
-Final research, project, about, contact, books, or study-note rewrites; new screenshots/publications; contact forms; analytics; third-party UI frameworks; and `_site/` removal before the source build is verified.
-
-### Validation
-
-```bash
-bundle install
-bundle exec jekyll build --trace
-python3 scripts/check_site.py _site
-ruby -e 'require "yaml"; YAML.load_file("_config.yml"); puts "config ok"'
-git diff --check
-```
-
-### Exit evidence
-
-Built primary routes; command output in `STATUS.md`; home-page evidence at 360 px, 768 px, and 1440 px; keyboard notes for skip link, navigation, and calls to action; and a focused diff without unrelated changes.
+- Shared Jekyll layout, metadata, navigation, footer, skip link, responsive design system, compact navigation, and reduced-motion/focus support.
+- Research-first home page using the approved positioning.
+- Local build documentation, standard-library site checker, policy configuration, and unit tests.
+- Required primary routes preserved during staged migration.
 
 ## M-002 — Evidence-backed research and project pages
 
-State: PENDING  
-Dependencies: M-001 accepted; Bryan confirms public facts and links  
+State: ACCEPTED  
+Accepted review: R-0003 at `c4c262c3f431e1a32d40ef11b9e8ea1f05fd9157`  
+Content approval: DEC-001 and R-0002  
 Covers: AC-002, AC-004, AC-005, AC-011, AC-012, AC-014
 
-### Scope
+### Completed scope
 
-- Replace research placeholders with the problem, motivation, approach, current status, and approved outputs.
-- Replace generic projects with three to five verified case studies describing Bryan's role, problem, methods, and outcome or learning.
-- Use verified public links only.
-- Replace click-only cards or weak modals with semantic links, disclosures, or case-study sections.
-- Use optimized local images only where they add evidence.
-- Preserve `/pages/research.html` and `/pages/projects.html`.
-
-### Validation
-
-```bash
-bundle exec jekyll build --trace
-python3 scripts/check_site.py _site
-! grep -RniE 'SITE UNDER CONSTRUCTION|Placeholder|More details coming soon|future deep dives|documented later' index.html pages _layouts _includes
-ruby -e 'Dir["_site/**/*.html"].each { |f| abort("empty page: #{f}") if File.size(f) == 0 }; puts "html files non-empty"'
-git diff --check
-```
-
-### Exit evidence
-
-A source for every factual claim; working pages without filler; verified links; and keyboard/mobile checks for project and research interactions.
+- Approved MPhil research summary with conservative current-status and no-public-output treatment.
+- Exactly five approved project articles with contribution, methods, and outcome or learning.
+- Two verified public links and three intentional no-link treatments.
+- Legacy click-only cards, hidden placeholders, modal behavior, invented outcomes, and scoped exemptions removed.
+- Text-first asset decision and all private discovery boundaries preserved.
 
 ## M-003 — About, contact, and study-note integration
 
-State: PENDING  
-Dependencies: M-002 accepted; Bryan confirms contact and profile details  
+State: ACCEPTED  
+Accepted review: R-0004 at `e9a4dbba3ec2a06beffb49237e67f3f920226ae1`  
+Contact approval: DEC-002 confirms email, GitHub, and exact LinkedIn URL  
 Covers: AC-002, AC-006, AC-007, AC-008, AC-009, AC-010, AC-014
 
-### Scope
+### Completed scope
 
-- Rewrite About around current education, MPhil research, relevant teaching, and concise technical/quantitative capability.
-- Remove generic self-praise and unverified expertise.
-- Keep Contact to approved channels and remove unsupported availability or response-time promises.
-- Integrate study notes into navigation or a clearly labelled Resources path while preserving URLs.
-- Use the portrait only if current and approved; otherwise keep a complete text-first layout.
-- Centralize current footer year and identity information.
-
-### Validation
-
-```bash
-bundle exec jekyll build --trace
-python3 scripts/check_site.py _site
-! grep -RniE 'Typically within 24-48 hours|Consulting Available|SITE UNDER CONSTRUCTION|Placeholder|© 2024' index.html pages _layouts _includes
-python3 -m compileall scripts
-git diff --check
-```
-
-### Exit evidence
-
-Approved biography/contact details in `STATUS.md`; verified about, contact, and study-note routes; mobile and keyboard checks; and no unapproved personal data.
+- About rewritten as a text-first, evidence-backed profile using approved positioning and accepted public research/project evidence.
+- Contact rewritten with only approved email, GitHub, and LinkedIn channels.
+- Generic praise, unsupported biography claims, portrait references, consulting/availability language, response-time promises, and marketing inquiry copy removed.
+- Study-note compatibility and canonical routes preserved.
+- Checker exemptions reduced to zero with regression coverage.
 
 ## M-004 — Cleanup, automated quality checks, and release candidate
 
-State: PENDING  
-Dependencies: M-003 accepted  
-Covers: AC-009, AC-010, AC-012, AC-014, AC-015, AC-016, AC-017, AC-018
+State: ACCEPTED  
+Accepted review: R-0005  
+Reviewed implementation head: `6d312b079d4baa69e05a8fe24779f9194bd12a16`  
+Final approval: DEC-003  
+Covers: AC-009, AC-010, AC-012, AC-014, AC-015, AC-016, AC-017, AC-018 and all final quality gates
 
-### Scope
+### Completed scope
 
-- Remove tracked `_site/` after confirming source reproduction.
-- Confirm `.gitignore` excludes generated output, caches, local gems, and OS files.
-- Add a lightweight pull-request workflow that builds Jekyll and runs the checker.
-- Complete responsive, accessibility, metadata, performance, and console QA.
-- Update README with build, validation, content-editing, and deployment instructions.
-- Prepare release-candidate evidence for final review.
+- Proved source reproduction and removed every tracked `_site/` file while keeping generated output ignored.
+- Added read-only, validation-only PR CI with no deployment, secret, write, comment, or scheduled behavior.
+- Updated README with supported setup, source layout, full checks, content editing, generated-output policy, CI behavior, and Bryan-owned merge/publication instructions.
+- Completed responsive, keyboard, accessibility, route, link, metadata, console, and Lighthouse checks.
+- Added eight immutable release-review screenshots excluded from the generated public site.
+- Converted legacy click-only study-module cards to links, contained narrow-screen MathJax, improved focus treatment, sized the retained note portrait, and added a local favicon.
+- Removed only demonstrably unreferenced legacy assets.
+- Preserved accepted content, Contact boundaries, and all privacy constraints.
 
-### Validation
+### Accepted validation evidence
 
-```bash
-bundle install
-bundle exec jekyll build --trace
-python3 scripts/check_site.py _site
-test -z "$(git ls-files _site)"
-git diff --check
-git status --short
-```
+- Exact-head workflow run `30827825395` succeeded at `6d312b079d4baa69e05a8fe24779f9194bd12a16`; every validation step passed.
+- Local build passed with the supported Ruby 3.4/Bundler 2.5.23 launcher.
+- Site checker: 15 HTML files, 242 references, zero exemptions.
+- Nine tests passed; JavaScript, Python, YAML, route, generated-output, and forbidden-copy checks passed.
+- `_site/` has zero tracked files and rebuilds from source.
+- All required primary and representative study-note routes are non-empty.
+- Responsive/keyboard/console/metadata checks passed.
+- Lighthouse Performance is at least 94; Accessibility, Best Practices, and SEO are 100 for all recorded routes.
+- Bryan explicitly approved final factual content and visual presentation.
 
-Run Lighthouse where browser tooling is available and record scores or the environment blocker.
+## Final state and ownership
 
-### Exit evidence
+All milestones and approved acceptance criteria are complete. The repository/source project verdict is PASS.
 
-Successful local and CI checks; `_site/` untracked; responsive evidence for primary pages; keyboard and console results; Lighthouse evidence; and Bryan's final factual-content approval.
+PR #11 remains on a non-default branch. Bryan alone owns the final merge, GitHub Pages publication, and custom-domain configuration. The Project Director and Codex must not merge or deploy.
 
-## Risks and mitigations
-
-- **RISK-001 — Unverified claims:** publish only facts and links Bryan approves or approved sources verify; omit uncertainty.
-- **RISK-002 — Broken study-note URLs:** preserve paths and test representative deep links each milestone.
-- **RISK-003 — Unreviewable rewrite:** use buildable milestone-sized vertical slices.
-- **RISK-004 — Layout migration regressions:** migrate incrementally and compare built routes.
-- **RISK-005 — Weak imagery:** use a text-first design and only current, relevant, optimized, approved images.
-- **RISK-006 — Jekyll version mismatch:** minimize dependencies and validate locally and in GitHub Actions.
-
-## Dependency policy
-
-No JavaScript or CSS framework; no runtime dependency for basic navigation/content; minimal Ruby/Jekyll dependencies; standard-library Python validation unless separately justified and approved; external fonts, icon libraries, embeds, and analytics excluded by default.
-
-## Documentation, migration, and rollout
-
-README must explain site structure, local build, validation, and content editing. Existing URLs remain stable or receive explicit redirects. Implementation stays on a non-default branch and draft pull request until final review. Codex and the Project Director must not merge or deploy; Bryan owns final merge and publication.
+Bryan reports that the custom-domain issue may now be fixed. Because the Project Director environment could not independently resolve the domain during finalization, Bryan should confirm a valid browser certificate for `https://bryan-c-jen.au` before or immediately after merging.

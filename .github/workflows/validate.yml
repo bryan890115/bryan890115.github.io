@@ -1,0 +1,80 @@
+name: Validate site
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-site-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Build and validate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out validation head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Set up Ruby and locked gems
+        uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1
+        with:
+          ruby-version: "3.4"
+          bundler-cache: true
+
+      - name: Build Jekyll site
+        run: bundle exec jekyll build --trace
+
+      - name: Check generated site
+        run: python3 scripts/check_site.py _site
+
+      - name: Run checker unit tests
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Check JavaScript syntax
+        run: node --check assets/js/script.js
+
+      - name: Compile Python scripts
+        run: python3 -m compileall scripts
+
+      - name: Validate Jekyll configuration
+        run: ruby -e 'require "yaml"; YAML.load_file("_config.yml"); puts "config ok"'
+
+      - name: Enforce source-only generated output
+        run: test -z "$(git ls-files _site)"
+
+      - name: Enforce zero checker exemptions
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          config = json.loads(Path("site-check.json").read_text())
+          assert config.get("exemptions") == [], config.get("exemptions")
+          print("zero exemptions")
+          PY
+
+      - name: Scan for forbidden public copy
+        shell: bash
+        run: |
+          set +e
+          grep -RniE 'SITE UNDER CONSTRUCTION|Placeholder|More details coming soon|Coming Soon|future deep dives|documented later|Typically within 24-48 hours|Consulting Available|Open to consulting opportunities|Available for consulting opportunities|Available for consulting engagements|consulting services|Open to professional inquiries and collaboration discussions|© 2024' index.html pages _layouts _includes
+          grep_status=$?
+          set -e
+          case "$grep_status" in
+            0) echo "Forbidden public copy found." >&2; exit 1 ;;
+            1) ;;
+            *) exit "$grep_status" ;;
+          esac
+
+      - name: Check required release routes
+        run: |
+          ruby -e 'required=%w[_site/index.html _site/pages/research.html _site/pages/projects.html _site/pages/about.html _site/pages/contact.html _site/pages/study-notes.html _site/study-notes/index.html _site/study-notes/notes/mod0.html]; required.each { |f| abort("missing or empty: #{f}") unless File.file?(f) && File.size(f) > 0 }; puts "release routes non-empty"'

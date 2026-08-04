@@ -1,39 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACTL3162 Research - Bryan Jen | General Insurance Techniques</title>
-    <meta name="description" content="Comprehensive research materials and analysis in General Insurance Techniques - ACTL3162 by Bryan Jen.">
-    <link rel="stylesheet" href="../assets/css/professional.css">
-    <script type="text/javascript" async
-        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-    </script>
-</head>
-<body>
-    <header>
-        <div class="header-content">
-            <div class="brand">
-                <h1>Bryan Jen</h1>
-                <p>Computer Science & Actuarial Studies</p>
-            </div>
-            <nav>
-                <a href="../index.html">Home</a>
-                <a href="../pages/about.html">About</a>
-                <a href="../pages/projects.html">Projects</a>
-                <a href="../pages/research.html">Research</a>
-                <a href="../pages/contact.html">Contact</a>
-            </nav>
-        </div>
-    </header>
+---
+layout: default
+title: ACTL3162 Study Notes
+description: Public study notes for ACTL3162 General Insurance Techniques.
+nav_key: resources
+---
 
-    <main>
         <section class="hero">
             <div class="hero-content">
                 <h1 class="hero-title">ACTL3162: General Insurance Techniques</h1>
                 <p class="hero-subtitle">Comprehensive research and analysis in general insurance principles, risk modeling, and actuarial methodologies.</p>
                 <div class="hero-cta">
-                    <a href="../pages/research.html" class="btn-secondary">Back to Research</a>
+                    <a href="{{ '/pages/research.html' | relative_url }}" class="btn-secondary">Back to Research</a>
                 </div>
             </div>
         </section>
@@ -41,7 +18,7 @@
         <section class="cards-showcase">
             <h2>Research Modules</h2>
             <div class="cards-grid">
-                <div class="card-item" data-href="notes/mod0.html">
+                <a class="card-item study-module-card" href="{{ '/study-notes/notes/mod0.html' | relative_url }}">
                     <h3>Module 0: Introduction to General Insurance</h3>
                     <p>Fundamental principles of general insurance, basic concepts, and theoretical frameworks for risk assessment.</p>
                     <div class="card-stats">
@@ -49,9 +26,9 @@
                         <span>Insurance Fundamentals</span>
                         <span>Mathematical Foundations</span>
                     </div>
-                </div>
+                </a>
 
-                <div class="card-item" data-href="notes/mod1.html">
+                <a class="card-item study-module-card" href="{{ '/study-notes/notes/mod1.html' | relative_url }}">
                     <h3>Module 1: Fitting Loss Models</h3>
                     <p>Advanced statistical methods for fitting loss distributions and model validation techniques.</p>
                     <div class="card-stats">
@@ -59,9 +36,9 @@
                         <span>Loss Distributions</span>
                         <span>Model Validation</span>
                     </div>
-                </div>
+                </a>
 
-                <div class="card-item" data-href="notes/mod2.html">
+                <a class="card-item study-module-card" href="{{ '/study-notes/notes/mod2.html' | relative_url }}">
                     <h3>Module 2: Individual Claim Size Modeling</h3>
                     <p>Comprehensive analysis of individual claim severity models and distribution fitting techniques.</p>
                     <div class="card-stats">
@@ -69,9 +46,9 @@
                         <span>Distribution Analysis</span>
                         <span>Statistical Testing</span>
                     </div>
-                </div>
+                </a>
 
-                <div class="card-item" data-href="notes/mod3.html">
+                <a class="card-item study-module-card" href="{{ '/study-notes/notes/mod3.html' | relative_url }}">
                     <h3>Module 3: Collective Risk Modelling</h3>
                     <p>Advanced collective risk theory, compound distributions, and aggregate loss modeling.</p>
                     <div class="card-stats">
@@ -79,9 +56,9 @@
                         <span>Compound Distributions</span>
                         <span>Aggregate Modeling</span>
                     </div>
-                </div>
+                </a>
 
-                <div class="card-item" data-href="notes/mod4.html">
+                <a class="card-item study-module-card" href="{{ '/study-notes/notes/mod4.html' | relative_url }}">
                     <h3>Module 4: Approximations for Compound Distributions</h3>
                     <p>Mathematical approximation methods for complex compound distribution calculations.</p>
                     <div class="card-stats">
@@ -89,9 +66,9 @@
                         <span>Approximation Theory</span>
                         <span>Computational Techniques</span>
                     </div>
-                </div>
+                </a>
 
-                <div class="card-item" data-href="notes/mod5.html">
+                <a class="card-item study-module-card" href="{{ '/study-notes/notes/mod5.html' | relative_url }}">
                     <h3>Module 5: Liability Valuations - Ruin Theory</h3>
                     <p>Advanced ruin theory applications, liability valuations, and capital adequacy assessment.</p>
                     <div class="card-stats">
@@ -99,7 +76,7 @@
                         <span>Liability Valuation</span>
                         <span>Capital Assessment</span>
                     </div>
-                </div>
+                </a>
             </div>
         </section>
 
@@ -118,33 +95,11 @@
                     </ul>
                     
                     <div style="margin-top: 2rem;">
-                        <a href="../pages/contact.html" class="btn-primary">Discuss Research</a>
+                        <a href="{{ '/pages/contact.html' | relative_url }}" class="btn-primary">Discuss Research</a>
                     </div>
                 </div>
                 <div class="about-image">
-                    <img src="../assets/images/profile-professional.jpg" alt="Bryan Jen Research Profile" class="profile-pic">
+                    <img src="{{ '/assets/images/profile-professional.jpg' | relative_url }}" alt="Bryan Jen Research Profile" class="profile-pic" width="800" height="533" loading="lazy" decoding="async">
                 </div>
             </div>
         </section>
-    </main>
-
-    <footer>
-        <p>© 2024 Bryan Jen | Professional Portfolio | <a href="mailto:bryan890115@gmail.com">bryan890115@gmail.com</a></p>
-    </footer>
-
-    <script>
-        // Professional card navigation for research modules
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.card-item[data-href]');
-            cards.forEach(card => {
-                card.addEventListener('click', function() {
-                    const href = this.getAttribute('data-href');
-                    if (href) {
-                        window.location.href = href;
-                    }
-                });
-            });
-        });
-    </script>
-</body>
-</html>

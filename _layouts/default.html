@@ -1,21 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{ page.title }}</title>
-        <link rel="stylesheet" href="/styles.css">
-        <script type="text/javascript" async
-            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-        </script>
-    </head>
-    
-<body>
-    <header>
-        <h1>{{ site.title }}</h1>
-    </header>
-    <main>
-        {{ content }}
+<!doctype html>
+<html lang="{{ site.lang | default: 'en' }}">
+  <head>
+    {% include head.html %}
+  </head>
+  <body class="{{ page.body_class | default: 'site-page' }}">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    {% include header.html %}
+
+    <main
+      id="main-content"
+      class="site-main{% if page.prose or page.url contains '/study-notes/notes/' %} site-main--prose{% endif %}"
+      tabindex="-1"
+    >
+      {{ content }}
     </main>
-</body>
+
+    {% include footer.html %}
+    <script src="{{ '/assets/js/script.js' | relative_url }}?v={{ site.asset_version }}" defer></script>
+  </body>
 </html>

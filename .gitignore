@@ -41,3 +41,19 @@ node_modules/
 # Backup files
 *.backup
 *.bak
+
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Test and browser artifacts
+.pytest_cache/
+.coverage*
+htmlcov/
+coverage/
+test-results/
+playwright-report/
+blob-report/
+.lighthouseci/
+lighthouse-*.html
+lighthouse-*.json
