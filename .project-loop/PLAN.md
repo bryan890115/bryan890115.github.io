@@ -1,13 +1,14 @@
 # COMP6713 Course Notes Publication Plan
 
-State: DRAFT  
-Specification state: DRAFT  
+State: APPROVED  
+Specification state: APPROVED  
 Repository: `bryan890115/bryan890115.github.io`  
 Default branch: `main`  
 Planning branch: `agent/comp6713-notes-plan`  
 Intended implementation branch: `agent/comp6713-notes`  
 Base SHA: `a19fe81dadcc03e7de85f2268bc0b5666d20d031`  
-Draft date: 2026-08-04
+Draft date: 2026-08-04  
+Approval date: 2026-08-04
 
 ## Delivery strategy
 
@@ -15,8 +16,9 @@ Deliver three reviewable milestones. First separate publication eligibility from
 
 ## M-001 — Private discovery and publication eligibility
 
-State: PENDING  
-Dependencies: Bryan approves this specification and plan  
+State: ACTIVE  
+Dependencies: Specification and plan approved by Bryan on 2026-08-04  
+Active directive: D-0001  
 Covers: AC-001, AC-002, AC-003, AC-004
 
 ### Scope
