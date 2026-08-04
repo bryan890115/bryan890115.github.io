@@ -1,13 +1,14 @@
 # COMP6713 Course Notes Publication Specification
 
 Protocol version: 1  
-State: DRAFT  
+State: APPROVED  
 Repository: `bryan890115/bryan890115.github.io`  
 Default branch: `main`  
 Planning branch: `agent/comp6713-notes-plan`  
 Intended implementation branch: `agent/comp6713-notes`  
-Approval state: PENDING BRYAN REVIEW  
+Approval state: APPROVED BY BRYAN JEN  
 Draft date: 2026-08-04  
+Approval date: 2026-08-04  
 Base SHA: `a19fe81dadcc03e7de85f2268bc0b5666d20d031`
 
 ## Goal
