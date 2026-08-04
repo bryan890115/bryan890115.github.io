@@ -121,3 +121,51 @@ The implementation is restrained and evidence-backed. It removes all remaining c
 ### Next action
 
 Execute active D-0005 for M-004: remove tracked generated output, add PR-only CI, complete full-site release-candidate QA and documentation, attach reviewable evidence, and request Bryan's final factual and visual approval. Do not merge or deploy.
+
+## R-0005 — M-004 release candidate and final approval
+
+Timestamp: `2026-08-04T11:26:00+10:00`  
+Directive ID: D-0005  
+Milestone ID: M-004  
+Pull request: `#11`  
+Exact reviewed implementation head SHA: `6d312b079d4baa69e05a8fe24779f9194bd12a16`  
+Implementation commit SHA: `8977621acf31c457c94989ba7353e3bf13ba82a3`  
+Exact-head validation run: `30827825395`  
+Verdict: PASS
+
+### Evidence inspected
+
+- PR #11 exact implementation head, open/draft/mergeable state, release-candidate description, immutable screenshot references, and `CODEX_READY D-0005` notification.
+- Exact-head `.project-loop/STATUS.md`, `.github/workflows/validate.yml`, README, generated-output deletion, bounded accessibility fixes, favicon and retained source assets.
+- Successful exact-head `Validate site` run `30827825395` and job `91733896558`; every checkout, Ruby setup, build, checker, test, syntax, configuration, source-only, zero-exemption, forbidden-copy, and required-route step passed.
+- Source-reproduction evidence before and after removing tracked `_site/`.
+- Local validation: 15 HTML files, 242 references, zero exemptions, nine tests, syntax/configuration checks, required routes, and clean diff.
+- Responsive, keyboard, heading/landmark, metadata, console, external-link, and Lighthouse evidence recorded in the status ledger.
+- Eight immutable release-candidate screenshots embedded in PR #11.
+- Bryan's explicit final responses: `Factual content: approved` and `Visual presentation: approved`; recorded in DEC-003.
+
+### Acceptance results
+
+- **AC-009 — PASS:** Required primary pages were checked at 360, 768, and 1440 px without overflow, clipping, overlap, or navigation-state defect.
+- **AC-010 — PASS:** Skip link, desktop and compact navigation, Escape/focus restoration, calls to action, public links, study-note navigation, and keyboard-focusable MathJax were exercised with visible focus.
+- **AC-012 — PASS:** Retained imagery is sized/lazy-loaded where applicable; obsolete unreferenced assets were removed; no unnecessary new third-party visual asset was added.
+- **AC-014 — PASS:** Primary, compatibility, canonical study-note, and representative deep-note routes reproduced and validated.
+- **AC-015 — PASS:** Titles, descriptions, canonicals, Open Graph data, and restrained Person JSON-LD were verified; LinkedIn remains excluded from JSON-LD as required.
+- **AC-016 — PASS:** README documents supported setup, build, validation, editing, generated-output, CI, and publication ownership; read-only PR CI passes at the exact head.
+- **AC-017 — PASS:** All tracked `_site/` output is removed and source reproduction is proven locally and in CI.
+- **AC-018 — PASS:** Work remains on the non-default implementation branch and draft PR; Codex and the Project Director performed no merge or deployment.
+- **Final quality gates — PASS:** Site checker, required links/routes, keyboard QA, responsive QA, browser console, metadata checks, screenshots, final factual approval, final visual approval, and Lighthouse thresholds all pass. Lowest Performance score is 94; all Accessibility, Best Practices, and SEO scores are 100.
+
+### Findings and residual risk
+
+No critical or important source, content, accessibility, validation, privacy, or release-candidate defect remains.
+
+The custom domain previously showed a TLS hostname mismatch. Bryan now reports that he believes the domain issue is fixed. The current Project Director environment could not independently resolve the domain during finalization, so external DNS/TLS status is not certified by this review. This does not invalidate the source release candidate. Bryan should confirm a valid browser certificate immediately before or after merging.
+
+### Final assessment
+
+All approved milestones and acceptance criteria are satisfied at the reviewed implementation head. Final factual and visual approvals are explicit. The implementation is release-ready from the repository and source perspective.
+
+### Single next action
+
+Bryan may merge PR #11 after confirming `https://bryan-c-jen.au` shows a valid certificate in his browser. The Project Director must not merge or deploy.
